@@ -1,0 +1,393 @@
+<resources>
+
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">XXXXXXXXXXX</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">XXXXXXXXXXX</string>
+
+    <string name="app_style">MAP</string>
+    <string name="app_code">CANMAP</string>
+    <string name="app_name">Canal Map</string>
+    <string name="title_map">Canal Map UK</string>
+    <string name="subtitle_map">UK Canal and River Map</string>
+    <string name="search_title">Search Map</string>
+
+    <string-array name="reviewed_feedback">
+        <item>Being reviewed</item>
+        <item></item>
+        <item>Please revise text</item>
+        <item>Please revise image</item>
+        <item>Please reconsider position</item>
+        <item>Not relevant</item>
+    </string-array>
+
+    <string-array name="published_array">
+        <item>Private</item>
+        <item>Public</item>
+    </string-array>
+
+    <string-array name="entitytype_array">
+        <item>Boat Trader</item>
+        <item>Cyclist</item>
+        <item>Narrow Boat</item>
+        <item>Walker</item>
+        <item>Wide Beam Boat</item>
+    </string-array>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="entitySettingsTitle">My Social Profile</string>
+    <string name="entityRoutesTitle">My Routes</string>
+    <string name="premiumTitle">Premium</string>
+    <string name="entitiesTitle">Social Network</string>
+
+    <string name="editTextTitle">Location Description</string>
+
+    <string name="favouritesTitle">Favourites</string>
+    <string name="mySettingsTitle">My Settings</string>
+
+    <string name="why_reset_db">Reset to empty database</string>
+    <string name="why_copy_tosdcard">Copy to SdCard</string>
+    <string name="why_resetEntities">Reset entities</string>
+    <string name="why_copy_fromsdcard">Copy from SdCard</string>
+    <string name="copy_from">Copy From</string>
+    <string name="copy_to">Copy To</string>
+    <string name="resetEntities">Entities</string>
+    <string name="why_clear_ignore">Clear ignore indicator</string>
+    <string name="clear_ignore">Ignore</string>
+    <string name="why_repair_ownership">Repair ownership</string>
+    <string name="why_clear_premium">Clear Premium</string>
+    <string name="why_review_request">Request to be Reviewer</string>
+    <string name="why_publish_request">Request to be Publisher</string>
+    <string name="why_administrator_request">Request to be Administrator</string>
+    <string name="why_premium_request">Request to be Premium</string>
+    <string name="check_status_request">Initialise Roles</string>
+    <string name="reset_requests">Reset Requests</string>
+    <string name="why_poi_backup">Backup points of interest</string>
+    <string name="why_poi_restore">Restore points of interest</string>
+    <string name="cleaning">cleaning\nplease wait\nthis may take a while</string>
+    <string name="check_system">Check System</string>
+
+    <string name="entityTypeTitle">Select a type...</string>
+
+    <string name="phoneTitle">Enter your phone number</string>
+    <string name="phoneTag">Phone number</string>
+    <string name="phoneHint">phone number (optional)</string>
+
+    <string name="tradingTitle">Enter your trading name</string>
+    <string name="tradingTag">Trading name</string>
+    <string name="tradingHint">name of your business (optional)</string>
+
+    <string name="facebookTitle">Facebook Page Name</string>
+    <string name="facebookHint">facebook page name (optional)</string>
+
+    <string name="twitterTitle">Twitter User Name</string>
+    <string name="twitterHint">twitter user name (optional)</string>
+
+    <string name="instagramTitle">Instagram User Name</string>
+    <string name="instagramHint">instagram user name (optional)</string>
+
+    <string name="youtubeTitle">Youtube Channel Reference</string>
+    <string name="youtubeHint">youtube channel (optional)</string>
+
+    <string name="patreonTitle">Patreon Name</string>
+    <string name="patreonHint">patreon name (optional)</string>
+
+    <string name="websiteTitle">Enter your Website URL</string>
+    <string name="websiteHint">website (optional)</string>
+
+    <string name="tracker1Title">Locks</string>
+    <string name="tracker2Title">Bridges</string>
+
+    <string name="phoneNumberHint">phone number</string>
+    <string name="verificationCodeHint">verification code</string>
+
+    <string name="boatNameHint">boat, your name or code (optional)</string>
+    <string name="locationHint">description (max 280 characters)</string>
+    <string name="boatNameTitle">Enter boat or your name</string>
+    <string name="boatTypeTitle">Select type</string>
+
+    <string name="entityEmailTitle">Email Address</string>
+    <string name="entityEmailHint">email address (optional)</string>
+
+    <string name="entityReference">CRT Reference</string>
+    <string name="entityReferenceHint">boat reference 6 numbers (optional)</string>
+
+    <string name="entityMetaData1Title">Boat length (metres)</string>
+    <string name="entityMetaData1Hint">boat length in metres (optional)</string>
+
+    <string name="entityMetaData2Title">Boat width (metres)</string>
+    <string name="entityMetaData2Hint">boat width in metres (optional)</string>
+
+    <string name="boatPeopleHint">description (optional)</string>
+    <string name="boatPeopleTitle">Enter description</string>
+
+    <string name="rolesSummary">Please confirm your role request...</string>
+
+    <string name="rolesTitle">You have to verify yourself in order to do that, please follow these simple steps to add that role to your membership</string>
+
+    <string name="rolesPhoneNumberTitle">We need your mobile phone number to verify you</string>
+    <string name="rolesVerifyTitle">Please check your text messages for the verification code</string>
+
+    <string name="mySettingsSummary">Alter your application setting information below...</string>
+    <string name="mySettingsUpdatePosition">Slide to update your position at different intervals, the more often you update your position, the faster your battery power will be used...</string>
+
+    <string name="boatTwitterHint">twitter url</string>
+    <string name="boatTwitterTitle">Enter your twitter url</string>
+    <string name="boatFacebookHint">facebook url</string>
+    <string name="boatFacebookTitle">Enter your facebook url</string>
+    <string name="boatIconTitle">Select your Icon?</string>
+
+    <string name="hireBoatQuestion">Is this a hire boat</string>
+
+    <string name="markerLocationSummary">Please enter your text to associate it with this location...</string>
+
+    <string name="selectSymbolSummary">Please select a symbol to use...</string>
+    <string name="selectMarkerSummary">Please select a marker to use...</string>
+
+    <string name="aboutUsSummary">This Canal Map has been developed by TycTak Ltd a specialist UK computer company which happens to be run by a passionate Narrow Boat owner. Look out for our narrow boat \"Locksley\" and give us a wave.\n\nThe map has been designed and improved by canal users for canal users and we have drawn upon what boat owners would actually need from a mapping system.  We intend continue its development, our aim being to make it the definitive and essential guide to enjoying yourself on the UK waterways.\n\nMap data is supplied under the Open Data Commons Open Database Licence (ODbL) by the OpenStreetMap Foundation - http://www.openstreetmap.org/copyright.\n\nThe map style and display is solely owned by TycTak Ltd, no reproduction is allowed unless expressly permitted, please contact support@tyctak.com for further information.\n\nNB* We cannot guarantee complete accuracy and so you should also check locally in advance for anything that is particularily vital to your journey.\n\nNote that this map has not been primarily developed for Wide Beam boats, therefore we have not denoted whether a canal is wide enough for your craft, please consider other navigational resources when checking your journey.</string>
+    <string name="premiumOption">That option is a Premium Feature</string>
+    <string name="premiumSummary">The majority of this canal map is free, however as narrow boat owners ourselves please consider supporting our on-going costs by subscribing to our premium features.</string>
+    <string name="aboutUs">About Canal Map</string>
+    <string name="premium">Premium Feature</string>
+    <string name="aboutUsSupportContext">The following buttons are error fixing features for use only when advised by support...</string>
+    <string name="waterwaysCoveredSummary">Click on route name for details...</string>
+
+    <string name="symbolsTitle">Symbols</string>
+    <string name="symbolsSummary">A list of all the symbols used on the Canal Map</string>
+    <string name="symbolsFilter">Please click on a symbol to allow you to filter it out on the map. Symbols that are shown in grey will not show on the map once you press the filter button on the main map screen.</string>
+    <string name="markersTitle">Markers</string>
+    <string name="markersSummary">A list of markers you can use on the Canal Map</string>
+    <string name="markersFilter">Please click on a marker to allow you to filter it out on the map. Markers that are shown in grey will not show on the map once you press the filter button on the main map screen.</string>
+    <string name="waterwayName">Details of the waterway</string>
+
+    <string name="editDoubleFormat">1234567890.</string>
+    <string name="editNumberFormat">1234567890</string>
+    <string name="editTextFormat">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 &amp;,.</string>
+    <string name="editTextFormatFull">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 &amp;,.;:-+@!#$()/?"*_'</string>
+    <string name="editUrlFormat">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 &amp;,./:</string>
+    <string name="editTwitterUsernameFormat">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_</string>
+    <string name="editInstagramUsernameFormat">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_.</string>
+    <string name="editFacebookPagenameFormat">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890.</string>
+
+    <string name="displayStatsTitle">Display Where we\'ve Been</string>
+    <string name="locationMapTitle">Track Current Map Location</string>
+    <string name="favouriteListTitle">Display List of Favourite Boats</string>
+
+    <string name="locationSend">Sending current position to others</string>
+    <string name="locationStopSend">Stopped sending current position</string>
+    <string name="locationInvalid">You must enter your profile settings first</string>
+
+    <string name="reset_database">Canal Map has been reset</string>
+    <string name="clear_cache">The cache is cleared, please restart application</string>
+    <string name="empty_waterway">The waterway has been cleared, please restart application</string>
+    <string name="copy_sdcard_technical">adb pull /storage/emulated/0/cancam.sqlite</string>
+    <string name="copy_sdcard">Database has been copied to SD Card</string>
+
+    <string name="already_on_sdcard">Database is already on SD Card</string>
+    <string name="unable_as_on_sdcard">Database is on SD Card so unable to copy</string>
+    <string name="initialise_database">The database has been initialised</string>
+    <string name="title_activity_dialog__published">Dialog_Published</string>
+    <string name="title_activity_dialog__icons">Dialog_Icons</string>
+    <string name="title_activity_dialog__filterpois">Dialog_FilterPois</string>
+    <string name="title_activity_dialog__action">Dialog_Action</string>
+    <string name="title_activity_dialog__simpleroutes">Dialog_SimpleRoutes</string>
+    <string name="title_activity_dialog__markers">Dialog_Markers</string>
+    <string name="title_activity_dialog__markers_display">Dialog_Markers Display</string>
+    <string name="title_activity_dialog__select">Dialog_Select</string>
+    <string name="title_activity_dialog__symbols">Dialog_Symbols</string>
+    <string name="title_activity_dialog__changeicon">Dialog_ChangeIcon</string>
+
+    <string name="roleTitlePremium">Premium Member</string>
+    <string name="roleDescriptionPremium">You have requested to be a premium member, you will now be sent a verification code which you need to use to validate your phone number. Please note as a Premium member you will need to be accepted by an Administrator in order to complete this verification process.</string>
+    <string name="rolePremiumOverview"></string>
+
+    <string name="roleTitleAdministrator">Administrator</string>
+    <string name="roleDescriptionAdministrator">You have requested to be an administrator, you will now be sent a verification code which you need to use to validate your phone number. Please note Administrators need to be accepted by another Administrator in order to complete this verification process.</string>
+    <string name="roleAdministratorOverview">This permission allows you to edit and delete other users points of interest as well as your own. Also you can edit locks, bridges and place map error symbols around the map. This is the highest level of responsibility available.</string>
+
+    <string name="roleTitlePublisher">Publisher</string>
+    <string name="roleDescriptionPublisher">You have requested to be a publisher, you will now be sent a verification code which you need to use to validate your phone number</string>
+    <string name="rolePublisherOverview">This permission allows you to publish your own personal points of interest for everyone else to see. This puts the control of what is on the map with premium subscribers of the application, please use this wisely. Your points can and will be edited by reviewers without notice if errors or inconsistencies are found.</string>
+
+    <string name="roleTitleReviewer">Reviewer</string>
+    <string name="roleDescriptionReviewer">You have requested to be a reviewer, you will now be sent a verification code which you need to use to validate your phone number</string>
+    <string name="roleReviewerOverview">Allows you to edit other users points of interest as well as your own, please note you cannot delete another persons points only edit and move. You also cannot publish or edit locks and bridges only administrators can do that. If you want to publish then you should ask for publisher responsibilities.</string>
+
+    <string name="title_activity_searchable">searchableActivity</string>
+    <string name="title_activity_dialog__waterway">Dialog_Waterway</string>
+
+    <string name="confirm_resetentities_title">Reset Entities?</string>
+    <string name="confirm_resetentities">This process will reset your Social Network and retrieve all information again</string>
+
+    <string name="confirm_clearmarkers_title">Clear Markers &amp; Symbols?</string>
+    <string name="confirm_clearmarkers">This process will clear all markers and symbols from this device, once done there is no way to recover them</string>
+
+    <string name="confirm_reviewrequest_title">Review Request?</string>
+    <string name="confirm_reviewrequest">Please note that this will generate a message you must select your local email app to send and then explain why you want to review other peoples changes</string>
+
+    <string name="confirm_publisherrequest_title">Publish Request?</string>
+    <string name="confirm_publisherrequest">Please note that this will generate a message you must select your local email app to send and then explain your reasons for wanting to publish points of interest</string>
+
+    <string name="confirm_deleteimage_title">Confirm Delete Photo?</string>
+    <string name="confirm_deleteimage">Are you sure you want to delete the attached photo</string>
+
+    <string name="confirm_deletemarker_title">Confirm Delete Marker?</string>
+    <string name="confirm_deletemarker">Are you sure you want to delete this marker</string>
+
+    <string name="confirm_deletesymbol_title">Confirm Delete Symbol?</string>
+    <string name="confirm_deletesymbol">Are you sure you want to delete this symbol</string>
+
+    <string name="confirm_deletetext_title">Confirm Delete Text?</string>
+    <string name="confirm_deletetext">Are you sure you want to delete the attached text</string>
+
+    <string name="restart_application_title">Restart Application</string>
+
+    <string name="clear_markers_done">All markers &amp; symbols have been cleared, we will now exit this Canal Map to complete. Just restart the Canal Map using the normal application button.</string>
+
+    <string name="confirm_resetdb_title">Confirm Reset Database?</string>
+    <string name="confirm_resetdb">Are you sure you want to reset the database, this will mean that the app will be reset to when it was originally installed.\n\nYou will NOT however loose your purchased routes but you will need to restart this application for them to be reloaded</string>
+    <string name="confirm_emptywaterway_title">Confirm Empty Waterway?</string>
+    <string name="confirm_emptywaterway">If you empty this route it will reduce the amount of storage used on your device and free it up for something else, you will still be able to download the route at a later stage\n\nPLEASE NOTE that this process may take up to 30 minutes to complete and therefore you may want to consider doing it at a time which is more convenient</string>
+    <string name="confirm_updatewaterway_title">Confirm Update Route?</string>
+    <string name="confirm_downloadwaterway_title">Confirm Download Route?</string>
+    <string name="confirm_updatewaterway">Updating this route will make sure that you have the latest version of it, with any amendments to waterway features such as locks, bridges etc as well as the latest points of interest</string>
+    <string name="confirm_downloadwaterway">Downloading this route will make sure that you will be able to use it for touring on your boat, walking or cycling the UK waterway network</string>
+    <string name="confirm_routewaterway_title">Confirm Create Route?</string>
+    <string name="confirm_routewaterway">Are you sure you want to remove current route and create a new one, this may take some time</string>
+    <string name="buy_all_works">You can still BUY ALL routes and when this route becomes available it will automatically be included as one you can download.</string>
+    <string name="sorry_not_available">Sorry but this route is not available at the moment, we are expecting to complete it by the end of %s, please come back again.</string>
+    <string name="buy_all">You have already bought ALL ROUTES.\n\nTherefore as routes become available in your area then you will be able to download them. Thank you for your support of our application.</string>
+
+    <string name="msg_failed_debug">Sorry but failed to work (x01)</string>
+    <string name="msg_failed_response">Sorry but failed to work (x02)</string>
+    <string name="msg_success_response">Successfully checked and updated</string>
+    <string name="msg_failed_ready">Sorry but failed to work (x03)</string>
+    <string name="msg_failed_ready2">Sorry but failed to work (x06)</string>
+    <string name="msg_failed_billing1">Sorry but failed to work (x04)</string>
+    <string name="msg_failed_billing2">Sorry but failed to work (x05)</string>
+    <string name="msg_failed_network">Network unavailable at this time</string>
+    <string name="msg_email_support">Email support@tyctak.com</string>
+    <string name="title_activity__full_screen">Activity_FullScreen</string>
+    <string name="version">Version: </string>
+    <string name="versionUnknown">Version: Unknown</string>
+
+    <string name="more">(more)</string>
+    <string name="less">(less)</string>
+
+    <drawable name="actionbar_background">#FF0000</drawable>
+    <color name="color_title">#00FF00</color>
+
+    <string name="review_wrong_place">Located in the wrong place, would you please reconsider its position</string>
+    <string name="review_invalid_image">The image is invalid, please change or remove it</string>
+    <string name="review_invalid_text">The text is not correct, please change or remove it</string>
+    <string name="review_not_relevant">Is not relevant to other users</string>
+    <string name="review_image_required">Requires an image or an image would be significantly improve it</string>
+    <string name="review_text_required">Requires a description or a description would signficantly improve it</string>
+
+    <!-- FOLLOWING ARE OK AND HAVE BEEN CHECKED -->
+
+    <string name="gpstext0">every 10 seconds</string>
+    <string name="gpstext1">every 15 seconds</string>
+    <string name="gpstext2">every 20 seconds</string>
+    <string name="gpstext3">every 25 seconds</string>
+    <string name="gpstext4">every 30 seconds</string>
+    <string name="gpstext5">every 1 minute</string>
+    <string name="gpstext6">every 1 minute 30 seconds</string>
+    <string name="gpstext7">every 2 minutes</string>
+    <string name="gpstext8">every 2 minutes 30 seconds</string>
+    <string name="gpstext">every 3 minutes</string>
+
+    <string name="facebookInvalid">Facebook Id is not valid, please go to your page or group and get the correct id</string>
+    <string name="twitterInvalid">Twitter Name is not valid, please enter your twitter name only, you will find this on your home page</string>
+    <string name="instagramInvalid">Instagram Username is not valid, please go to your account to check your username again</string>
+    <string name="youtubeInvalid">Youtube Username is not valid, please go to your account to check your username again</string>
+    <string name="patreonInvalid">Patreon Name is not valid, please go to your account to check your name again</string>
+    <string name="websiteInvalid">Website URL is not valid, this needs to be a valid URL</string>
+
+    <string name="facebookError">Unable to load Facebook</string>
+    <string name="twitterError">Unable to load Twitter</string>
+    <string name="instagramError">Unable to load Instagram</string>
+    <string name="patreonError">Unable to load Patreon</string>
+    <string name="youtubeError">Unable to load Youtube</string>
+    <string name="websiteError">Unable to load Website</string>
+
+    <string name="phoneInvalid">Phone number is not valid</string>
+    <string name="emailInvalid">Email address is not valid</string>
+
+    <string name="customEntity1Check">.*Boat.*</string>
+    <string name="customEntity2Check">.*Trader.*</string>
+
+    <string name="referenceRegex">^\\d{6}?</string>
+    <string name="metaData1Regex">^\\d+(\\.\\d+)?</string>
+    <string name="metaData2Regex">^\\d+(\\.\\d+)?</string>
+
+    <string name="referenceInvalid">Not a valid CRT reference</string>
+    <string name="metaData1Invalid">The boat length is not valid</string>
+    <string name="metaData2Invalid">The boat width is not valid</string>
+    <string name="entityNameBlank">You cannot blank the name you can only change it</string>
+
+    <string name="boatSettingsSummary">Please enter your information so that others can see who you are, if you want to be anonymous then enter a code as your name, you can then share your position with people who know your code</string>
+    <string name="entitySettingsSocialMedia">If you enter your social media information then others will be able to search and click on these from the Social Network menu option</string>
+    <string name="entitySettingsTrader">As a trader you can advertise your phone number and name for free, just enter it here. If you then share your position (button on map) people can see where you are and in which direction you are moving</string>
+    <string name="selectIconSummary">Please select an icon to use, this icon will be seen by other users</string>
+    <string name="selectFilterPoiTitle">Click on each point of interest you want to display on the map, then select press SELECT</string>
+
+    <string name="noName">(no name supplied)</string>
+    <string name="noDescription">(no description supplied)</string>
+
+    <string name="confirm_clearignore_title">Clear Ignore Indicator?</string>
+    <string name="confirm_clearignore">This process will clear the ignore indicator which stops data copying when you select Dont Ask on the startup menu</string>
+    <string name="clear_ignore_done">The ignore indicator has been cleared, we will now exit this Canal Map to complete. Please just restart the Canal Map using the normal application icon</string>
+
+    <string name="why_clear_pois">Clear personal POIs</string>
+    <string name="clear_pois">Clear</string>
+
+    <string name="why_initialise_cache">Initialise map cache</string>
+    <string name="restart_application_initialisecache">You have initialised the map cache, we will now exit this Canal Map so that it will automatically free up space on your device. Please just restart the Canal Map using the normal application button.</string>
+    <string name="confirm_initialisecache">Are you sure you want to initialise the map cache, this will clear the current tiles and allow you to download them again</string>
+
+    <string name="confirm_initialisecache_title">Confirm Initialise Cache?</string>
+    <string name="initialisecache_title">Cache Initialising</string>
+    <string name="initialisecache_description">You must wait for the current map to download or connection to complete before initialising the cache</string>
+
+    <string name="confirm_repairownership_title">Repair Ownership?</string>
+    <string name="confirm_repairownership">This process will check your premium subscription and repair your purchase if applicable</string>
+
+    <string name="confirm_request_title">Check Request Completed?</string>
+    <string name="confirm_request">You have already made a request, do you want to check the server to see whether your request has been confirmed</string>
+
+    <string name="confirm_clearpremium_title">Clear Premium?</string>
+    <string name="confirm_clearpremium">This process will clear the premium flag on your system which when you restart the Canal Map next time will check your subscription</string>
+
+    <string name="confirm_backup_title">Backup Request?</string>
+    <string name="confirm_backup">This will create a backup file on your Android phone, you can then uninstall the Canal Map and re-install and then restore to put back your personal points of interest and your boat details</string>
+
+    <string name="confirm_restore_title">Restore Request?</string>
+    <string name="confirm_restore">Restore your personal points of interest and your boat details from a previous backup</string>
+    <string name="title_activity_dialog__simple_routes">Dialog_SimpleRoutes</string>
+
+    <string name="no_email_clients">There are no email clients installed</string>
+    <string name="send_message_using">Send message using...</string>
+
+    <string name="request_for_reviewer_subject">Request for reviewer</string>
+    <string name="request_for_publisher_subject">Request for publisher</string>
+
+    <string name="publisher_status_reset">Publisher status has been reset</string>
+
+    <string name="request_not_completed">Request not completed yet</string>
+
+    <string name="request_completed_admin">You are already an administrator</string>
+    <string name="request_completed_premium">You are already a premium member</string>
+
+    <string name="filter_entitytraders">Just showing boat traders</string>
+    <string name="filter_favourites">Just showing your favourites</string>
+    <string name="filter_socialmedia">Just showing social media boats or users</string>
+    <string name="filter_none">Not showing any boats or users</string>
+    <string name="filter_all">Showing ALL boats and users</string>
+
+    <string name="premium_explanation_filter">Allows you to filter the location of canal users on the map who have chosen to share their location. Their type can be used to filter these users, for example you can just display Trading boats.</string>
+    <string name="premium_explanation_showentities">Allows you to see a list of all users, cyclists, walkers and boats who choose to share their location in real-time on the Canal Map.</string>
+
+    <string name="need_to_supply_name_description">Sorry but before you make your position known to others you must enter your name, the boats name or a code, do you want to do that now?</string>
+    <string name="need_to_supply_name_title">Enter Name</string>
+
+</resources>

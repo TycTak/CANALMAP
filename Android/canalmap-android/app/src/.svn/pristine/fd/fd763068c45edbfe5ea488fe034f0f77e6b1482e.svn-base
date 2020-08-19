@@ -1,0 +1,59 @@
+package com.tyctak.cancamapp;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+
+import org.apmem.tools.layouts.FlowLayout;
+
+public class Activity_Markers extends AppCompatActivity {
+
+    final private String TAG = "Activity_Markers";
+    final private Activity activityMarkers = this;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_markers);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_sub);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.markersTitle);
+
+        final Library_UI LIBUI = new Library_UI();
+
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                LIBUI.addPois("markers", null, null, null, -1, -1, activityMarkers, Global.getLIBDB().getPois("markers", "Moorings"), (FlowLayout)findViewById(R.id.icon_flow_moorings), true);
+                LIBUI.addPois("markers", null, null, null, -1, -1, activityMarkers, Global.getLIBDB().getPois("markers", "Activities"), (FlowLayout)findViewById(R.id.icon_flow_activities), true);
+                LIBUI.addPois("markers", null, null, null, -1, -1, activityMarkers, Global.getLIBDB().getPois("markers", "Routes"), (FlowLayout)findViewById(R.id.icon_flow_routes), true);
+                LIBUI.addPois("markers", null, null, null, -1, -1, activityMarkers, Global.getLIBDB().getPois("markers", "Area of Interest"), (FlowLayout)findViewById(R.id.icon_flow_areainterest), true);
+                LIBUI.addPois("markers", null, null, null, -1, -1, activityMarkers, Global.getLIBDB().getPois("markers", "Food & Drink"), (FlowLayout)findViewById(R.id.icon_flow_fooddrink), true);
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();  return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        setResult(RESULT_OK, data);
+    }
+}

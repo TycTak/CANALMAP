@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tyctak.cancamapp.Activity_EntitySettings">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/toolbar_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/boatSettingsSummary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/boatNameTitle"
+                    android:textSize="16sp"
+                    android:maxWidth="300dp"
+                    android:layout_marginTop="20dp"/>
+
+                <EditText
+                    android:id="@+id/boat_name_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:ems="30"
+                    android:inputType="textCapWords|textCapSentences"
+                    android:maxLines="1"
+                    android:hint="@string/boatNameHint"
+                    android:digits="@string/editTextFormat"
+                    android:maxLength="50"
+                    android:background="@color/colorHighlightEditText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/boatPeopleTitle"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"/>
+
+                <EditText
+                    android:id="@+id/boat_people_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:ems="30"
+                    android:inputType="textCapWords|textCapSentences"
+                    android:maxLines="1"
+                    android:hint="@string/boatPeopleHint"
+                    android:digits="@string/editTextFormat"
+                    android:maxLength="50"
+                    android:maxWidth="300dp"
+                    android:background="@color/colorHighlightEditText" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="7dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/boatIconTitle"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:layout_marginTop="18dp"/>
+
+                    <ImageView
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/boat_icon"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        app:srcCompat="@drawable/ic_canal"
+                        android:onClick="pickIcon" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hireBoatQuestion"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:id="@+id/boat_ishireboat_edit"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/boat_avatar"
+                        android:layout_width="150sp"
+                        android:layout_height="150sp"
+                        app:srcCompat="@drawable/ic_photo"
+                        android:onClick="pickImage" />
+
+                    <ImageButton
+                        android:id="@+id/image_clear_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_remove"
+                        android:onClick="clearImage"
+                        android:background="@null"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"/>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="50dp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/text_or_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginLeft="18dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="-3dp"
+                android:paddingRight="7dp"
+                android:paddingBottom="0dp"
+                android:background="@drawable/customroundedcorners_top"
+                android:weightSum="5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_gravity="left">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="4dp"
+                            app:srcCompat="@drawable/ic_missing"
+                            android:id="@+id/marker_selected"/>
+
+                        <ImageView
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            app:srcCompat="@drawable/ic_rightarrow"/>
+
+                        <ImageButton
+                            android:id="@+id/edit_poi"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="-1dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginRight="8dp"
+                            app:srcCompat="@drawable/ic_edit_poi"
+                            android:background="@color/colorTransparent"
+                            android:onClick="displayEdit"
+                            android:scaleType="fitXY"/>
+
+                        <!--<ImageButton-->
+                            <!--android:id="@+id/move_poi"-->
+                            <!--android:layout_width="40dp"-->
+                            <!--android:layout_height="40dp"-->
+                            <!--android:layout_marginLeft="-1dp"-->
+                            <!--android:layout_marginTop="4dp"-->
+                            <!--android:layout_marginRight="8dp"-->
+                            <!--app:srcCompat="@drawable/ic_move"-->
+                            <!--android:background="@color/colorTransparent"-->
+                            <!--android:onClick="movePoi"-->
+                            <!--android:scaleType="fitXY"/>-->
+
+                        <TextView
+                            android:id="@+id/title2"
+                            android:layout_marginTop="6dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:paddingTop="7dp"
+                            android:paddingLeft="3dp"
+                            android:gravity="center|left"
+                            android:visibility="visible"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/title1"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Rubbish2"
+                        android:textSize="20dp"
+                        android:paddingLeft="15dp"
+                        android:gravity="center|left"
+                        android:visibility="visible"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/customroundedcorners_bottom"
+                android:weightSum="5">
+
+                <LinearLayout
+                    android:id="@+id/noPublish"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="4dp">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/marker_image"
+                        android:visibility="gone"
+                        android:layout_weight="3"
+                        android:onClick="showFullPhoto"
+                        android:scaleType="centerCrop"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:paddingLeft="5dp"
+                        android:visibility="gone"
+                        android:layout_weight="2"
+                        android:inputType="textMultiLine"
+                        android:onClick="showFullText"
+                        android:id="@+id/marker_text"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/published_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="left"
+                    android:visibility="visible"
+                    android:onClick="selectPublished">
+
+                    <View style="@style/Divider" android:layout_marginTop="3dp" android:clickable="false"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="22dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="5dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="left"
+                            android:clickable="false"
+                            android:id="@+id/shared"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="5dp"
+                                app:srcCompat="@drawable/ic_share"
+                                android:clickable="false"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/sharedText"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="16dp"
+                                    android:paddingLeft="3dp"
+                                    android:text="Private"
+                                    android:clickable="false"/>
+
+                                <TextView
+                                    android:id="@+id/sharedTextAction"
+                                    android:layout_marginLeft="0dp"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="16dp"
+                                    android:paddingLeft="0dp"
+                                    android:text=""
+                                    android:textStyle="italic"
+                                    android:clickable="false"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/review"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="right|center_vertical"
+                            android:clickable="false"
+                            android:layout_weight="1"
+                            android:layout_marginRight="5dp"
+                            android:onClick="clickReview"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:id="@+id/exclamation"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="2dp"
+                                app:srcCompat="@drawable/ic_exclamation"
+                                android:clickable="false"
+                                android:visibility="gone"/>
+
+                            <TextView
+                                android:id="@+id/reviewedFeedback"
+                                android:layout_height="21dp"
+                                android:layout_width="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:layout_marginRight="12dp"
+                                android:textSize="16dp"
+                                android:textColor="@color/colorReviewWarning"
+                                android:clickable="false"
+                                android:visibility="gone"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/delete_poi"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="6dp"
+            android:layout_gravity="right"
+            app:srcCompat="@drawable/ic_delete"
+            android:background="@color/colorTransparent"
+            android:onClick="deleteMarker"
+            android:scaleType="fitXY"/>
+
+    </FrameLayout>
+
+</RelativeLayout>

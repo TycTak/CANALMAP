@@ -1,0 +1,23 @@
+package com.tyctak.cancamapp._archive;
+
+import com.tyctak.cancamapp.Library;
+
+public class _Connect {
+
+    public enum enmStatus {
+        Requested,
+        Accepted,
+        Rejected
+    }
+
+    public _Connect() {
+        Library LIB = new Library();
+        ConnectGuid = LIB.getUUID().replace("-", "");
+    }
+
+    public String ConnectGuid;
+    public String FromBoatGuid;
+    public String ToBoatGuid;
+    public enmStatus Status = enmStatus.Requested;
+    public Boolean Publish = false;
+}

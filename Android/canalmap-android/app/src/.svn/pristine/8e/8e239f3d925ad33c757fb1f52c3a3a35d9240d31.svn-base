@@ -1,0 +1,189 @@
+package com.tyctak.cancamapp;
+
+import android.util.Log;
+
+import com.tyctak.cancamapp.entities._DownloadedFile;
+
+import org.apache.commons.compress.archivers.ArchiveEntry;
+import org.apache.commons.compress.archivers.ArchiveException;
+import org.apache.commons.compress.archivers.ArchiveInputStream;
+import org.apache.commons.compress.archivers.ArchiveStreamFactory;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+
+public class Library_WS {
+
+    private final String TAG = "Library_WS";
+    private final int timeout = 3000;
+
+    public static OkHttpClient client;
+
+    public synchronized OkHttpClient getInstance() {
+        if (client == null) {
+            client = new OkHttpClient.Builder().cache(null).build();
+        }
+
+        return client;
+    }
+
+    public boolean getWaterways() {
+        boolean retval = false;
+
+        try {
+            String url = Global.getLIBDB().getSystem().BaseUrl + "waterways.json";
+
+            String html = downloadFile(url);
+
+            if (html != null) {
+                JSONObject json = new JSONObject(html);
+
+                if (json != null) {
+                    JSONArray arry = (JSONArray) json.get("ws");
+
+                    Log.e(TAG, "Writing new waterway data");
+
+                    for (int i = 0; i < arry.length(); i++) {
+                        JSONObject waterway = arry.getJSONObject(i);
+
+                        String waterwayGuid = waterway.getString("g");
+                        String price = waterway.getString("p");
+                        Integer version = waterway.getInt("v");
+                        JSONArray zipFilesTemp = waterway.getJSONArray("zp");
+                        String availability = waterway.getString("a");
+                        String name = waterway.getString("n");
+                        String description = waterway.getString("d");
+                        String type = waterway.getString("t");
+                        String fileName = waterway.getString("f");
+
+                        ArrayList<String> zipFiles = new ArrayList<>();
+                        for (int x = 0; x < zipFilesTemp.length(); x++) {
+                            zipFiles.add(zipFilesTemp.getString(x));
+                        }
+
+                        Global.getLIBDB().writeWaterway(waterwayGuid, price, version, availability, name, description, type, zipFiles, fileName);
+                        Log.d(TAG, String.format("Waterway details written for %s", name));
+                    }
+
+                    retval = true;
+                } else {
+                    Log.e(TAG, "Null JSON object returned so unable to check server");
+                }
+            }
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+
+        return retval;
+    }
+
+    public void downloadBinaryFile(String url, Callback callback) {
+        Request request = new Request.Builder().url(url).addHeader("Content-Type", "application/octet-stream").build();
+        getInstance().newCall(request).enqueue(callback);
+    }
+
+    public byte[] downloadBinaryFile(String url) {
+        byte[] retval = null;
+
+        try {
+            Request request = new Request.Builder().url(url).build();
+            Response response = getInstance().newCall(request).execute();
+            ResponseBody body = response.body();
+            retval = body.bytes();
+            response.close();
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return retval;
+    }
+
+    public boolean isNetworkAvailable() {
+        String retval = downloadFile(Global.getLIBDB().getSystem().BaseUrl + "ping.html");
+        Log.d(TAG, "isNetworkAvailable " +Global.getLIBDB().getSystem().BaseUrl + "ping.html - downloaded [" + retval + "]");
+        return (retval != null);
+    }
+
+    public String downloadFile(String url) {
+        String retval = null;
+
+        try {
+            Request request = new Request.Builder().url(url).build();
+            Response response = getInstance().newCall(request).execute();
+            ResponseBody body = response.body();
+            retval = body.string();
+            response.close();
+        } catch (SocketTimeoutException e) {
+            Log.e(TAG, "SocketTimeoutException Failed to download");
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            Log.e(TAG, "MalformedURLException");
+            e.printStackTrace();
+        } catch (IOException e) {
+            Log.e(TAG, "IOException Failed to download");
+            //e.printStackTrace();
+        }
+
+        return retval;
+    }
+
+    public ArrayList<_DownloadedFile> downloadWaterwayContainer(String url) {
+        ArrayList<_DownloadedFile> files = new ArrayList<>();
+
+        try {
+            Request request = new Request.Builder().url(url).addHeader("Content-Type", "application/octet-stream").build();
+            Response response = getInstance().newCall(request).execute();
+
+            if (response.code() == 200) {
+                InputStream bytesDownloaded = response.body().byteStream();
+
+                BufferedInputStream bis = new BufferedInputStream(bytesDownloaded);
+                ArchiveInputStream zis = new ArchiveStreamFactory().createArchiveInputStream(bis);
+                ArchiveEntry ze = zis.getNextEntry();
+
+                if (ze.getName().toLowerCase().equals("tiles.csv")) {
+                    ByteArrayOutputStream streamBuilder = new ByteArrayOutputStream();
+
+                    int bytesRead;
+                    byte[] tempBuffer = new byte[8192];
+                    while ((bytesRead = zis.read(tempBuffer)) != -1) {
+                        streamBuilder.write(tempBuffer, 0, bytesRead);
+                    }
+
+                    String tilesContents = new String(streamBuilder.toByteArray());
+                    files.add(new _DownloadedFile(ze.getName().toLowerCase(), tilesContents.getBytes()));
+                }
+
+                zis.close();
+            }
+
+            response.close();
+        } catch (ArchiveException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return files;
+    }
+}

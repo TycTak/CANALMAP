@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="9dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingBottom="10dp"
+            android:id="@+id/entityMarker"
+            app:srcCompat="@drawable/ic_canal"
+            android:focusable="false"
+            android:clickable="false"/>
+
+        <TextView
+            android:layout_toRightOf="@+id/entityMarker"
+            android:paddingLeft="8dp"
+            android:paddingRight="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/waterway_name"
+            android:textSize="20sp"
+            android:focusable="false"
+            android:clickable="false"
+            android:maxLines="1" />
+
+        <TextView
+            android:layout_toRightOf="@+id/entityMarker"
+            android:layout_below="@id/waterway_name"
+            android:layout_marginBottom="-5dp"
+            android:paddingLeft="8dp"
+            android:layout_marginTop="-2dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:id="@+id/price"
+            android:textSize="14sp"
+            android:focusable="false"
+            android:clickable="false"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_below="@+id/price"
+            android:layout_alignLeft="@id/price"
+            android:focusable="false"
+            android:clickable="false"
+            android:layout_marginRight="25dp"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:clipToPadding="false"
+        android:layout_alignParentEnd="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/updatedue_layout"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="1dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="35dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_update_due"
+                android:focusable="false"
+                android:clickable="false"
+                android:layout_gravity="right"/>
+
+            <TextView
+                android:layout_marginTop="-2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/updatedue_text"
+                android:textSize="12sp"
+                android:layout_gravity="right"
+                android:focusable="false" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="9dp"
+            android:id="@+id/update_button_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:onClick="clickRouteButton"
+            android:background="#99ccff"
+            android:textAllCaps="true"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"
+            android:textSize="14dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="gone"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:backgroundTint="@color/updateButton" />
+
+        <Button
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="9dp"
+            android:id="@+id/buy_button_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy Map"
+            android:onClick="clickBuyButton"
+            android:background="#99ccff"
+            android:textAllCaps="true"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"
+            android:textSize="14dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="gone" />
+
+        <!--android:focusable="false"-->
+        <!--android:focusableInTouchMode="true"-->
+
+        <ImageButton
+            android:minHeight="51dp"
+            android:minWidth="51dp"
+            android:id="@+id/buttonPaused"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="clickPausedButton"
+            android:background="@null"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="9dp"
+            android:textSize="14dp"
+            android:scaleType="fitXY"
+            android:textColor="@color/colorPrimaryDark" >
+
+        </ImageButton>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/availability_layout"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="1dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="35dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_not_available"
+                android:focusable="false"
+                android:clickable="false"
+                android:layout_gravity="right"/>
+
+            <TextView
+                android:layout_marginTop="-2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/availability_text"
+                android:textSize="12sp"
+                android:layout_gravity="right"
+                android:focusable="false" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

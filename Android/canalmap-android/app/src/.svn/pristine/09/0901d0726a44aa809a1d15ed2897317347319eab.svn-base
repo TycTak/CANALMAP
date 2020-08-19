@@ -1,0 +1,8 @@
+package com.tyctak.cancamapp._archive;
+
+public class _Search {
+    public String Name;
+    public String Description;
+    public Double Longitude = 0.0;
+    public Double Latitude = 0.0;
+}

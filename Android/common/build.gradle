@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile group: 'org.json', name: 'json', version: '20180813'
+    implementation files('libs/sqlighter.jar')
+}

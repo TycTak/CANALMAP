@@ -1,0 +1,72 @@
+package com.tyctak.cancamapp;
+
+import android.graphics.Point;
+
+import org.osmdroid.util.GeoPoint;
+
+import java.util.ArrayList;
+
+import static org.osmdroid.util.constants.GeoConstants.RADIUS_EARTH_METERS;
+
+public class Library_OS {
+    private String TAG = "Library_OS";
+
+    public Point getMapTileFromCoordinates(final double latitude, final double longitude, final int zoom) {
+        final int y = (int) Math.floor((1 - Math.log(Math.tan(latitude * Math.PI / 180) + 1 / Math.cos(latitude * Math.PI / 180)) / Math.PI) / 2 * (1 << zoom));
+        final int x = (int) Math.floor((longitude + 180) / 360 * (1 << zoom));
+        return new Point(x, y);
+    }
+
+    private double ConvertToRadians(double angle)
+    {
+        return (angle * Math.PI) / 180;
+    }
+
+    private double ToDegrees(double radians)
+    {
+        return radians * 180 / Math.PI;
+    }
+
+    public ArrayList<Point> GetAllSurroundingTiles(GeoPoint point, int zoom)
+    {
+        Integer[] zoomLevelRadius =  new Integer[19];
+        zoomLevelRadius[7] = 50000;
+        zoomLevelRadius[8] = 35000;
+        zoomLevelRadius[9] = 25000;
+        zoomLevelRadius[10] = 17000;
+        zoomLevelRadius[11] = 12000;
+        zoomLevelRadius[12] = 9000;
+        zoomLevelRadius[13] = 6500;
+        zoomLevelRadius[14] = 3750;
+        zoomLevelRadius[15] = 2250;
+        zoomLevelRadius[16] = 1250;
+        zoomLevelRadius[17] = 650;
+
+        int radius = zoomLevelRadius[zoom];
+
+        ArrayList<Point> points = new ArrayList();
+
+        double latitudeRadians = ConvertToRadians(point.getLatitude());
+        double longitudeRadians = ConvertToRadians(point.getLongitude());
+
+        int circles = (radius / 300);
+
+        for (int x = circles; x <= radius; x = x + circles) {
+            for (int i = 0; i < 360; i = i + 45) {
+                double d = x / RADIUS_EARTH_METERS;
+
+                double angleRadians = ConvertToRadians(i);
+                double newLatitudeRadians = Math.asin(Math.sin(latitudeRadians) * Math.cos(d) + Math.cos(latitudeRadians) * Math.sin(d) * Math.cos(angleRadians));
+                double newLongitudeRadians = longitudeRadians + Math.atan2(Math.sin(angleRadians) * Math.sin(d) * Math.cos(latitudeRadians), Math.cos(d) - Math.sin(latitudeRadians) * Math.sin(latitudeRadians));
+
+                double latitude = ToDegrees(newLatitudeRadians);
+                double longitude = ToDegrees(newLongitudeRadians);
+
+                Point newPoint = getMapTileFromCoordinates(latitude, longitude, zoom);
+                if (!points.contains(newPoint)) points.add(newPoint);
+            }
+        }
+
+        return points;
+    }
+}

@@ -1,0 +1,86 @@
+package com.tyctak.cancamapp;
+
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.tyctak.cancamapp.entities._Waterway;
+
+import java.util.ArrayList;
+
+public class ArrayAdapter_SimpleWaterways extends ArrayAdapter<_Waterway> {
+
+    final private static String TAG = "ArrayAdapter_SimpleWaterways";
+    private String dialogWaterwayGuid;
+
+    public void setDialogWaterwayGuid(String pDialogWaterwayGuid) { dialogWaterwayGuid = pDialogWaterwayGuid; }
+
+    public ArrayAdapter_SimpleWaterways(Context context, ArrayList<_Waterway> waterways) {
+        super(context, 0, waterways);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        _Waterway waterway = getItem(position);
+
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.arrayadapter_simplewaterways, parent, false);
+        }
+
+        Button buy_button = (Button) convertView.findViewById(R.id.buy_button_item_simple);
+        Button update_button = (Button) convertView.findViewById(R.id.update_button_item_simple);
+
+        TextView waterway_name = (TextView) convertView.findViewById(R.id.waterway_name);
+        waterway_name.setText(waterway.WaterwayName);
+
+        TextView price = (TextView) convertView.findViewById(R.id.price);
+
+        if (waterway.Empty && waterway.TotalTiles == 0) {
+            price.setText("purchased");
+            if (dialogWaterwayGuid != null && dialogWaterwayGuid.equals(waterway.WaterwayGuid)) {
+                dV(update_button, View.GONE);
+                dV(buy_button, View.GONE);
+                dV(price, View.VISIBLE);
+            } else {
+                dV(update_button, View.VISIBLE);
+                dV(buy_button, View.GONE);
+                dV(price, View.VISIBLE);
+                update_button.setText("Download");
+            }
+        } else if (!waterway.Purchased && waterway.CurrentVersion >= 0) {
+            dV(update_button, View.GONE);
+            dV(buy_button, View.VISIBLE);
+            dV(price, View.VISIBLE);
+            price.setText(waterway.Price);
+        } else {
+            dV(update_button, View.GONE);
+            dV(buy_button, View.GONE);
+            dV(price, View.VISIBLE);
+            if (waterway.CurrentVersion < 0) {
+                price.setText("not available");
+            } else if (waterway.TilesDownloaded >= waterway.TotalTiles) {
+                price.setText("downloaded");
+            } else {
+                price.setText("downloading");
+            }
+        }
+
+        buy_button.setTag(waterway.WaterwayGuid);
+        update_button.setTag(waterway.WaterwayGuid);
+
+        return convertView;
+    }
+
+    private void dV(View target, int value) {
+        if (target.getVisibility() != value) target.setVisibility(value);
+    }
+}

@@ -1,0 +1,156 @@
+package com.tyctak.cancamapp;
+
+import android.app.IntentService;
+import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+import com.tyctak.cancamapp.entities._Tile;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
+public class Service_MD extends IntentService {
+
+    private final String TAG = "Service_MD";
+
+    private final int INITIAL_DELAY = 10000;
+    private final int DELAY = 5000;
+    private final int SMALL_DELAY = 1000;
+
+    private static int Count = 0;
+    private static long LastUpdated;
+    private final Library LIB = new Library();
+
+    public Service_MD() {
+        super("Service_MD");
+    }
+
+    @Override
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
+    }
+
+    @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
+        try {
+            Thread.sleep(INITIAL_DELAY);
+
+            processWaterways();
+
+            Thread.sleep(SMALL_DELAY);
+
+            while(true) {
+                ProcessWork();
+                Thread.sleep(DELAY);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void processWaterways() {
+        Log.d(TAG, "Downloading waterways");
+
+        Library_WS LIBWS = new Library_WS();
+
+        try {
+            int count = 0;
+            while (!LIBWS.getWaterways() && count < 10) {
+                Thread.sleep(10 * 1000);
+                count++;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private synchronized void Updated() {
+        LastUpdated = LIB.now().getTime();
+    }
+
+    private synchronized long Difference() {
+        return (LIB.now().getTime() - LastUpdated);
+    }
+
+    private void ProcessWork() throws InterruptedException {
+        final Library_WS LIBWS = new Library_WS();
+        Global.setIsNetworkConnected(LIBWS.isNetworkAvailable());
+
+        String inClause = Global.getLIBDB().getInClause();
+
+        while (!Global.getLIBDB().getPaused()) {
+            final ArrayList<_Tile> tiles = Global.getLIBDB().getWaitingTiles(inClause);
+
+            if (tiles != null && tiles.size() > 0) {
+                Updated();
+
+                if (!Global.getIsNetworkConnected()) {
+                    break;
+                } else {
+                    for (final _Tile tile : tiles) {
+                        LIBWS.downloadBinaryFile(tile.TileUrl, new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                try {
+                                    Global.getLIBDB().writeRetrievedTile(tile.Key, tile.WaterwayGuid, null);
+                                } finally {
+                                    tile.Downloaded = true;
+                                    Updated();
+                                }
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                try {
+                                    byte[] bytes = response.body().bytes();
+                                    response.close();
+
+                                    if (response.isSuccessful()) {
+                                        try {
+                                            Drawable drawable = new BitmapDrawable(LIB.decodeBinary(bytes));
+                                            Global.getLIBDB().writeRetrievedTile(tile.Key, tile.WaterwayGuid, bytes);
+                                        } catch (Exception e) {
+                                            Log.e(TAG, "Bitmap downloaded was corrupted #1");
+                                            // Do not update as the tile is corrupted or disk is full
+                                        }
+                                    } else {
+                                        Log.e(TAG, "Bitmap downloaded was corrupted #2");
+                                        Global.getLIBDB().writeRetrievedTile(tile.Key, tile.WaterwayGuid, null);
+                                    }
+                                } finally {
+                                    response.close();
+                                    tile.Downloaded = true;
+                                    Updated();
+                                }
+                            }
+                        });
+                    }
+
+                    boolean more = true;
+                    final int MAX_SECONDS = (10 * 1000);
+                    while (more && (Difference() < MAX_SECONDS)) {
+                        for (_Tile tile : tiles) {
+                            more = (!tile.Downloaded);
+                            if (more) break;
+                        }
+
+                        Thread.sleep(100);
+                    }
+
+                    if (Global.getLIBDB().getStopped(tiles.get(0).WaterwayGuid)) break;
+                }
+            } else {
+                //getgetLIBDB().writeTryTilesAgain();
+                break;
+            }
+        }
+    }
+}

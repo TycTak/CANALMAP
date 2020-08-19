@@ -1,0 +1,226 @@
+package com.tyctak.cancamapp;
+
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.support.annotation.IntDef;
+import android.util.Log;
+
+import com.tyctak.cancamapp.entities._Boat;
+import com.tyctak.cancamapp.entities._MySettings;
+
+public class Service_GP extends Service implements LocationListener {
+
+    private final String TAG = "Service_GP";
+    private final int maxZeroAngleSeconds = 120;
+    private final Integer ACCURACY_LIMIT = 50;
+
+    private int zeroAngleSeconds = 0;
+    public Boolean canGetLocation = false;
+    Location currentLocation;
+    protected LocationManager locationManager;
+    public int Accuracy = 0;
+    public int updateGpsInterval;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "onCreate");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startid) {
+        startListener();
+        return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+        stopListener();
+    }
+
+    public Boolean isStarted() {
+        return (locationManager != null);
+    }
+
+    public synchronized void startListener() {
+        Log.d(TAG, "startListener");
+
+        zeroAngleSeconds = 0;
+
+        if (!isStarted()) {
+            Log.d(TAG, "Create Location Manager");
+            locationManager = (LocationManager) MyApp.getContext().getSystemService(Context.LOCATION_SERVICE);
+        }
+
+        selectProvider();
+    }
+
+    public synchronized void stopListener() {
+        Log.d(TAG, "stopListener");
+
+        if (isStarted()) {
+            locationManager.removeUpdates(this);
+            locationManager = null;
+        }
+    }
+
+    private void selectProvider() {
+        Log.d(TAG, "selectProvider");
+
+        Boolean checkGPS = false;
+        Boolean checkNetwork = false;
+
+        checkGPS = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        checkNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (!checkGPS && !checkNetwork) {
+            Log.e(TAG, "No GPS Initialisation");
+            this.canGetLocation = false;
+        } else {
+            this.canGetLocation = true;
+
+            _MySettings mySettings = Global.getLIBDB().getMySettings();
+            updateGpsInterval = getUpdateGpsInterval(mySettings.UpdateGps);
+
+            if (checkNetwork && !checkGPS) {
+                Log.d(TAG, "InitialiseGPS NETWORK");
+                initialiseGps(LocationManager.NETWORK_PROVIDER, updateGpsInterval, Global.getLIBDB().getSystem().DistanceGps);
+            } else if (checkGPS) {
+                Log.d(TAG, "InitialiseGPS GPS");
+                initialiseGps(LocationManager.GPS_PROVIDER, updateGpsInterval, Global.getLIBDB().getSystem().DistanceGps);
+            }
+        }
+    }
+
+    private void initialiseGps(String provider, Integer intervalGps, Integer distanceGps) {
+        try {
+            locationManager.requestLocationUpdates(provider, intervalGps, (float)distanceGps, this);
+
+            if (locationManager != null) {
+                Log.d(TAG, "Initialised GPS");
+                Location latestLocation = locationManager.getLastKnownLocation(provider);
+
+                if (checkLocationAccuracy(latestLocation, currentLocation)) {
+                    currentLocation = latestLocation;
+                    _Boat myBoatSettings = Global.getLIBDB().getBoatSettings();
+
+                    Log.d(TAG, String.format("INIT writeBoatPosition = %s %s", currentLocation.getLongitude(), currentLocation.getLatitude()));
+                    Global.getLIBDB().writeBoatPosition(currentLocation, myBoatSettings.BoatGuid, Accuracy, false, _Boat.enmStatus.NotMoving);
+                }
+            } else {
+                Log.e(TAG, "Location Manager NULL");
+            }
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+
+    private boolean checkLocationAccuracy(Location latestLocation, Location previousLocation) {
+        boolean isMoreAccurate = false;
+
+        if (latestLocation == null && previousLocation == null) {
+            isMoreAccurate = false;
+        } else if (previousLocation == null) {
+            isMoreAccurate = true;
+        } else if ((latestLocation.getAccuracy() < (previousLocation.getAccuracy() * 1.5) || latestLocation.getAccuracy() < ACCURACY_LIMIT) && latestLocation.getProvider().equals(previousLocation.getProvider())) {
+            isMoreAccurate = true;
+        } else if ((latestLocation.getAccuracy() < (previousLocation.getAccuracy() * 2) || latestLocation.getAccuracy() < ACCURACY_LIMIT) && !latestLocation.getProvider().equals(previousLocation.getProvider())) {
+            isMoreAccurate = true;
+        }
+
+        if (latestLocation != null) {
+            Accuracy = (int)latestLocation.getAccuracy();
+        } else {
+            Accuracy = 0;
+        }
+
+        Log.d(TAG, String.format("Accuracy = %s, IsMoreAccurate = %s", Accuracy, isMoreAccurate));
+        return isMoreAccurate;
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    private Integer getUpdateGpsInterval(Integer update) {
+        Integer retval;
+
+        switch (update) {
+            case 0: retval = (10 * 1000); break;
+            case 1: retval = (15 * 1000); break;
+            case 2: retval = (20 * 1000); break;
+            case 3: retval = (25 * 1000); break;
+            case 4: retval = (30 * 1000); break;
+            case 5: retval = (60 * 1000); break;
+            case 6: retval = (90 * 1000); break;
+            case 7: retval = (120 * 1000); break;
+            case 8: retval = (150 * 1000); break;
+            default: retval = (180 * 1000); break;
+        }
+
+        return (int)retval;
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        _MySettings mySettings = Global.getLIBDB().getMySettings();
+        int updateGps = getUpdateGpsInterval(mySettings.UpdateGps);
+
+        if (checkLocationAccuracy(location, currentLocation)) {
+            currentLocation = location;
+            _Boat myBoatSettings = Global.getLIBDB().getBoatSettings();
+
+            if ((int)currentLocation.getBearing() == 0) {
+                zeroAngleSeconds += (updateGpsInterval / 1000);
+            } else {
+                zeroAngleSeconds = 0;
+            }
+
+            Log.d(TAG, String.format("POST writeBoatPosition = %s %s", currentLocation.getLongitude(), currentLocation.getLatitude()));
+            Global.getLIBDB().writeBoatPosition(currentLocation, myBoatSettings.BoatGuid, Accuracy, (zeroAngleSeconds >= maxZeroAngleSeconds), _Boat.enmStatus.Moving);
+
+//            gpsMovement.run();
+        }
+
+        checkUpdateGps(updateGps);
+    }
+
+    private void checkUpdateGps(int currentUpdateGpsInterval) {
+        if ((int)currentUpdateGpsInterval != (int)updateGpsInterval) {
+            Log.d(TAG, String.format("Change in GPS interval to %s", currentUpdateGpsInterval));
+
+            updateGpsInterval = currentUpdateGpsInterval;
+            zeroAngleSeconds = 0;
+            if (locationManager != null) {
+                locationManager.removeUpdates(this);
+                selectProvider();
+                Log.d(TAG, "Interval Changed");
+            }
+        }
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+        Log.d(TAG, String.format("onStatusChanged = %s", s));
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+        Log.d(TAG, String.format("onProviderEnabled = %s", s));
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+        Log.d(TAG, String.format("onProviderDisabled = %s", s));
+    }
+}

@@ -1,0 +1,346 @@
+package com.tyctak.cancamapp;
+
+import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+
+import static android.os.Environment.getExternalStorageDirectory;
+
+public class Library_FS {
+
+    private final String TAG = "Library_FS";
+
+    private Context context;
+
+    public Library_FS() { }
+
+    public Library_FS(Context ctx) {
+        context = ctx;
+    }
+
+    public ArrayList<String> getIconNames() {
+        ArrayList<String> names = new ArrayList<String>();
+
+        final Field[] allDrawables = (R.drawable.class).getDeclaredFields();
+        for (Field field : allDrawables) {
+            String iconName = field.toString();
+            Integer position = iconName.indexOf("ic_icon_");
+            if (position > 0) {
+                String item = iconName.substring(position, iconName.length());
+                names.add(item);
+            }
+        }
+
+        return names;
+    }
+
+    public ArrayList<String> getMarkerNames() {
+        ArrayList<String> names = new ArrayList<String>();
+
+        final Field[] allDrawables = (R.drawable.class).getDeclaredFields();
+        for (Field field : allDrawables) {
+            String iconName = field.toString();
+            Integer position = iconName.indexOf("ic_marker_");
+            if (position > 0) {
+                String item = iconName.substring(position, iconName.length());
+                names.add(item);
+            }
+        }
+
+        return names;
+    }
+
+    public enum enmFolder {
+        Assets,
+        Data,
+        SdCardRoot,
+        SdCard
+    }
+
+    public boolean isDatabase(String databaseName) {
+        boolean retval = false;
+
+        boolean isDataOnSDCard = isDataOnSDCard(databaseName);
+        boolean isDataOnDevice = isDataOnDevice(databaseName);
+
+        if (!Global.DatOnSdCard && isDataOnDevice) {
+            retval = true;
+        } else if (Global.DatOnSdCard && isDataOnSDCard) {
+            retval = true;
+        }
+
+        return retval;
+    }
+
+    public String getExternalPath() {
+        String retval;
+
+        if (Global.sdCardPath == null) {
+            try {
+                File[] files = ContextCompat.getExternalFilesDirs(context, "");
+                retval = files[files.length - 1].getPath();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                retval = Environment.getExternalStorageDirectory().getPath() + File.separator + "Android" + File.separator + "data" + File.separator + MyApp.getContext().getPackageName() + File.separator + "files";
+            }
+
+            Global.sdCardPath = retval;
+        } else {
+            retval = Global.sdCardPath;
+        }
+
+        return retval;
+    }
+
+    public boolean isDataOnSDCard(String databaseName) {
+        File file = new File(getExternalPath(), databaseName);
+        return file.exists();
+    }
+
+    public boolean isDataOnDevice(String databaseName) {
+        File file = new File("", context.getDatabasePath(databaseName).getPath());
+        return file.exists();
+    }
+
+    public boolean deleteDatabase(boolean onSDCard, String databaseName) {
+        String databasePath;
+
+        if (onSDCard) {
+            databasePath = getExternalPath() + File.separator + databaseName;
+        } else {
+            databasePath = context.getDatabasePath(databaseName).getPath();
+        }
+
+        return deleteFile(databasePath);
+    }
+
+    public boolean copyFile(enmFolder source, enmFolder destination, String fileName, Runnable progressCallback) {
+        long sourceLength = 0;
+        boolean retval = false;
+        File file;
+
+        try {
+            FileInputStream isSource = null;
+            switch (source) {
+                case Assets:
+                    AssetFileDescriptor afd = context.getAssets().openFd(fileName);
+                    isSource = afd.createInputStream();
+                    sourceLength = isSource.available();
+                    break;
+                case Data:
+                    file = new File("", context.getDatabasePath(fileName).getPath());
+                    sourceLength = file.length();
+                    isSource = new FileInputStream(file);
+                    break;
+                case SdCardRoot:
+                    file = new File(getExternalStorageDirectory(), fileName);
+                    sourceLength = file.length();
+                    isSource = new FileInputStream(file);
+                    break;
+                case SdCard:
+                    file = new File(getExternalPath(), fileName);
+                    sourceLength = file.length();
+                    isSource = new FileInputStream(file);
+                    break;
+            }
+
+            FileOutputStream osDestination = null;
+            switch (destination) {
+                case Assets:
+                    throw new RuntimeException("You cannot copy to the Assets folder, its read only");
+                case Data:
+                    osDestination = new FileOutputStream(new File("", context.getDatabasePath(fileName).getPath()));
+                    break;
+                case SdCardRoot:
+                    osDestination = new FileOutputStream(new File(getExternalStorageDirectory(), fileName));
+                    break;
+                case SdCard:
+                    String folderPath = getExternalPath();
+                    File folder = new File(folderPath);
+                    if (!folder.exists()) folder.mkdirs();
+                    osDestination = new FileOutputStream(new File(folderPath, fileName));
+                    break;
+            }
+
+            FileChannel isChannel = isSource.getChannel();
+            FileChannel osChannel = osDestination.getChannel();
+
+            osChannel.force(true);
+
+            int length;
+            //final int bufferSize = (int) (sourceLength / 20);
+            final int bufferSize = (int) 1024000;
+            ByteBuffer buffer = ByteBuffer.allocate(bufferSize);
+
+            while (true) {
+                length = isChannel.read(buffer);
+                if (length == -1) break;
+                buffer.flip();
+                osChannel.write(buffer);
+                buffer.clear();
+
+                if (progressCallback != null) progressCallback.run();
+            }
+
+            retval = true;
+
+            osChannel.force(true);
+            osDestination.flush();
+            isChannel.close();
+            osDestination.close();
+            isSource.close();
+            osDestination.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return retval;
+    }
+
+    public ArrayList<String> readReleaseFile(Context context, int oldVersion, int newVersion) {
+        ArrayList<String> sqlScript = new ArrayList<>();
+
+        try {
+            InputStream inputStream = context.getAssets().open("release.sql");
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+
+            String line;
+            boolean started = false;
+            String upgradeKey = "--Upgrade " + newVersion;
+            String upgradeFromKey = "--Upgrade " + oldVersion + "-" + newVersion;
+
+            while ((line = br.readLine()) != null) {
+                if (line.equals(upgradeKey) || line.equals(upgradeFromKey)) {
+                    started = true;
+                } else if (line.startsWith("--Upgrade ")) {
+                    started = false;
+                } else if (started) {
+                    sqlScript.add(line);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sqlScript;
+    }
+
+    public boolean createFile(String filePath) {
+        boolean retval = false;
+
+        try {
+            File file = new File(filePath);
+            retval = file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return retval;
+    }
+
+    public boolean fileExists(String filePath) {
+        boolean retval = false;
+
+        File file = new File(filePath);
+        retval = file.exists();
+
+        return retval;
+    }
+
+    public boolean deleteFile(enmFolder source, String fileName) {
+        File file = null;
+        boolean retval = false;
+
+        FileOutputStream osDestination = null;
+        switch (source) {
+            case Assets:
+                throw new RuntimeException("You cannot delete a file in the Assets folder");
+            case Data:
+                file = new File("", context.getDatabasePath(fileName).getPath());
+                break;
+            case SdCardRoot:
+                file = new File(getExternalStorageDirectory(), fileName);
+                break;
+            case SdCard:
+                file = new File(getExternalPath(), fileName);
+                break;
+        }
+
+
+
+        if (file.exists()) retval = file.delete();
+
+        return retval;
+    }
+
+    public boolean deleteFile(String filePath) {
+        boolean retval = false;
+
+        File file = new File(filePath);
+        if (file.exists()) retval = file.delete();
+
+        return retval;
+    }
+
+    //File image = LIBFS.createTemporaryFile("picture", ".jpg");
+    //imageUri = Uri.fromFile(image);
+
+    public Uri createTemporaryFile(String part, String ext)
+    {
+        File tempDir = new File(getExternalPath() + "/.temp/");
+
+        if(!tempDir.exists()) tempDir.mkdirs();
+
+        File file = null;
+
+        try {
+            file = File.createTempFile(part, ext, tempDir);
+            file.delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Uri uri;
+
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
+
+        return uri;
+    }
+
+//    Global.AppOnSdCard = LIBFS.fileExists(appOnSdCard);
+//        if (Global.AppOnSdCard != LIB.isInstalledOnSdCard(this)) {
+//        LIBFS.deleteFile(ignore);
+//        LIBFS.deleteFile(appOnSdCard);
+//        Global.AppOnSdCard = !Global.AppOnSdCard;
+//    }
+//
+//    Global.DatOnSdCard = LIBFS.fileExists(datOnSdCard);
+//    Global.Ignore = LIBFS.fileExists(ignore);
+//
+//        if (Global.Ignore && Global.AppOnSdCard == Global.DatOnSdCard) {
+//        LIBFS.deleteFile(ignore);
+//        Global.Ignore = !Global.Ignore;
+//    }
+
+}

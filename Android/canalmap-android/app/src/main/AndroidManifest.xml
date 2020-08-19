@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tyctak.canalmap"
+    android:installLocation="auto"
+    android:versionCode="239"
+    android:versionName="2.39">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+
+    <application
+        android:name=".MyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/MyMaterialTheme">
+
+        <service
+            android:name=".Service_Closing"
+            android:enabled="true"
+            android:exported="false"
+            android:stopWithTask="false" />
+
+        <activity
+            android:name=".Activity_Permissions"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity
+            android:name=".Activity_Main"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_EntitySettings"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_Roles"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_MySettings"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Z_Activity_EditText"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="._archive.Activity_Favourites"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_Splash"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity_AboutUs"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_Premium"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_Routes"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_Entities"
+            android:configChanges="orientation|screenSize" />
+
+        <activity
+            android:name=".Dialog_SimpleRoutes"
+            android:label="@string/title_activity_dialog__simpleroutes"
+            android:theme="@style/AppTheme.PopupBackgroundTransparent" />
+
+        <activity
+            android:name=".Dialog_Icons"
+            android:label="@string/title_activity_dialog__icons"
+            android:theme="@style/AppTheme.PopupBackground" />
+
+        <activity
+            android:name=".Dialog_FilterPois"
+            android:label="@string/title_activity_dialog__filterpois"
+            android:theme="@style/AppTheme.PopupBackground" />
+
+        <activity
+            android:name=".Dialog_PoiEdit"
+            android:label="@string/title_activity_dialog__markers" />
+        <activity
+            android:name=".Dialog_PoiList"
+            android:label="@string/title_activity_dialog__markers_display"
+            android:theme="@style/AppTheme.TransparentText" />
+
+        <activity
+            android:name=".Dialog_PoiSelect"
+            android:label="@string/title_activity_dialog__select"
+            android:theme="@style/AppTheme.PopupBackgroundTransparent" />
+
+        <activity
+            android:name=".Dialog_PoiChangeIcon"
+            android:label="@string/title_activity_dialog__changeicon" />
+
+        <activity
+            android:name=".Dialog_Route"
+            android:label="@string/title_activity_dialog__icons"
+            android:theme="@style/AppTheme.PopupBackground" />
+
+        <activity
+            android:name=".Dialog_Published"
+            android:label="@string/title_activity_dialog__icons"
+            android:theme="@style/AppTheme.PopupBackground" />
+
+        <activity
+            android:name=".Dialog_Entity"
+            android:label="@string/title_activity_dialog__icons"
+            android:theme="@style/AppTheme.PopupBackground" />
+
+        <activity android:name=".Searchable" />
+        <activity android:name=".Activity_Symbols" />
+        <activity android:name=".Activity_Markers" />
+
+        <service
+            android:name=".Service_MD"
+            android:enabled="true"
+            android:exported="false"
+            android:stopWithTask="true" />
+
+        <service
+            android:name=".Service_PK"
+            android:enabled="true"
+            android:exported="false"
+            android:stopWithTask="true" />
+        <service
+            android:name=".Service_GP"
+            android:enabled="true"
+            android:exported="false"
+            android:stopWithTask="true" />
+
+        <service
+            android:name=".Service_WS"
+            android:enabled="true"
+            android:exported="false"
+            android:stopWithTask="true" />
+
+        <activity
+            android:name=".Z_Activity_FullScreenImage"
+            android:theme="@style/AppTheme.Transparent" />
+
+        <activity
+            android:name=".Z_Activity_FullScreenText"
+            android:theme="@style/AppTheme.TransparentText" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

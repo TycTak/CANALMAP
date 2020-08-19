@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="600"
+   height="600"
+   viewBox="0 0 600.00003 600"
+   id="svg17421"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="splash.svg"
+   inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\drawable\ic_splash.png"
+   inkscape:export-xdpi="75"
+   inkscape:export-ydpi="75">
+  <defs
+     id="defs17423" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="-921.32033"
+     inkscape:cy="404.4561"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata17426">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-452.36225)">
+    <circle
+       style="opacity:1;fill:#8e9be3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:12;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17180"
+       cx="300.15854"
+       cy="752.61353"
+       r="300" />
+    <circle
+       style="opacity:1;fill:#91aaee;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:12;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17180-9"
+       cx="300.15854"
+       cy="752.61353"
+       r="253.02791" />
+    <circle
+       style="opacity:1;fill:#a5baf6;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:12;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17180-9-5"
+       cx="300.15854"
+       cy="752.61353"
+       r="215.14719" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 298.58873,762.97888 c 139.78594,-172.78973 141.1838,-171.1441 141.1838,-171.1441"
+       id="path17298"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 305.84867,761.01274 c 78.73186,-294.12744 79.51917,-291.3262 79.51917,-291.3262"
+       id="path17298-0"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 301.35122,748.44812 C 241.88522,505.52376 241.29057,507.83734 241.29057,507.83734"
+       id="path17298-0-4"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 302.68077,748.96193 C 60.920491,724.57699 58.502891,724.80923 58.502891,724.80923"
+       id="path17298-0-4-5"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 219.45744,946.39976 C 302.38972,755.0979 303.2191,756.91983 303.2191,756.91983"
+       id="path17298-0-4-5-6"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 305.18754,755.85133 C 521.04109,869.11157 523.19961,868.03289 523.19961,868.03289"
+       id="path17298-0-3"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 307.8886,756.55104 c 69.04042,283.37916 69.73076,280.68026 69.73076,280.68026"
+       id="path17298-0-3-4"
+       inkscape:connector-curvature="0" />
+    <circle
+       style="opacity:1;fill:#46a2f9;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:12;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17180-9-5-7"
+       cx="300.15854"
+       cy="752.61353"
+       r="176.25632" />
+    <g
+       id="g17182"
+       transform="matrix(0.8588627,0,0,0.8588627,1041.0747,619.33807)"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.73247814;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         inkscape:export-ydpi="15.4"
+         inkscape:export-xdpi="15.4"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+         inkscape:connector-curvature="0"
+         id="path6-5-7-5-5-2-8-8-9-6"
+         d="m -885.87239,13.045361 c -0.0559,8.3363 -0.0943,16.6716 -0.13672,25.0078 l -63.92383,0 c -7.92892,34.7792 -15.81724,69.565999 -23.72852,104.351599 20.0902,-2.0887 40.22199,-3.7751 60.38281,-4.8418 0.1414,-23.4224 0.3118,-46.839299 0.47657,-70.261699 34.0645,0.2235 68.12884,0.262 102.19335,0.5176 0.1,23.4671 0.30607,46.940399 0.45898,70.413999 19.94894,1.2967 39.85034,3.2703 59.70508,5.7422 -6.34549,-35.3221 -12.87881,-70.612499 -19.28906,-105.921899 l -68.35938,0 c -0.0479,-8.215 -0.0996,-16.4298 -0.0996,-24.6425 -15.8897,-0.2982 -31.78492,-0.231 -47.67967,-0.3653 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.73247814;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="15.4"
+         inkscape:export-xdpi="15.4"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+         id="path6-5-6-0-1-9-0-5-4"
+         d="m -889.66305,126.22396 c 0.0936,-10.8212 0.13567,-21.6423 0.22966,-32.463399 18.27129,0.1191 36.54259,0.06 54.80802,0.3238 0,10.655899 0.13585,21.318399 0.18242,31.974199 -16.37,-11.9713 -38.92658,-12.0176 -55.22005,0.1665 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.73247814;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="15.4"
+         inkscape:export-xdpi="15.4"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+         id="path8-5-5-9-1-5-2-6-0"
+         d="m -866.73186,142.11746 c 6.99888,-1.3348 14.49813,0.1765 20.41395,4.1571 6.993,4.6157 11.74334,12.4008 12.73814,20.7091 1.01839,7.7733 -1.14776,15.9346 -6.02768,22.0968 -4.72673,6.0975 -12.03761,10.1781 -19.76647,10.7543 -8.31154,0.7467 -16.80558,-2.6165 -22.47414,-8.7081 -6.67514,-6.9207 -9.43583,-17.2164 -7.39918,-26.5714 2.18975,-11.0366 11.34895,-20.4445 22.51538,-22.4378 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.73247814;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="15.4"
+         inkscape:export-xdpi="15.4"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+         inkscape:connector-curvature="0"
+         id="path10-7-6-3-0-1-2-61-3"
+         d="m -913.96419,156.74266 c -18.71116,1.1627 -37.39806,3.0206 -56.02149,5.5859 -7.8186,1.458 -15.68626,2.4659 -23.50976,3.8809 1.37753,21.1977 2.75838,42.396 4.13867,63.5937 4.75302,-0.8305 9.72427,-1.3797 25.13477,-6.2578 14.31285,-4.5306 22.72292,-10.221 28.52929,-13.6016 3.86244,-2.2487 8.91143,-7.3549 11.22852,-7.3769 2.61555,-0.025 3.304,2.2963 2.8457,4.6113 -0.45831,2.3151 -10.12672,16.9552 -18.42773,23.0235 -12.85846,9.3998 -21.56156,13.1199 -28.30078,15.625 -2.64169,0.982 -13.99447,4.0753 -18.2793,4.6796 l -3.26367,0 0,18.8575 252.29491,0 0,-14.8047 c 0.086,-1.3197 0.17186,-2.6394 0.25781,-3.959 -0.0642,0.01 -0.17274,-3e-4 -0.25781,0 l 0,-0.094 -1.11914,0 c -4.28481,-0.6044 -15.63761,-3.6977 -18.27929,-4.6797 -6.73923,-2.5051 -15.44425,-6.2252 -28.30274,-15.625 -8.301,-6.0683 -17.96747,-20.7084 -18.42578,-23.0234 -0.4583,-2.3151 0.2282,-4.6363 2.84375,-4.6114 2.31708,0.022 7.36606,5.1282 11.22851,7.377 5.80637,3.3805 14.21643,9.0709 28.52931,13.6016 15.41048,4.878 20.38368,5.4273 25.13671,6.2578 1.38028,-21.1978 2.76115,-42.396 4.13867,-63.5938 -7.8235,-1.4149 -15.69116,-2.4229 -23.50976,-3.8808 -18.62344,-2.5653 -37.31033,-4.4233 -56.02149,-5.586 0.1033,6.3795 -0.76861,14.2485 -1.66992,20.5664 -1.71961,12.7712 -6.02916,23.2487 -13.91602,31.5352 -3.42949,3.7465 -7.46457,6.4434 -11.52734,8.8672 2.6744,3.7464 5.62103,7.1626 8.50976,10.6445 6.84727,8.0403 14.14956,15.6199 21.97461,22.1504 l -109.33202,0 c 7.82528,-6.5306 15.12912,-14.1099 21.97656,-22.1504 2.88873,-3.4819 5.83537,-6.8981 8.50977,-10.6445 -4.06278,-2.4238 -8.09786,-5.1207 -11.52734,-8.8672 -7.88687,-8.2865 -12.19642,-18.764 -13.91602,-31.5352 -0.90132,-6.3179 -1.77322,-14.1869 -1.66992,-20.5664 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.73247814;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <circle
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233"
+       cx="439.89505"
+       cy="590.60065"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3"
+       cx="524.18048"
+       cy="869.92224"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3-8"
+       cx="240.75253"
+       cy="505.35065"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3-8-0"
+       cx="216.32388"
+       cy="950.92224"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3-8-08"
+       cx="47.752407"
+       cy="722.35083"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3-8-4"
+       cx="387.03818"
+       cy="465.20779"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3-8-9"
+       cx="378.32388"
+       cy="1040.9222"
+       r="12.571428" />
+  </g>
+</svg>

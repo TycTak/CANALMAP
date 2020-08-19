@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tyctak.cancamapp"
+    android:installLocation="auto"
+    android:versionCode="22"
+    android:versionName="1.22">
+
+    <!--<uses-permission android:name="android.permission.CAMERA" />-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.location.gps" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:name="com.tyctak.cancamapp.MyApp">
+
+        <activity
+            android:name=".Activity_Main"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_EntitySettings"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_MySettings"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_EditText"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="._archive.Activity_Favourites"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_Splash"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity_AboutUs"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Activity_Waterways"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Dialog_Action"
+            android:label="@string/title_activity_dialog__action"
+            android:theme="@style/AppTheme.PopupBackgroundTransparent" />
+        <activity
+            android:name=".Dialog_Icons"
+            android:label="@string/title_activity_dialog__icons"
+            android:theme="@style/AppTheme.PopupBackground" />
+        <activity
+            android:name=".Dialog_Select_Markers"
+            android:label="@string/title_activity_dialog__markers" />
+        <activity
+            android:name=".Dialog_Select_Markers_Display"
+            android:label="@string/title_activity_dialog__markers_display"
+            android:theme="@style/AppTheme.TransparentText" />
+
+        <activity
+            android:name=".Dialog_Select"
+            android:label="@string/title_activity_dialog__select"
+            android:theme="@style/AppTheme.PopupBackgroundTransparent" />
+        <!--<activity-->
+            <!--android:name="._archive.Dialog_Select_Symbols"-->
+            <!--android:label="@string/title_activity_dialog__symbols"-->
+            <!--android:theme="@style/AppTheme.Popup" />-->
+        <activity
+            android:name=".Dialog_Waterway"
+            android:label="@string/title_activity_dialog__icons"
+            android:theme="@style/AppTheme.PopupBackground" />
+        <activity android:name=".Searchable" />
+        <activity android:name=".Activity_Symbols" />
+        <activity android:name=".Activity_Markers" />
+
+        <service
+            android:name=".Service_MD"
+            android:exported="false"
+            android:enabled="true" />
+
+        <service
+            android:name=".Service_GP"
+            android:exported="false"
+            android:enabled="true" />
+
+        <activity android:name=".Activity_FullScreenImage"
+            android:theme="@style/AppTheme.Transparent"></activity>
+
+        <activity android:name=".Activity_FullScreenText"
+            android:theme="@style/AppTheme.TransparentText"></activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+    </application>
+
+</manifest>

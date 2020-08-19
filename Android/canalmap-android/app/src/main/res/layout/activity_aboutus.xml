@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tyctak.canalmap.Activity_AboutUs">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/toolbar_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/aboutus_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aboutUsSummary"
+                    android:inputType="textMultiLine"
+                    android:layout_gravity="center_horizontal"
+                    android:maxWidth="400dp"/>
+
+                <TextView
+                    android:id="@+id/aboutus_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:layout_marginTop="7dp"
+                    android:textSize="18dp"
+                    android:textStyle="italic"
+                    android:layout_gravity="center_horizontal"
+                    android:maxWidth="400dp"/>
+
+                <LinearLayout
+                    android:id="@+id/aboutus_buttons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:orientation="vertical"
+                    android:maxWidth="400dp"
+                    android:visibility="gone"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/aboutus_located1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:textSize="12dp"
+                        android:textStyle="italic"
+                        android:layout_gravity="center_horizontal"
+                        android:maxWidth="400dp"/>
+
+                    <TextView
+                        android:id="@+id/aboutus_located2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:textSize="12dp"
+                        android:textStyle="italic"
+                        android:layout_gravity="center_horizontal"
+                        android:maxWidth="400dp"/>
+
+                    <TextView
+                        android:id="@+id/aboutus_located3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:textSize="12dp"
+                        android:textStyle="italic"
+                        android:layout_gravity="center_horizontal"
+                        android:maxWidth="400dp"/>
+
+                    <TextView
+                        android:id="@+id/aboutus_located4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:textSize="12dp"
+                        android:textStyle="italic"
+                        android:layout_gravity="center_horizontal"
+                        android:maxWidth="400dp"/>
+
+                    <TextView
+                        android:id="@+id/aboutus_located5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:textSize="12dp"
+                        android:textStyle="italic"
+                        android:layout_gravity="center_horizontal"
+                        android:maxWidth="400dp"/>
+
+                    <TextView
+                        android:id="@+id/aboutus_located6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:textSize="12dp"
+                        android:textStyle="italic"
+                        android:layout_gravity="center_horizontal"
+                        android:maxWidth="400dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/aboutUsSupportContext"
+                        android:inputType="textMultiLine"
+                        android:layout_marginTop="5dp"
+                        android:textSize="18dp"
+                        android:textStyle="italic"
+                        android:layout_gravity="center_horizontal"
+                        android:maxWidth="400dp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="12"
+                            android:text="@string/why_repair_ownership"
+                            android:textColor="@color/colorLightText"
+                            android:layout_weight="2"/>
+
+                        <Button
+                            android:id="@+id/repair_ownership_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="20dp"
+                            android:maxLines="1"
+                            android:minWidth="150dp"
+                            android:onClick="repairOwnership"
+                            android:text="Repair"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:weightSum="3">
+
+                        <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="12"
+                        android:text="@string/why_clear_premium"
+                        android:textColor="@color/colorLightText"
+                        android:layout_weight="2"/>
+
+                        <Button
+                        android:id="@+id/clear_premium_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:maxLines="1"
+                        android:minWidth="150dp"
+                        android:onClick="clearPremium"
+                        android:text="Premium"
+                        android:layout_weight="1"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="12"
+                            android:text="@string/why_initialise_cache"
+                            android:textColor="@color/colorLightText"
+                            android:layout_weight="2" />
+
+                        <Button
+                            android:id="@+id/initialise_cache_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:minWidth="150dp"
+                            android:padding="20dp"
+                            android:onClick="initialiseMapCache"
+                            android:text="Initialise"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/copyButtonLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:weightSum="3"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="12"
+                            android:text="@string/why_copy_tosdcard"
+                            android:textColor="@color/colorLightText"
+                            android:layout_weight="2" />
+
+                        <Button
+                            android:id="@+id/copy_tosdcard_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:padding="20dp"
+                            android:minWidth="150dp"
+                            android:onClick="copyToSDCard"
+                            android:text="@string/copy_to"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="12"
+                            android:text="@string/why_resetEntities"
+                            android:textColor="@color/colorLightText"
+                            android:layout_weight="2" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:padding="20dp"
+                            android:minWidth="150dp"
+                            android:onClick="resetEntities"
+                            android:text="@string/resetEntities"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="12"
+                            android:text="@string/why_clear_pois"
+                            android:textColor="@color/colorLightText"
+                            android:layout_weight="2" />
+
+                        <!--android:id="@+id/copy_clearmarkers_button"-->
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:padding="20dp"
+                            android:minWidth="150dp"
+                            android:onClick="clearPois"
+                            android:text="@string/clear_pois"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:weightSum="3">-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:ems="12"-->
+                            <!--android:text="@string/why_clear_ignore"-->
+                            <!--android:textColor="@color/colorLightText"-->
+                            <!--android:layout_weight="2" />-->
+
+                        <!--<Button-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:maxLines="1"-->
+                            <!--android:padding="20dp"-->
+                            <!--android:minWidth="150dp"-->
+                            <!--android:onClick="clearIgnore"-->
+                            <!--android:text="@string/clear_ignore"-->
+                            <!--android:layout_weight="1" />-->
+
+                    <!--</LinearLayout>-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:weightSum="3">-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:ems="12"-->
+                            <!--android:text="@string/why_poi_backup"-->
+                            <!--android:textColor="@color/colorLightText"-->
+                            <!--android:layout_weight="2"/>-->
+
+                        <!--<Button-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:padding="20dp"-->
+                            <!--android:maxLines="1"-->
+                            <!--android:minWidth="150dp"-->
+                            <!--android:onClick="backupPoiLocations"-->
+                            <!--android:text="Backup"-->
+                            <!--android:layout_weight="1"/>-->
+
+                    <!--</LinearLayout>-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:weightSum="3">-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:ems="12"-->
+                            <!--android:text="@string/why_poi_restore"-->
+                            <!--android:textColor="@color/colorLightText"-->
+                            <!--android:layout_weight="2"/>-->
+
+                        <!--<Button-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:padding="20dp"-->
+                            <!--android:maxLines="1"-->
+                            <!--android:minWidth="150dp"-->
+                            <!--android:onClick="restorePoiLocations"-->
+                            <!--android:text="Restore"-->
+                            <!--android:layout_weight="1"/>-->
+
+                    <!--</LinearLayout>-->
+
+                    <LinearLayout
+                        android:id="@+id/premiumFeatures"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/publisherLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:weightSum="3">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ems="12"
+                                android:text="@string/why_publish_request"
+                                android:textColor="@color/colorLightText"
+                                android:layout_weight="2"/>
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="20dp"
+                                android:maxLines="1"
+                                android:minWidth="150dp"
+                                android:onClick="publisherRequest"
+                                android:text="Publish"
+                                android:layout_weight="1"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/reviewerLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:weightSum="3">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ems="12"
+                                android:text="@string/why_review_request"
+                                android:textColor="@color/colorLightText"
+                                android:layout_weight="2"/>
+
+                            <Button
+                                android:id="@+id/review_request_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="20dp"
+                                android:maxLines="1"
+                                android:minWidth="150dp"
+                                android:onClick="reviewerRequest"
+                                android:text="Review"
+                                android:layout_weight="1"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/administratorLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:weightSum="3">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ems="12"
+                                android:text="@string/why_administrator_request"
+                                android:textColor="@color/colorLightText"
+                                android:layout_weight="2"/>
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="20dp"
+                                android:maxLines="1"
+                                android:minWidth="150dp"
+                                android:onClick="administratorRequest"
+                                android:text="Admin"
+                                android:layout_weight="1"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/premiumLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="12"
+                            android:text="@string/why_premium_request"
+                            android:textColor="@color/colorLightText"
+                            android:layout_weight="2"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="20dp"
+                            android:maxLines="1"
+                            android:minWidth="150dp"
+                            android:onClick="premiumRequest"
+                            android:text="Premium"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="12"
+                            android:text="@string/check_status_request"
+                            android:textColor="@color/colorLightText"
+                            android:layout_weight="2"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="20dp"
+                            android:maxLines="1"
+                            android:minWidth="150dp"
+                            android:onClick="checkStatus"
+                            android:text="Roles"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="12"
+                            android:text="@string/reset_requests"
+                            android:textColor="@color/colorLightText"
+                            android:layout_weight="2"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="20dp"
+                            android:maxLines="1"
+                            android:minWidth="150dp"
+                            android:onClick="resetRequests"
+                            android:text="REQUESTS"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="12"
+                            android:text="@string/check_system"
+                            android:textColor="@color/colorLightText"
+                            android:layout_weight="2"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="20dp"
+                            android:maxLines="1"
+                            android:minWidth="150dp"
+                            android:onClick="checkSystem"
+                            android:text="CHECK"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Space android:layout_width="match_parent" android:layout_height="40dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/progressWaitingFullScreenAboutUs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.4"
+        android:animateLayoutChanges="true"
+        android:background="#000000"
+        android:visibility="gone"
+        android:clickable="true"
+        android:longClickable="true" >
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="visible"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

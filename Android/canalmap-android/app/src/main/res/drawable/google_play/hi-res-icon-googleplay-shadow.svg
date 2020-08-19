@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="400"
+   height="400"
+   viewBox="0 0 399.99998 399.99998"
+   id="svg8264"
+   version="1.1"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="hi-res-icon-googleplay-shadow.svg"
+   inkscape:export-filename="C:\Users\Mike\Desktop\Android\cancam-android\app\src\main\res\drawable\originals\hi-res-icon-googleplay.png"
+   inkscape:export-xdpi="122.91811"
+   inkscape:export-ydpi="122.91811">
+  <defs
+     id="defs8266">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter2495">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood2485" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite2487" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="6.54167"
+         result="blur"
+         id="feGaussianBlur2489" />
+      <feOffset
+         dx="2.1"
+         dy="2.1"
+         result="offset"
+         id="feOffset2491" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="fbSourceGraphic"
+         id="feComposite2493" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix3109" />
+      <feFlood
+         id="feFlood3111"
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         in="fbSourceGraphic" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite3113"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur3115"
+         in="composite1"
+         stdDeviation="10.4"
+         result="blur" />
+      <feOffset
+         id="feOffset3117"
+         dx="2.1"
+         dy="2.1"
+         result="offset" />
+      <feComposite
+         in2="offset"
+         id="feComposite3119"
+         in="fbSourceGraphic"
+         operator="over"
+         result="composite2" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter2507">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood2497" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite2499" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="6.54167"
+         result="blur"
+         id="feGaussianBlur2501" />
+      <feOffset
+         dx="2.1"
+         dy="2.1"
+         result="offset"
+         id="feOffset2503" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="fbSourceGraphic"
+         id="feComposite2505" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix3121" />
+      <feFlood
+         id="feFlood3123"
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         in="fbSourceGraphic" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite3125"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur3127"
+         in="composite1"
+         stdDeviation="10.4"
+         result="blur" />
+      <feOffset
+         id="feOffset3129"
+         dx="2.1"
+         dy="2.1"
+         result="offset" />
+      <feComposite
+         in2="offset"
+         id="feComposite3131"
+         in="fbSourceGraphic"
+         operator="over"
+         result="composite2" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter2519">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood2509" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite2511" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="6.54167"
+         result="blur"
+         id="feGaussianBlur2513" />
+      <feOffset
+         dx="2.1"
+         dy="2.1"
+         result="offset"
+         id="feOffset2515" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="fbSourceGraphic"
+         id="feComposite2517" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix3133" />
+      <feFlood
+         id="feFlood3135"
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         in="fbSourceGraphic" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite3137"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur3139"
+         in="composite1"
+         stdDeviation="10.4"
+         result="blur" />
+      <feOffset
+         id="feOffset3141"
+         dx="2.1"
+         dy="2.1"
+         result="offset" />
+      <feComposite
+         in2="offset"
+         id="feComposite3143"
+         in="fbSourceGraphic"
+         operator="over"
+         result="composite2" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter2531">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood2521" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite2523" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="6.54167"
+         result="blur"
+         id="feGaussianBlur2525" />
+      <feOffset
+         dx="2.1"
+         dy="2.1"
+         result="offset"
+         id="feOffset2527" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="fbSourceGraphic"
+         id="feComposite2529" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix3145" />
+      <feFlood
+         id="feFlood3147"
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         in="fbSourceGraphic" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite3149"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur3151"
+         in="composite1"
+         stdDeviation="10.4"
+         result="blur" />
+      <feOffset
+         id="feOffset3153"
+         dx="2.1"
+         dy="2.1"
+         result="offset" />
+      <feComposite
+         in2="offset"
+         id="feComposite3155"
+         in="fbSourceGraphic"
+         operator="over"
+         result="composite2" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="-90.536922"
+     inkscape:cy="243.67657"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata8269">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-652.36216)">
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:0.99541283;stroke:none;stroke-width:4.21587229;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter2531)"
+       d="m 161.84828,665.83307 c -0.0786,11.71484 -0.13252,23.4284 -0.19214,35.14324 H 71.824573 c -11.142439,48.87485 -22.22783,97.76041 -33.345476,146.64431 28.232578,-2.93518 56.523597,-5.30514 84.855413,-6.80414 0.19871,-32.91534 0.43817,-65.82279 0.66971,-98.73815 47.87054,0.31411 95.74086,0.36824 143.6114,0.72735 0.14053,32.9782 0.43012,65.96503 0.645,98.95223 28.03406,1.82217 56.00131,4.59571 83.903,8.06944 -8.91727,-49.63782 -18.09849,-99.23113 -27.10674,-148.85104 h -96.06481 c -0.0673,-11.54443 -0.13997,-23.08864 -0.13997,-34.62997 -22.32965,-0.41894 -44.66705,-0.32454 -67.00382,-0.51327 z"
+       id="path6-5-7-5-5-2-8-8-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#ffffff;fill-opacity:0.99541283;stroke:none;stroke-width:4.21587229;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter2519)"
+       d="m 156.52129,824.88186 c 0.13154,-15.2069 0.19066,-30.41372 0.32274,-45.62054 25.67649,0.16738 51.35298,0.0838 77.02122,0.45511 0,14.97458 0.19091,29.95848 0.25635,44.93308 -23.0046,-16.82317 -54.70316,-16.88823 -77.60024,0.23391 z"
+       id="path6-5-6-0-1-9-0-5"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#ffffff;fill-opacity:0.99541283;stroke:none;stroke-width:4.21587229;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter2507)"
+       d="m 188.7463,847.21695 c 9.83546,-1.8758 20.37408,0.24796 28.68753,5.84189 9.8272,6.48644 16.50282,17.42664 17.9008,29.1023 1.43113,10.92374 -1.61294,22.39271 -8.47064,31.05242 -6.64243,8.56875 -16.91635,14.30319 -27.77765,15.11299 -11.68012,1.04927 -23.61674,-3.67698 -31.58272,-12.2375 -9.3805,-9.72558 -13.26008,-24.19409 -10.39799,-37.34051 3.07723,-15.50966 15.94857,-28.73044 31.64067,-31.53159 z"
+       id="path8-5-5-9-1-5-2-6"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:0.99541283;stroke:none;stroke-width:4.21587229;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter2495)"
+       d="m 122.37112,867.76952 c -26.294615,1.63389 -52.555143,4.24486 -78.726482,7.84987 -10.987407,2.04883 -22.043751,3.46531 -33.038042,5.45372 1.93583,29.78902 3.876326,59.5787 5.816034,89.36771 6.679375,-1.16707 13.665421,-1.93896 35.321658,-8.79404 20.113717,-6.36682 31.932311,-14.36355 40.09195,-19.11414 5.427851,-3.16017 12.523152,-10.33586 15.779332,-10.36677 3.67561,-0.035 4.64309,3.22695 3.99904,6.48025 -0.64406,3.2533 -14.230988,23.82696 -25.89632,32.35463 -18.069876,13.20946 -30.300262,18.4373 -39.770831,21.95768 -3.712342,1.38002 -19.666292,5.72698 -25.687725,6.57634 H 15.67333 v 26.50013 H 370.22106 V 1005.23 c 0.12085,-1.8545 0.24151,-3.709 0.3623,-5.56348 -0.0902,0.0101 -0.24276,-3.7e-4 -0.3623,0 v -0.13175 h -1.57272 c -6.0214,-0.84927 -21.97541,-5.19632 -25.68774,-6.57625 -9.47057,-3.52038 -21.70365,-8.74822 -39.77356,-21.9577 -11.66532,-8.52767 -25.24952,-29.10132 -25.89358,-32.35463 -0.64405,-3.25331 0.32069,-6.51524 3.9963,-6.48025 3.25616,0.0309 10.35145,7.20661 15.77931,10.36676 8.15965,4.75061 19.97823,12.74732 40.09197,19.11415 21.65623,6.85508 28.64502,7.62698 35.32441,8.79405 1.93969,-29.78903 3.88021,-59.5787 5.81603,-89.36771 -10.9943,-1.98843 -22.05064,-3.4049 -33.03807,-5.45373 -26.17133,-3.605 -52.43185,-6.21598 -78.72647,-7.84987 0.14517,8.96497 -1.08012,20.0232 -2.34672,28.90177 -2.41655,17.94724 -8.47272,32.67113 -19.55605,44.31607 -4.81944,5.26488 -10.4899,9.05487 -16.19927,12.46098 3.75831,5.26488 7.89918,10.06559 11.95868,14.95866 9.62241,11.299 19.88425,21.95053 30.88072,31.1277 H 117.63101 c 10.99679,-9.17726 21.26081,-19.8284 30.88346,-31.1277 4.05951,-4.89307 8.20039,-9.69378 11.9587,-14.95866 -5.70939,-3.40611 -11.37985,-7.1961 -16.19927,-12.46098 -11.08334,-11.64494 -17.13952,-26.36883 -19.55605,-44.31607 -1.26662,-8.87857 -2.49189,-19.9368 -2.34673,-28.90177 z"
+       id="path10-7-6-3-0-1-2-61"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+  </g>
+</svg>

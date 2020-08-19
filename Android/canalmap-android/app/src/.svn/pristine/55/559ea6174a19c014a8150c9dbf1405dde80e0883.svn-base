@@ -1,0 +1,305 @@
+package com.tyctak.cancam;
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Base64;
+import android.util.Log;
+import android.util.TypedValue;
+
+import com.tyctak.cancam.entities._MySettings;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
+
+import static com.tyctak.cancam.Global.LIBDB;
+
+public class Library {
+
+    private static final String TAG = "Library";
+
+    public Long getJustDate(Long value) {
+        Long retval = 0l;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        retval = new Date(format.format(getDate(value))).getTime();
+
+        return retval;
+    }
+
+    public String getJustDateString(Long value) {
+        String retval = "";
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        retval = format.format(getDate(value));
+
+        return retval;
+    }
+
+    public String getTimeName(Date value) {
+        String retval = "";
+        SimpleDateFormat format = new SimpleDateFormat("HHmmssSSS");
+
+        retval = format.format(value);
+
+        return retval;
+    }
+
+    public String getDateName(Date value) {
+        String retval = "";
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+
+        retval = format.format(value);
+
+        return retval;
+    }
+
+    public Integer ConvertToDensityPixels(Activity parent, Integer pixels) {
+        return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, pixels, parent.getResources().getDisplayMetrics());
+    }
+
+    public Date ConvertToDate(Long value) {
+        return new Date(value);
+    }
+
+    public Date ConvertToDate(String value) throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        if (value == null) {
+            return null;
+        } else {
+            return formatter.parse(value);
+        }
+    }
+
+    public Date now() {
+        return new Date();
+    }
+
+    public Long getDate(Date date) {
+        return (date != null ? date.getTime() : null);
+    }
+
+    public Date getDate(Long date) {
+        return new Date(date);
+    }
+
+    public Date getOffSetDate(Date date) {
+        _MySettings mySettings = getLIBDB().getMySettings();
+        return new Date(date.getTime() - mySettings.OffSet);
+    }
+
+    public Long getOffSetDate(Long date) {
+        _MySettings mySettings = getLIBDB().getMySettings();
+        return date - mySettings.OffSet;
+    }
+
+    public String ConvertToString(Date value) {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return (value == null ? "" :  formatter.format(value));
+    }
+
+    public double RoundTo3Decimals(double val) {
+        DecimalFormat df = new DecimalFormat("###.###");
+        return Double.valueOf(df.format(val));
+    }
+
+    public double RoundTo6Decimals(double val) {
+        DecimalFormat df = new DecimalFormat("###.######");
+        return Double.valueOf(df.format(val));
+    }
+
+    public static String getUUID() {
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
+    }
+
+    public static byte[] encodeBinary(Bitmap image) {
+        Bitmap immagex = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immagex.compress(Bitmap.CompressFormat.PNG, 90, baos);
+        byte[] b = baos.toByteArray();
+        return b;
+    }
+
+    public static Bitmap decodeBinary(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
+    public static String encodeBase64(byte[] image) {
+        String imageEncoded = "";
+        if (image != null) imageEncoded = Base64.encodeToString(image, Base64.DEFAULT);
+        return imageEncoded;
+    }
+
+    public static String encodeBase64(Bitmap image) {
+        byte[] b = encodeBinary(image);
+        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+        return imageEncoded;
+    }
+
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+    }
+
+    public static void checkPermissions(Activity target) {
+        if (ContextCompat.checkSelfPermission(target, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(target, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            } else {
+                ActivityCompat.requestPermissions(target, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+        }
+    }
+
+    public static byte[] getBytes(String url) {
+        try {
+//            if (url.contains("13/4066/2714.png")) {
+//                Log.d(TAG,"stop");
+//            }
+
+            URLConnection httpConn = (URLConnection) new URL(url).openConnection();
+            httpConn.setConnectTimeout(3000);
+            httpConn.setReadTimeout(2000);
+//            httpConn.setRequestMethod("GET");
+            httpConn.setRequestProperty("Content-Type", "image/png");
+//            httpConn.setRequestProperty("Content-Type", "image/png; charset=UTF-8");
+            httpConn.setDoOutput(false);
+            httpConn.setDoInput(true);
+            httpConn.setUseCaches(false);
+            httpConn.setRequestProperty("Accept-Encoding", "identity");
+            System.setProperty("http.keepAlive", "false");
+
+            Integer contentSize = httpConn.getContentLength(); //httpCon.getContentLength();
+
+            InputStream os = httpConn.getInputStream();
+
+//            if (contentSize < 0) {
+//                Log.d(TAG, "Content LESS THAN 0");
+
+            BufferedInputStream bis = new BufferedInputStream(os);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+//            List<Byte> list = new ArrayList<Byte>();
+            int current = 0;
+            byte[] byteChunk = new byte[2048];
+            byte[] bytes;
+
+            try {
+                while ((current = bis.read(byteChunk)) != -1) {
+//                list.add((byte) current);
+                    baos.write(byteChunk, 0, current);
+                }
+
+                bytes = baos.toByteArray();
+            } catch (IOException e) {
+                Log.d(TAG, "IOException error in image download, correcting");
+                baos.write(130);
+                bytes = baos.toByteArray();
+//                FileOutputStream fos = new FileOutputStream(Environment.getExternalStorageDirectory() + "/image.png");
+//                fos.write(bytes);
+//                fos.close();
+//
+//                Log.d(TAG, "bytes = " + bytes.length + " contentLength = " + contentSize);
+            }
+
+//                while ((current = bis.read()) != -1) {
+//                    list.add((byte) current);
+//                }
+
+//                bytes = new byte[list.size()];
+//                for (int i = 0; i < list.size(); i++) {
+//                    bytes[i] = list.get(i);
+//                }
+//            } else {
+//                bytes = new byte[contentSize];
+//                os.read(bytes);
+//            }
+
+            baos.close();
+            bis.close();
+            os.close();
+//            httpConn.disconnect();
+
+            return bytes;
+////            Log.d(TAG, "getBytes");
+//
+//            URL urlTemp = new URL(url);
+//            InputStream in = new BufferedInputStream(urlTemp.openStream());
+//
+//            BufferedInputStream bis = new BufferedInputStream(in);
+//            List<Byte> list = new ArrayList<Byte>();
+//            int current = 0;
+//            while ((current = bis.read()) != -1) {
+//                list.add((byte) current);
+//            }
+//
+//            byte[] bytes = new byte[list.size()];
+//            for (int i = 0; i < list.size(); i++) {
+//                bytes[i] = list.get(i);
+//            }
+//
+////            URL urlTemp = new URL(url);
+////            InputStream in = new BufferedInputStream(urlTemp.openStream());
+////            ByteArrayOutputStream out = new ByteArrayOutputStream();
+////            byte[] buf = new byte[1024];
+////            int n = 0;
+////            while (-1!=(n=in.read(buf)))
+////            {
+////                out.write(buf, 0, n);
+////            }
+////            out.close();
+////            in.close();
+////            byte[] response = out.toByteArray();
+//
+//            return bytes;
+
+//            URL urlObj = new URL(getLIBDB().getSystem().BaseUrl + url);
+//            HttpURLConnection connection = (HttpURLConnection) urlObj.openConnection();
+//
+//            connection.setConnectTimeout(2000);
+//            connection.setReadTimeout(1000);
+//            connection.setDoOutput(true);
+//            connection.setRequestMethod("GET");
+////            connection.setRequestProperty("Content-Type", "application/json");
+//
+//            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+//                Integer contentSize = connection.getContentLength(); //httpCon.getContentLength();
+//                byte[] bytes;
+//
+//                InputStream os = connection.getInputStream();
+//
+//                bytes = new byte[contentSize];
+//                os.read(bytes);
+//
+//                return bytes;
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+}

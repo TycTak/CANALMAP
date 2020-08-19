@@ -1,0 +1,188 @@
+package com.tyctak.cancamapp;
+
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.tyctak.cancamapp.entities._Waterway;
+
+import java.util.ArrayList;
+
+public class ArrayAdapter_Waterways extends ArrayAdapter<_Waterway> {
+
+    final private String TAG = "ArrayAdapter_Waterways";
+
+    private boolean allPurchased = false;
+    private boolean allPaused = false;
+    private String dialogWaterwayGuid;
+
+    public void setAllPaused(boolean value) {
+        allPaused = value;
+    }
+    public void setAllPurchased(boolean value) {
+        allPurchased = value;
+    }
+    public void setDialogWaterwayGuid(String pDialogWaterwayGuid) { dialogWaterwayGuid = pDialogWaterwayGuid; }
+
+    public ArrayAdapter_Waterways(Context context, ArrayList<_Waterway> waterways) {
+        super(context, 0, waterways);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        _Waterway waterway = getItem(position);
+
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.arrayadapter_waterways, parent, false);
+        }
+
+        int percentage = (waterway.Empty ? 0 : (int) ((double) waterway.TilesDownloaded / (double) waterway.TotalTiles * 100.0));
+        boolean isAvailable = (waterway.CurrentVersion < 0);
+        boolean isBuyAll = (waterway.WaterwayGuid.equals(Global.getAllWaterwayGuid()));
+
+        ImageButton paused_button = (ImageButton) convertView.findViewById(R.id.buttonPaused);
+        if (waterway.Paused) {
+            paused_button.setImageResource(R.drawable.ic_play_button);
+        } else {
+            paused_button.setImageResource(R.drawable.ic_pause_button);
+        }
+
+        boolean isUpdateDue = (waterway.CurrentVersion >= 0 && waterway.Availability != null && !waterway.Availability.isEmpty());
+
+        dV(paused_button, View.GONE);
+
+        Button buy_button = (Button) convertView.findViewById(R.id.buy_button_item);
+        if (!allPurchased && !waterway.Purchased && waterway.CurrentVersion >= 0) {
+            dV(buy_button, View.VISIBLE);
+
+            if (isBuyAll) buy_button.setText("Buy All");
+            else buy_button.setText("Buy MAP");
+        } else {
+            dV(buy_button, View.GONE);
+        }
+
+        Button update_button = (Button) convertView.findViewById(R.id.update_button_item);
+        if (!isBuyAll && ((allPurchased && waterway.MyVersion < waterway.CurrentVersion && waterway.MyVersion > 0) || (waterway.Purchased && waterway.MyVersion < waterway.CurrentVersion && waterway.MyVersion > 0) || (waterway.Purchased && waterway.Empty))) {
+            dV(update_button, View.VISIBLE);
+        } else {
+            dV(update_button, View.GONE);
+        }
+
+        LinearLayout availability_layout = (LinearLayout) convertView.findViewById(R.id.availability_layout);
+        if (isAvailable) {
+            dV(availability_layout, View.VISIBLE);
+
+            TextView availability_text = (TextView) convertView.findViewById(R.id.availability_text);
+            availability_text.setText(waterway.Availability);
+        } else {
+            dV(availability_layout, View.GONE);
+        }
+
+        TextView waterway_name = (TextView) convertView.findViewById(R.id.waterway_name);
+        waterway_name.setText(waterway.WaterwayName);
+
+        ImageView typeid = (ImageView) convertView.findViewById(R.id.typeid);
+        if (waterway.Type.equals("River")) typeid.setImageResource(R.drawable.ic_river);
+        if (waterway.Type.equals("Mixed")) typeid.setImageResource(R.drawable.ic_mixed);
+        if (waterway.Type.equals("Canal")) typeid.setImageResource(R.drawable.ic_canal);
+        if (isBuyAll) typeid.setImageResource(R.drawable.ic_allmaps);
+
+        TextView price = (TextView) convertView.findViewById(R.id.price);
+        ProgressBar progress = (ProgressBar) convertView.findViewById(R.id.progressBar);
+        dV(progress, View.INVISIBLE);
+
+        if ((allPurchased || waterway.Purchased) && !isBuyAll && !isAvailable) {
+            progress.setProgress(percentage);
+
+            if (waterway.Empty && waterway.TotalTiles == 0) {
+                if (dialogWaterwayGuid != null && dialogWaterwayGuid.equals(waterway.WaterwayGuid)) {
+                    dV(update_button, View.GONE);
+                } else {
+                    price.setText("empty");
+                    dV(update_button, View.VISIBLE);
+                    update_button.setText("Download");
+                }
+            } else if (waterway.TilesDownloaded >= waterway.TotalTiles && waterway.TilesDownloaded != 0) {
+                if (waterway.MyVersion < waterway.CurrentVersion && waterway.MyVersion > 0) {
+                    dV(update_button, View.VISIBLE);
+                    waterway.Availability = "NOW";
+                    update_button.setText("Update");
+                } else {
+                    dV(update_button, View.GONE);
+                }
+                price.setText("downloaded (" + waterway.TotalTiles + " tiles)");
+            } else if (waterway.TilesDownloaded >= waterway.TotalTiles && waterway.TilesDownloaded != 0) {
+                price.setText("downloaded (" + waterway.TotalTiles + " tiles)");
+            } else if (waterway.TilesDownloaded == 0 && !waterway.Paused) {
+                isUpdateDue = false;
+                dV(paused_button, View.VISIBLE);
+                price.setText("waiting to download");
+                if (update_button.getVisibility() != View.GONE) update_button.setVisibility(View.GONE);
+                update_button.setText("Download");
+            } else {
+                if (allPaused) {
+                    isUpdateDue = false;
+                    price.setText("ALL Downloads Paused (" + waterway.TilesDownloaded + "/" + waterway.TotalTiles + "/" + percentage + "% tiles)");
+                } else if (waterway.Paused) {
+                    isUpdateDue = false;
+                    dV(paused_button, View.VISIBLE);
+                    price.setText("MAP Download Paused (" + waterway.TilesDownloaded + "/" + waterway.TotalTiles + "/" + percentage + "% tiles)");
+                } else {
+                    isUpdateDue = false;
+                    dV(paused_button, View.VISIBLE);
+                    price.setText("downloading (" + waterway.TilesDownloaded + "/" + waterway.TotalTiles + "/" + percentage + "% tiles)");
+                }
+
+                dV(progress, View.VISIBLE);
+                dV(update_button, View.GONE);
+            }
+        } else if (isBuyAll && allPurchased) {
+            price.setText("purchased");
+            if (waterway.Purchased) {
+                dV(buy_button, View.GONE);
+            }
+            dV(update_button, View.GONE);
+            dV(progress, View.GONE);
+        } else if (isAvailable) {
+            price.setText("not available yet");
+            dV(update_button, View.GONE);
+            dV(progress, View.GONE);
+        } else if (isBuyAll) {
+            dV(progress, View.GONE);
+            progress.setProgress(0);
+            price.setText(waterway.Price);
+        } else {
+            progress.setProgress(0);
+            price.setText(waterway.Price);
+        }
+
+        LinearLayout updatedue_layout = (LinearLayout) convertView.findViewById(R.id.updatedue_layout);
+        if (isUpdateDue) {
+            dV(updatedue_layout, View.VISIBLE);
+
+            TextView updatedue_text = (TextView) convertView.findViewById(R.id.updatedue_text);
+            updatedue_text.setText(waterway.Availability);
+        } else {
+            dV(updatedue_layout, View.GONE);
+        }
+
+        buy_button.setTag(waterway.WaterwayGuid);
+        paused_button.setTag(waterway.WaterwayGuid);
+        update_button.setTag(waterway.WaterwayGuid);
+
+        return convertView;
+    }
+
+    private void dV(View target, int value) {
+        if (target.getVisibility() != value) target.setVisibility(value);
+    }
+}

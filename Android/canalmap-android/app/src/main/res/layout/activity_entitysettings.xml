@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tyctak.canalmap.Activity_EntitySettings">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/toolbar_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/isActive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Make my social profile visible to others"
+                    android:checked="false"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="15dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/boatSettingsSummary"
+                    android:textSize="14sp"
+                    android:background="@drawable/customroundedcornerstext"
+                    android:layout_marginBottom="10dp"/>
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/entitytype_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    android:theme="@style/spinnerTheme"
+                    android:padding="0dp"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/boatNameTitle"
+                    android:textSize="16sp"
+                    android:maxWidth="300dp"
+                    android:layout_marginTop="22dp"/>
+
+                <EditText
+                    android:id="@+id/entity_name_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:ems="30"
+                    android:inputType="textCapWords|textCapSentences"
+                    android:maxLines="2"
+                    android:hint="@string/boatNameHint"
+                    android:digits="@string/editTextFormatFull"
+                    android:maxLength="50"
+                    android:background="@color/colorHighlightEditText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/boatPeopleTitle"
+                    android:textSize="16sp"
+                    android:layout_marginTop="20dp"/>
+
+                <EditText
+                    android:id="@+id/entity_people_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:ems="30"
+                    android:inputType="textCapWords|textCapSentences"
+                    android:maxLines="7"
+                    android:hint="@string/boatPeopleHint"
+                    android:digits="@string/editTextFormatFull"
+                    android:maxLength="200"
+                    android:maxWidth="300dp"
+                    android:background="@color/colorHighlightEditText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/entityEmailTitle"
+                    android:textSize="16sp"
+                    android:layout_marginTop="20dp"/>
+
+                <EditText
+                    android:id="@+id/entityEmailEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:ems="30"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="7"
+                    android:hint="@string/entityEmailHint"
+                    android:digits="@string/editTextFormatFull"
+                    android:maxLength="254"
+                    android:maxWidth="254dp"
+                    android:background="@color/colorHighlightEditText" />
+
+                <LinearLayout
+                    android:id="@+id/customEntity1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/entityReference"
+                        android:textSize="16sp"
+                        android:maxWidth="300dp"
+                        android:layout_marginTop="20dp"/>
+
+                    <EditText
+                        android:id="@+id/entityReferenceEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:ems="30"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:hint="@string/entityReferenceHint"
+                        android:digits="@string/editNumberFormat"
+                        android:maxLength="6"
+                        android:background="@color/colorHighlightEditText" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/entityMetaData1Title"
+                        android:textSize="16sp"
+                        android:maxWidth="300dp"
+                        android:layout_marginTop="20dp"/>
+
+                    <EditText
+                        android:id="@+id/entityMetaData1Edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:ems="30"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:hint="@string/entityMetaData1Hint"
+                        android:digits="@string/editDoubleFormat"
+                        android:maxLength="5"
+                        android:background="@color/colorHighlightEditText" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/entityMetaData2Title"
+                        android:textSize="16sp"
+                        android:maxWidth="300dp"
+                        android:layout_marginTop="20dp"/>
+
+                    <EditText
+                        android:id="@+id/entityMetaData2Edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:ems="30"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:hint="@string/entityMetaData2Hint"
+                        android:digits="@string/editDoubleFormat"
+                        android:maxLength="5"
+                        android:background="@color/colorHighlightEditText" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/boatIconTitle"
+                        android:textSize="16sp"
+                        android:layout_marginTop="18dp"/>
+
+                    <ImageView
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/entity_icon"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        app:srcCompat="@drawable/ic_canal"
+                        android:onClick="pickIcon" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/customEntity2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/entitySettingsTrader"
+                        android:textSize="14sp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/customroundedcornerstext"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phoneTitle"
+                        android:textSize="16sp"
+                        android:maxWidth="300dp"
+                        android:layout_marginTop="10dp"/>
+
+                    <EditText
+                        android:id="@+id/phone_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:ems="20"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:hint="@string/phoneHint"
+                        android:digits="@string/editTextFormatFull"
+                        android:maxLength="20"
+                        android:background="@color/colorHighlightEditText" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tradingTitle"
+                        android:textSize="16sp"
+                        android:maxWidth="300dp"
+                        android:layout_marginTop="20dp"/>
+
+                    <EditText
+                        android:id="@+id/trading_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:ems="30"
+                        android:inputType="textCapWords|textCapSentences"
+                        android:maxLines="2"
+                        android:hint="@string/tradingHint"
+                        android:digits="@string/editTextFormat"
+                        android:maxLength="50"
+                        android:background="@color/colorHighlightEditText" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/entitySettingsSocialMedia"
+                    android:textSize="14sp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/customroundedcornerstext"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/facebookTitle"
+                    android:textSize="16sp"
+                    android:maxWidth="300dp"
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="\@"
+                        android:textSize="16sp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="-2dp"/>
+
+                    <EditText
+                        android:id="@+id/facebook_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:ems="30"
+                        android:inputType="text"
+                        android:maxLines="2"
+                        android:hint="@string/facebookHint"
+                        android:digits="@string/editFacebookPagenameFormat"
+                        android:maxLength="50"
+                        android:background="@color/colorHighlightEditText" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/twitterTitle"
+                    android:textSize="16sp"
+                    android:maxWidth="300dp"
+                    android:layout_marginTop="20dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="\@"
+                        android:textSize="16sp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="-2dp"/>
+
+                    <EditText
+                        android:id="@+id/twitter_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:ems="30"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:hint="@string/twitterHint"
+                        android:digits="@string/editTwitterUsernameFormat"
+                        android:maxLength="15"
+                        android:background="@color/colorHighlightEditText" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/instagramTitle"
+                    android:textSize="16sp"
+                    android:maxWidth="300dp"
+                    android:layout_marginTop="20dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="\@"
+                        android:textSize="16sp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="-2dp"/>
+
+                    <EditText
+                        android:id="@+id/instagram_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:ems="30"
+                        android:inputType="textUri"
+                        android:maxLines="2"
+                        android:hint="@string/instagramHint"
+                        android:digits="@string/editInstagramUsernameFormat"
+                        android:maxLength="30"
+                        android:background="@color/colorHighlightEditText" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/youtubeTitle"
+                    android:textSize="16sp"
+                    android:maxWidth="300dp"
+                    android:layout_marginTop="20dp"/>
+
+                <EditText
+                    android:id="@+id/youtube_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:ems="30"
+                    android:inputType="textUri"
+                    android:maxLines="2"
+                    android:hint="@string/youtubeHint"
+                    android:digits="@string/editUrlFormat"
+                    android:maxLength="50"
+                    android:background="@color/colorHighlightEditText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/patreonTitle"
+                    android:textSize="16sp"
+                    android:maxWidth="300dp"
+                    android:layout_marginTop="20dp"/>
+
+                <EditText
+                    android:id="@+id/patreon_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:ems="30"
+                    android:inputType="text"
+                    android:maxLines="2"
+                    android:hint="@string/patreonHint"
+                    android:digits="@string/editUrlFormat"
+                    android:maxLength="50"
+                    android:background="@color/colorHighlightEditText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/websiteTitle"
+                    android:textSize="16sp"
+                    android:maxWidth="300dp"
+                    android:layout_marginTop="20dp"/>
+
+                <EditText
+                    android:id="@+id/website_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:ems="30"
+                    android:inputType="textUri"
+                    android:maxLines="7"
+                    android:hint="@string/websiteHint"
+                    android:digits="@string/editUrlFormat"
+                    android:maxLength="200"
+                    android:background="@color/colorHighlightEditText" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="22dp">
+
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/entity_avatar"
+                        android:layout_width="150sp"
+                        android:layout_height="150sp"
+                        app:srcCompat="@drawable/ic_photo"
+                        android:onClick="pickImage" />
+
+                    <ImageButton
+                        android:id="@+id/image_clear_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_remove"
+                        android:onClick="clearImage"
+                        android:background="@null"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"/>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="40dp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

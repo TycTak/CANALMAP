@@ -1,0 +1,736 @@
+package com.tyctak.cancam;
+
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ListView;
+
+import com.tyctak.cancam.entities._Boat;
+import com.tyctak.cancam.entities._MySettings;
+import com.tyctak.cancam.map.LocalMapTileProvider;
+
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.events.DelayedMapListener;
+import org.osmdroid.events.MapListener;
+import org.osmdroid.events.ScrollEvent;
+import org.osmdroid.events.ZoomEvent;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
+import org.osmdroid.util.BoundingBox;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
+import org.osmdroid.views.overlay.OverlayItem;
+
+import java.util.ArrayList;
+
+import static com.tyctak.cancam.Global.LIBDB;
+import static com.tyctak.cancam.R.id.centreMyBoat;
+import static com.tyctak.cancam.R.string.close;
+
+public class Activity_Main extends AppCompatActivity {
+
+    private static final String TAG = "Activity_Main";
+
+    private Integer MOVEMENT_INTERVAL = 500;
+    private Integer SRCH_ZOOM = 16;
+
+    private Service_GP SRVGP;
+//    private Service_SS SRVSS;
+    private Library_GR LIBGR;
+
+    private MapView map;
+    private IMapController mapController;
+
+    ItemizedIconOverlay.OnItemGestureListener currentGestureListener;
+    ItemizedIconOverlay currentLocationOverlay;
+
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
+    private SearchView searchView;
+    private MenuItem searchViewMenu;
+
+    private NavigationView navigationSidebar;
+    //private ListView searchList;
+    private Integer myBoatItemPosition = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Context ctx = getApplicationContext();
+        setContentView(R.layout.activity_main);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_search);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.title_map);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.mainLayout);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, close);
+
+        SRVGP = new Service_GP(this.getBaseContext());
+        LIBGR = new Library_GR();
+
+        navigationSidebar = (NavigationView) findViewById(R.id.navigationSidebar);
+
+        if (!getIntent().getBooleanExtra("Permission", false)) {
+            ImageButton centreMyBoat = (ImageButton) findViewById(R.id.centreMyBoat);
+            centreMyBoat.setVisibility(View.INVISIBLE);
+            Global.getLIBDB().writeCentreMyBoat(_MySettings.enmCentreMyBoat.inactive);
+        }
+
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        map = (MapView)findViewById(R.id.map);
+
+        final XYTileSource tileSource = new XYTileSource(getLIBDB().getSystem().TileSourceName, getLIBDB().getSystem().MinZoom, getLIBDB().getSystem().MaxZoom, getLIBDB().getSystem().PixelSize, ".png", new String[]{ getLIBDB().getSystem().TilesUrl } );
+        //MapView map2 = new MapView(this, new LocalMapTileProvider(this, tileSource));
+        //map = map2;
+        map.setTileProvider(new LocalMapTileProvider(this, tileSource));
+
+        //MapView mapView = new MapView(context, 256, resourceProxy, tileProvider);
+
+        map.setMultiTouchControls(true);
+        mapController = map.getController();
+        map.setTilesScaledToDpi(true);
+        map.setBackgroundColor(Color.TRANSPARENT);
+        //map.setBackgroundResource(R.drawable.ic_canal);
+        //map.setFlingEnabled(true);
+        //MapTileSqlCacheProvider sql = new MapTileSqlCacheProvider(new File(""));
+
+        map.getOverlayManager().getTilesOverlay().setLoadingBackgroundColor(Color.TRANSPARENT);
+        map.getOverlayManager().getTilesOverlay().setLoadingLineColor(Color.TRANSPARENT);
+        //map.setBackground(null);
+
+        Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+        //Configuration.getInstance().setOsmdroidTileCache(new File("/data/data/com.tyctak.cancam/databases/cancam.sqlite"));
+        //DatabaseFileArchive dfa = DatabaseFileArchive.getDatabaseFileArchive(new File("/data/data/com.tyctak.cancam/databases/cancam.sqlite"));
+
+        //final SqlTileSource tileSource = new SqlTileSource();
+
+        //this(, new NetworkAvailabliltyCheck(pContext),
+        //        pTileSource, pContext,null);
+
+        //= new SqlTileWriter()
+        //map.setUseDataConnection(false);
+        // new String[]{ getLIBDB().System.TilesUrl }
+        //map.setTileSource(tileSource);
+
+        map.setMapListener(new DelayedMapListener(new MapListener() {
+            public boolean onZoom(final ZoomEvent e) {
+                getLIBDB().writeZoomLevel(e.getZoomLevel());
+
+                _MySettings mySettings = getLIBDB().getMySettings();
+                Integer rowsUpdated = getLIBDB().writeTilePriority(mySettings.CentreLatitude, mySettings.CentreLongitude, mySettings.LastZoomLevel);
+                Log.d(TAG, "rowsUpdated " + rowsUpdated.toString());
+
+                getLIBDB().writeChangedBoat(mySettings.BoatGuid);
+
+                return true;
+            }
+
+            public boolean onScroll(final ScrollEvent e) {
+                Log.d(TAG, "onScoll");
+                BoundingBox bb = map.getProjection().getBoundingBox();
+                GeoPoint currentCenter = bb.getCenter();
+                getLIBDB().writeCentreLocation(currentCenter.getLongitude(), currentCenter.getLatitude());
+
+                _MySettings mySettings = getLIBDB().getMySettings();
+                Integer rowsUpdated = getLIBDB().writeTilePriority(mySettings.CentreLatitude, mySettings.CentreLongitude, mySettings.LastZoomLevel);
+                Log.d(TAG, "rowsUpdated " + rowsUpdated.toString());
+
+                getLIBDB().writeChangedBoat(mySettings.BoatGuid);
+
+                return true;
+            }
+        }, 100));
+
+        // Following can be used to trap clicks on the map, not used at the moment
+        currentGestureListener = new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+            public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                _Boat myBoatSettings = getLIBDB().getBoatSettings();
+                _MySettings mySettings = getLIBDB().getMySettings();
+
+                if (mySettings.LastZoomLevel > SRCH_ZOOM ) mapController.setZoom(SRCH_ZOOM);
+                mapController.animateTo(new GeoPoint(myBoatSettings.Latitude, myBoatSettings.Longitude));
+                map.invalidate();
+                return true;
+            }
+
+            public boolean onItemLongPress(final int index, final OverlayItem item) {
+                //Log.d(TAG, "onItemLongPress");
+                return true;
+            }
+        };
+
+        _MySettings mySettings = getLIBDB().getMySettings();
+
+        mapController.setZoom(mySettings.LastZoomLevel);
+        mapController.setCenter(new GeoPoint(mySettings.CentreLatitude, mySettings.CentreLongitude));
+        setCentreMyBoat(mySettings);
+        //setContactServer(mySettings);
+
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                reDrawMarkers();
+                handler.postDelayed(this, MOVEMENT_INTERVAL);
+            }
+        });
+
+        //searchList = (ListView)findViewById(R.id.searchList);
+        //searchList.setAdapter(new ArrayAdapter<_Search>(Activity_Main.this, android.R.layout.simple_list_item_1, new ArrayList<_Search>()));
+
+        // THE BELOW GIVES DETAILS OF HOW TO ATTACH CURSOR ADAPTORS AND SQLITE
+        //https://guides.codepath.com/android/Populating-a-ListView-with-a-CursorAdapter
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SRVGP.stopListener();
+    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        Log.d(TAG, "onPause");
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Log.d(TAG, "onResume");
+//    }
+
+//    private void clearCache() {
+//        IFilesystemCache tileWriter = map.getTileProvider().getTileWriter();
+//        if (tileWriter instanceof SqlTileWriter){
+//            final boolean b = ((SqlTileWriter) tileWriter).purgeCache();
+//        }
+//    }
+
+//    public _MySettings getSettings() {
+//        _MySettings mySettings = Global.getLIBDB().getMySettings();
+//
+//        locationMap = (mySettings.LocationMap ? enmStatus.Active : enmStatus.InActive);
+//        favouriteList = (mySettings.FavouriteList ? enmStatus.Active : enmStatus.InActive);
+//
+//        //MenuItem favouriteListMenu = (MenuItem) this.findViewById(R.id.favouriteslist_icon);
+//        //favouriteList(favouriteListMenu);
+//
+//        //MenuItem locationMapMenu = (MenuItem) findViewById(R.id.locationmap_icon);
+//        //locationMap(locationMapMenu);
+//
+//        return mySettings;
+//    }
+
+    //Service_GP mService;
+    //boolean mBound = false;
+
+//    /** Defines callbacks for service binding, passed to bindService() */
+//    private ServiceConnection mConnection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName className, IBinder service) {
+//            Service_GP.LocalBinder binder = (Service_GP.LocalBinder) service;
+//            mService = binder.getService();
+//            mBound = true;
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName arg0) {
+//            mBound = false;
+//        }
+//    };
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        Intent intent = new Intent(this, Service_GP.class);
+//        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//        if (mBound) {
+//            unbindService(mConnection);
+//            mBound = false;
+//        }
+//    }
+
+    private Boolean removeMyBoatPosition() {
+        Boolean retval = false;
+
+        if (currentLocationOverlay.size() > 0) {
+            currentLocationOverlay.removeItem(myBoatItemPosition);
+            retval = true;
+        }
+
+        return retval;
+    }
+
+    private OverlayItem getMarker(_Boat boat) {
+        OverlayItem retval;
+
+        GeoPoint location = new GeoPoint(boat.Latitude, boat.Longitude);
+        retval = new OverlayItem(boat.BoatName, boat.People, location);
+
+        String name = getBaseContext().getResources().getResourceName(boat.Icon);
+        Boolean isAvatar = (name.contains("ic_icon_marker_"));
+
+        retval.setMarker(LIBGR.getResizedIcon(getBaseContext(), boat.Icon, map.getZoomLevel(), boat.AvatarMarker, (boat.Status == _Boat.enmStatus.Moving), boat.Direction, isAvatar));
+
+        if (!isAvatar) {
+            retval.setMarkerHotspot(OverlayItem.HotspotPlace.CENTER);
+        } else {
+            retval.setMarkerHotspot(OverlayItem.HotspotPlace.BOTTOM_CENTER);
+        }
+
+        return retval;
+    }
+
+    private void setCurrentLocationOverlay() {
+        Integer size = map.getOverlays().size();
+
+        if (size > 0) {
+            currentLocationOverlay = ((ItemizedIconOverlay) (map.getOverlays().get(0)));
+        } else {
+            currentLocationOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getApplicationContext(), new ArrayList<OverlayItem>(), currentGestureListener);
+            map.getOverlays().add(currentLocationOverlay);
+        }
+    }
+
+    private void reDrawMarkers() {
+        ArrayList<_Boat> boats = getLIBDB().getBoats();
+
+        if (boats.size() > 0) {
+            Log.d(TAG, "reDrawMarkers " + boats.size());
+
+            _MySettings mySettings = getLIBDB().getMySettings();
+
+            if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.inactive) {
+                Integer size = map.getOverlays().size();
+
+                if (size > 0) {
+                    currentLocationOverlay = ((ItemizedIconOverlay) (map.getOverlays().get(0)));
+                    currentLocationOverlay.removeAllItems();
+                    map.invalidate();
+                }
+            } else if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.following) {
+                setCurrentLocationOverlay();
+
+                removeMyBoatPosition();
+
+                _Boat myBoatSettings = getLIBDB().getBoatSettings();
+                OverlayItem marker = getMarker(myBoatSettings);
+
+                LIBGR.getCircle(getBaseContext(), 50);
+
+                if (currentLocationOverlay.addItem(marker)) {
+                    myBoatItemPosition = currentLocationOverlay.size() - 1;
+                    mapController.animateTo(new GeoPoint(myBoatSettings.Latitude, myBoatSettings.Longitude));
+                    map.invalidate();
+                }
+            } else if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.active) {
+                setCurrentLocationOverlay();
+                Boolean alreadyActive = removeMyBoatPosition();
+
+                _Boat myBoatSettings = getLIBDB().getBoatSettings();
+                OverlayItem marker = getMarker(myBoatSettings);
+
+                if (currentLocationOverlay.addItem(marker)) {
+                    myBoatItemPosition = currentLocationOverlay.size() - 1;
+                    if (!alreadyActive)
+                        mapController.animateTo(new GeoPoint(myBoatSettings.Latitude, myBoatSettings.Longitude));
+                    map.invalidate();
+                }
+            }
+        }
+    }
+
+//    public static Bitmap createBitmap(final Drawable vd) {
+//        Bitmap bitmap;
+//        bitmap = Bitmap.createBitmap(vd.getIntrinsicWidth(), vd.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+//        Canvas canvas = new Canvas(bitmap);
+//        vd.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+//        vd.draw(canvas);
+//        return bitmap;
+//    }
+
+//    public void trackMovement() {
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (Global.SRVGP.canGetLocation) {
+//                    Long st = System.currentTimeMillis();
+//
+//                    _MySettings mySettings = getLIBDB().getMySettings();
+//                    GeoPoint currentPosition = new GeoPoint(mySettings.LastLatitude, mySettings.LastLongitude);
+//
+//                    VectorOverlayItem myLocationOverlayItem = new VectorOverlayItem("boatid", "boatname", "people", currentPosition);
+//                    //myLocationOverlayItem.setMarkerHotspot(VectorOverlayItem.HotspotPlace.CENTER);
+//
+//                    Integer size = map.getOverlays().size();
+//
+//                    if (size > 0 && currentLocationOverlay == null) {
+//                        Log.d(TAG, "Load currentLocationOverlay");
+//                        currentLocationOverlay = ((ItemizedIconOverlay) (map.getOverlays().get(0)));
+//                    }
+//
+//                    myLocationOverlayItem.setMarker(myCurrentLocationMarker);
+//
+//                    final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
+//
+//                    if (currentLocationOverlay == null) {
+//                        for (int amount = 0; amount < 1000; amount++) {
+//                            items.add(myLocationOverlayItem);
+//                        }
+//                    } else {
+//                        for (int amount = 0; amount < 5; amount++) {
+//                            items.add(myLocationOverlayItem);
+//                        }
+//                    }
+//
+//                    if (currentLocationOverlay != null) {
+//                        //Log.d(TAG,String.format("#0 %s", currentLocationOverlay.size()));
+//                        Integer max = currentLocationOverlay.size() - 1;
+//                        for (int i = 2; i >= 0; i--) {
+//                            currentLocationOverlay.removeItem(i);
+//                        }
+//                        //Log.d(TAG,String.format("#1 %s", currentLocationOverlay.size()));
+//                        //map.getOverlays().remove(currentLocationOverlay);
+//                        currentLocationOverlay.addItems(items);
+//                        //Log.d(TAG,String.format("#2 %s", currentLocationOverlay.size()));
+//                    } else {
+//                        currentLocationOverlay = new ItemizedOverlayWithFocus<OverlayItem>(items,
+//                                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+//                                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+//                                        //Log.d(TAG, "onItemSingleTapUp");
+//                                        return true;
+//                                    }
+//
+//                                    public boolean onItemLongPress(final int index, final OverlayItem item) {
+//                                        //Log.d(TAG, "onItemLongPress");
+//                                        return true;
+//                                    }
+//                                }, getApplicationContext());
+//                        Log.d(TAG,"create");
+//                    }
+//
+//                    if (size == 0) {
+//                        map.getOverlays().add(currentLocationOverlay);
+//                    //} else {
+//                        //map.getOverlays().set(0, currentLocationOverlay);
+//                    }
+//
+//                    map.invalidate();
+//
+//                    Long en = System.currentTimeMillis();
+//
+//                    Log.d(TAG, String.format("difference = %s %s", (en - st), currentLocationOverlay.size()));
+//                }
+//
+//                handler.postDelayed(this, MOVEMENT_INTERVAL);
+//            }
+//        }, MOVEMENT_INTERVAL);
+//    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+//    public void favouritesOnClick(MenuItem menu) {
+//        drawerLayout.closeDrawers();
+//        Intent intent = new Intent(this, Activity_Favourites.class);
+//        startActivity(intent);
+//    }
+
+    public void boatSettingsOnClick(MenuItem menu) {
+        drawerLayout.closeDrawers();
+        Intent intent = new Intent(this, Activity_BoatSettings.class);
+        startActivity(intent);
+    }
+
+    public void mySettingsOnClick(MenuItem menu) {
+        drawerLayout.closeDrawers();
+        Intent intent = new Intent(this, Activity_MySettings.class);
+        startActivity(intent);
+    }
+
+    public void aboutUsOnClick(MenuItem menu) {
+        drawerLayout.closeDrawers();
+        Intent intent = new Intent(this, Activity_AboutUs.class);
+        startActivity(intent);
+    }
+
+    public void waterwaysCoveredOnClick(MenuItem menu) {
+        drawerLayout.closeDrawers();
+        Intent intent = new Intent(this, Activity_Waterways.class);
+        startActivity(intent);
+    }
+
+    public void symbolsOnClick(MenuItem menu) {
+        drawerLayout.closeDrawers();
+        Intent intent = new Intent(this, Activity_Symbols.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mapactionbar, menu);
+        searchViewMenu = (MenuItem) menu.findItem(R.id.search_action);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchViewMenu);
+//        ((View)searchView.getParent()).bringToFront();
+
+        //int id = searchView.getContext().getResources().getIdentifier("android:id/toolbar_search", null, null);
+//        TextView textView = (TextView) searchView.findViewById(R.id.toolbar_search);
+//        textView.setTextColor(Color.WHITE);
+
+        ListView searchList = (ListView)findViewById(R.id.searchList);
+        searchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick");
+                Cursor row = (Cursor)parent.getItemAtPosition(position);
+
+                ListView searchList = (ListView)findViewById(R.id.searchList);
+                searchView.onActionViewCollapsed();
+                searchList.setVisibility(View.GONE);
+
+//                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                Log.d(TAG, "onItemClick");
+                GeoPoint geop = new GeoPoint(row.getDouble(4), row.getDouble(3));
+
+                _MySettings mySettings = getLIBDB().getMySettings();
+
+                if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.following) {
+                    Global.getLIBDB().writeCentreMyBoat(_MySettings.enmCentreMyBoat.active);
+                    ImageButton imgB = (ImageButton) findViewById(centreMyBoat);
+                    imgB.setImageResource(R.drawable.ic_location);
+                }
+
+                if (mySettings.LastZoomLevel != SRCH_ZOOM) mapController.setZoom(SRCH_ZOOM);
+
+                mapController.animateTo(geop);
+            }
+        });
+
+//        searchList.setOnClickListener(new AdapterView.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d(TAG, "dddd");
+//            }
+//        });
+
+//        Button buttn = (Button)findViewById(R.id.search_button_item);
+//        buttn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG, "DSDDD");
+//            }
+//        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+            ListView searchList = (ListView)findViewById(R.id.searchList);
+            if (searchList.getVisibility() == View.VISIBLE) searchList.setVisibility(View.GONE);
+            return false;
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ListView searchList = (ListView)findViewById(R.id.searchList);
+                Cursor cursor = Global.getLIBDB().getSearch(newText);
+                //Log.d(TAG, String.format("count = %s", cursor.getCount()));
+                searchList.setAdapter(new CursorAdapter_Search(getBaseContext(), cursor));
+                if (searchList.getVisibility() != View.VISIBLE) searchList.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+
+//        MenuItem locationMapIcon = menu.findItem(R.id.locationmap_icon);
+//        if (locationMap == enmStatus.Active) locationMapIcon.setIcon(R.drawable.ic_location_checked);
+//
+//        MenuItem favouriteListIcon = menu.findItem(R.id.favouriteslist_icon);
+//        if (favouriteList == enmStatus.Active) favouriteListIcon.setIcon(R.drawable.ic_favourite_checked);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+//    public void locationMap(MenuItem menu) {
+//        if (locationMap == enmStatus.InActive) {
+//            _Boat boatSettings = getLIBDB().getBoatSettings();
+//
+//            if (boatSettings.BoatName != null && !boatSettings.BoatName.toString().isEmpty()) {
+//                menu.setIcon(R.drawable.ic_location_checked);
+//                locationMap = enmStatus.Active;
+//                Global.LIBUI.snackBar(this, R.string.locationSend);
+//            }
+//            else
+//            {
+//                Global.LIBUI.snackBar(this, R.string.locationInvalid);
+//            }
+//        } else {
+//            menu.setIcon(R.drawable.ic_location_notchecked);
+//            locationMap = enmStatus.InActive;
+//            Global.LIBUI.snackBar(this, R.string.locationStopSend);
+//        }
+//
+//        getLIBDB().writeLocationMap(locationMap == enmStatus.Active);
+//    }
+
+//    public void favouriteList(MenuItem menu) {
+//        if (favouriteList == enmStatus.InActive) {
+//            menu.setIcon(R.drawable.ic_favourite_checked);
+//            favouriteList = enmStatus.Active;
+//            slideUpDown(enmDisplay.Favourites);
+//        } else {
+//            menu.setIcon(R.drawable.ic_favourite_notchecked);
+//            favouriteList = enmStatus.InActive;
+//            slideUpDown(enmDisplay.None);
+//        }
+//
+//        getLIBDB().writeFavouriteList(favouriteList == enmStatus.Active);
+//    }
+
+//    public void slideUpDown(enmDisplay display) {
+//        RelativeLayout hiddenPanel = (RelativeLayout) findViewById(R.id.hidden_panel);
+//
+//        if (hiddenPanel.getVisibility() == View.GONE) {
+//            hiddenPanel.animate()
+//                    .translationYBy(hiddenPanel.getHeight() / 2)
+//                    .translationY(0)
+//                    .setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
+//
+//            ListView listView = (ListView) findViewById(R.id.display_list);
+//
+//            hiddenPanel.setVisibility(View.VISIBLE);
+//        }
+//        else {
+//            hiddenPanel.animate()
+//                    .translationYBy(0)
+//                    .translationY(hiddenPanel.getHeight() / 2)
+//                    .setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
+//
+//            hiddenPanel.setVisibility(View.GONE);
+//        }
+//    }
+
+    public void clickButton(View view) {
+        Log.d(TAG, "dddd " + view.getTag());
+    }
+
+//    public void contactServer(View view) {
+//        //ImageButton imgB = (ImageButton) findViewById(contactServer);
+//        _MySettings mySettings = getLIBDB().getMySettings();
+//
+//        if (mySettings.ContactServer) {
+//            getLIBDB().writeContactServer(false);
+//            setContactServer(mySettings);
+//            //imgB.setImageResource(R.drawable.ic_looking);
+//        } else {
+//            getLIBDB().writeContactServer(true);
+//            setContactServer(mySettings);
+//            //imgB.setImageResource(R.drawable.ic_looking_pressed);
+//        }
+//    }
+
+//    private void setContactServer(_MySettings mySettings) {
+//        ImageButton imgB = (ImageButton) findViewById(contactServer);
+//
+//        if (mySettings.ContactServer) {
+//            imgB.setImageResource(R.drawable.ic_cloud);
+//        } else {
+//            imgB.setImageResource(R.drawable.ic_cloud_waiting);
+//        }
+//    }
+
+    private void setCentreMyBoat(_MySettings mySettings) {
+        ImageButton imgB = (ImageButton) findViewById(centreMyBoat);
+
+        if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.active) {
+            SRVGP.startListener();
+            imgB.setImageResource(R.drawable.ic_location);
+        } else if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.following) {
+            SRVGP.startListener();
+            imgB.setImageResource(R.drawable.ic_location_follow);
+        } else {
+            SRVGP.stopListener();
+            imgB.setImageResource(R.drawable.ic_location_waiting);
+        }
+    }
+
+    public void centreMyBoatOnClick(View view) {
+        ImageButton imgB = (ImageButton) findViewById(centreMyBoat);
+        _MySettings mySettings = getLIBDB().getMySettings();
+
+        if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.active) {
+            // If active need to change to following
+            getLIBDB().writeCentreMyBoat(_MySettings.enmCentreMyBoat.following);
+            imgB.setImageResource(R.drawable.ic_location_follow);
+        } else if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.following) {
+            // If following need to change to inactive
+            SRVGP.stopListener();
+            getLIBDB().writeCentreMyBoat(_MySettings.enmCentreMyBoat.inactive);
+            imgB.setImageResource(R.drawable.ic_location_waiting);
+        } else {
+            // If inactive need to change to active
+            SRVGP.startListener();
+            getLIBDB().writeCentreMyBoat(_MySettings.enmCentreMyBoat.active);
+            imgB.setImageResource(R.drawable.ic_location);
+        }
+
+        getLIBDB().writeChangedBoat(mySettings.BoatGuid);
+
+//        ImageButton imgB = (ImageButton) findViewById(R.id.centreMyBoat);
+//
+//        imgB.setImageResource(R.drawable.ic_looking);
+//
+//        _MySettings mySettings = getLIBDB().getMySettings();
+//
+//        if (mySettings.LastZoomLevel < MIN_ZOOM) mapController.setZoom(MIN_ZOOM);
+//        if (mySettings.LastZoomLevel > MAX_ZOOM) mapController.setZoom(MAX_ZOOM);
+//
+//        _Boat myBoatSettings = getLIBDB().getBoatSettings();
+//        mapController.animateTo(new GeoPoint(myBoatSettings.Latitude, myBoatSettings.Longitude));
+//        map.invalidate();
+    }
+}

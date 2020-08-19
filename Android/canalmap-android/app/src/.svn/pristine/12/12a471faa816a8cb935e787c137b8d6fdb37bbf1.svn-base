@@ -1,0 +1,271 @@
+package com.tyctak.cancamapp;
+
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.tyctak.cancamapp.entities._Waterway;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Library_GG implements PurchasesUpdatedListener {
+
+    private String TAG = "Library_GG";
+
+    private BillingClient mBillingClient;
+    private Activity parent;
+    private PurchaseResponseListener listener;
+
+    public interface PurchaseResponseListener {
+        void onPurchaseResponse(final int responseCode);
+    }
+
+    public interface PurchasesListener {
+        int onPurchase(int responseCode, List<Purchase> purchases, boolean verbose);
+    }
+
+    public boolean isNull() {
+        return (mBillingClient == null);
+    }
+
+    public boolean isReady() {
+        //Todo: if not isready, maybe we should retry a few times and then go on
+        return (mBillingClient != null ? mBillingClient.isReady() : false);
+    }
+
+    public void endConnection() {
+        if (mBillingClient != null) {
+            if (mBillingClient.isReady()) mBillingClient.endConnection();
+            mBillingClient = null;
+        }
+    }
+
+    public Library_GG(Activity pParent) {
+        parent = pParent;
+
+        mBillingClient = new BillingClient.Builder(parent).setListener(this).build();
+        mBillingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponse) { }
+            @Override
+            public void onBillingServiceDisconnected() { }
+        });
+    }
+
+    public int buyWaterwayListener(Context parent, String waterwayGuid, PurchaseResponseListener pListener) {
+        listener = pListener;
+
+        BillingFlowParams purchaseParams = new BillingFlowParams.Builder().setSku(waterwayGuid).setType(BillingClient.SkuType.INAPP).build();
+        int responseCode = mBillingClient.launchBillingFlow((Activity) parent, purchaseParams);
+        return responseCode;
+    }
+
+//    public void queryWaterways(final List<String> skuList, final SkuDetailsResponseListener listener) {
+//        mBillingClient.querySkuDetailsAsync(BillingClient.SkuType.INAPP, skuList, new SkuDetailsResponseListener() {
+//            @Override
+//            public void onSkuDetailsResponse(SkuDetails.SkuDetailsResult result) {
+//            listener.onSkuDetailsResponse(result);
+//            }
+//        });
+//    }
+
+    public int repairWaterwaysPurchased() {
+        Purchase.PurchasesResult result = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
+        List<Purchase> purchases = result.getPurchasesList();
+
+        int messageId;
+
+        if (isReady()) {
+            if (result.getResponseCode() == BillingClient.BillingResponse.OK) {
+                ArrayList<String> purchasedWaterways = Global.getLIBDB().getPurchasedWaterways();
+
+                for (String waterwayGuid : purchasedWaterways) {
+                    boolean isPurchased = false;
+                    for (int i = 0; i < purchases.size(); ++i) {
+                        if (purchases.get(i).getSku().equals(waterwayGuid)) {
+                            isPurchased = true;
+                            break;
+                        }
+                    }
+
+                    if (!isPurchased) {
+                        Log.d(TAG, "Remove " + waterwayGuid);
+                        Global.getLIBDB().writeRemoveWaterway(waterwayGuid);
+                    }
+                }
+
+                for (int i = 0; i < purchases.size(); ++i) {
+                    String waterwayGuid = purchases.get(i).getSku();
+                    _Waterway waterway = Global.getLIBDB().getWaterway(waterwayGuid);
+                    if (!waterway.Purchased) {
+                        Log.d(TAG, "Purchase " + waterwayGuid);
+                        Global.getLIBDB().writeBuyWaterway(waterwayGuid);
+                    }
+                }
+
+                messageId = R.string.msg_success_response;
+            } else {
+                Log.e(TAG, "Response code did not return OK");
+                messageId = R.string.msg_failed_response;
+            }
+        } else {
+            Log.e(TAG, "The Billing variable was not setup or you are in debug mode");
+            messageId = R.string.msg_failed_debug;
+        }
+
+        return messageId;
+
+//        return listener.onPurchase(result.getResponseCode(), purchases, true);
+    }
+
+    @Override
+    public void onPurchasesUpdated(int responseCode, List<Purchase> purchases) {
+        if (listener != null) listener.onPurchaseResponse(responseCode);
+    }
+
+//    public void checkPurchases() {
+//        repairWaterwaysPurchased(new Library_GG.PurchasesListener() {
+//            @Override
+//            public int onPurchase(int responseCode, List<Purchase> purchases, boolean verbose) {
+//                int messageId;
+//
+//                if (isReady()) {
+//                    if (responseCode == BillingClient.BillingResponse.OK) {
+//                        ArrayList<String> purchasedWaterways = getgetLIBDB().getPurchasedWaterways();
+//
+//                        for (String waterwayGuid : purchasedWaterways) {
+//                            boolean isPurchased = false;
+//                            for (int i = 0; i < purchases.size(); ++i) {
+//                                if (purchases.get(i).getSku().equals(waterwayGuid)) {
+//                                    isPurchased = true;
+//                                    break;
+//                                }
+//                            }
+//
+//                            if (!isPurchased) {
+//                                getgetLIBDB().writeRemoveWaterway(waterwayGuid);
+//                            }
+//                        }
+//
+//                        for (int i = 0; i < purchases.size(); ++i) {
+//                            String waterwayGuid = purchases.get(i).getSku();
+//                            _Waterway waterway = getgetLIBDB().getWaterway(waterwayGuid);
+//                            if (!waterway.Purchased) {
+//                                getgetLIBDB().writeBuyWaterway(waterwayGuid);
+//                            }
+//                        }
+//
+//                        messageId = R.string.msg_success_response;
+//                    } else {
+//                        Log.e(TAG, "Response code did not return OK");
+//                        messageId = R.string.msg_failed_response;
+//                    }
+//                } else {
+//                    Log.e(TAG, "The Billing variable was not setup or you are in debug mode");
+//                    messageId = R.string.msg_failed_debug;
+//                }
+//
+//                return messageId;
+//
+////                class completePurchase implements Runnable {
+////                    private String value;
+////                    completePurchase(String pValue) { value = pValue; }
+////                    public void run() {
+////                        FrameLayout progress = (FrameLayout) findViewById(R.id.progressWaitingFullScreenAboutUs);
+////                        progress.setVisibility(View.GONE);
+////
+////                        Library_UI LIBUI = new Library_UI();
+////                        LIBUI.snackBar(activityAboutUs, value);
+////                    }
+////                };
+////
+////                runOnUiThread(new completePurchase(message));
+//            }
+//        });
+
+//        repairWaterwaysPurchased(new Library_GG.PurchasesListener() {
+//            @Override
+//            public void onPurchase(int responseCode, List<Purchase> purchases, boolean verbose) {
+//                String message = "";
+//
+//                if (isReady()) {
+//                    if (responseCode == BillingClient.BillingResponse.OK) {
+//                        //TODO: Need to make sure that this works correctly before coding here
+//                        ArrayList<String> purchasedWaterways = getgetLIBDB().getPurchasedWaterways();
+//
+//                        for (String waterwayGuid : purchasedWaterways) {
+//                            boolean isPurchased = false;
+//                            for (int i = 0; i < purchases.size(); ++i) {
+//                                if (purchases.get(i).getSku().equals(waterwayGuid)) {
+//                                    isPurchased = true;
+//                                    break;
+//                                }
+//                            }
+//
+//                            if (!isPurchased) {
+//                                getgetLIBDB().writeRemoveWaterway(waterwayGuid);
+//                            }
+//                        }
+//
+//                        for (int i = 0; i < purchases.size(); ++i) {
+//                            String waterwayGuid = purchases.get(i).getSku();
+//                            String orderId = purchases.get(i).getOrderId();
+//                            _Waterway waterway = getgetLIBDB().getWaterway(waterwayGuid);
+//                            if (!waterway.Purchased) {
+//                                getgetLIBDB().writeBuyWaterway(waterwayGuid);
+//                            }
+//                        }
+//                    } else {
+//                        Log.e(TAG, "Response code did not return OK");
+//                    }
+//                } else {
+//                    Log.e(TAG, "The Billing variable was not setup or you are in debug mode");
+//                }
+//            }
+//        });
+//    }
+
+    public void buyWaterway(final ArrayAdapter arrayAdapter, final String waterwayGuid, final Activity parent) {
+        int responseCode = buyWaterwayListener(parent, waterwayGuid, new PurchaseResponseListener() {
+            @Override
+            public void onPurchaseResponse(final int responseCode) {
+                if (responseCode == BillingClient.BillingResponse.OK) {
+                    Global.setRedrawMap(true);
+                    Global.getLIBDB().writeBuyWaterway(waterwayGuid);
+                    arrayAdapter.notifyDataSetChanged();
+                } else {
+                    parent.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Library_UI LIBUI = new Library_UI();
+                            LIBUI.snackBar(parent, String.format("%s (%s)", parent.getString(R.string.msg_failed_billing1), responseCode));
+                            arrayAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            }
+        });
+
+        if (responseCode != BillingClient.BillingResponse.OK) {
+            try {
+                Log.e(TAG, "Billing returned error so waiting 5s and trying again");
+                Thread.sleep(2000);
+
+                if (isReady()) {
+                    repairWaterwaysPurchased();
+                } else {
+                    Log.e(TAG, "Billing was not ready so unable to check");
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}

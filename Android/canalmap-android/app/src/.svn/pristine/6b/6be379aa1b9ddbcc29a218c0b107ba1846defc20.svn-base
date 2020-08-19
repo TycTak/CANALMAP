@@ -1,0 +1,21 @@
+package com.tyctak.cancamapp.entities;
+
+public class _Waterway {
+    public Integer WaterwayId;
+    public String WaterwayGuid;
+    public String WaterwayName;
+    public String Price;
+    public String Type;
+    public byte[] Map;
+    public Integer TotalTiles;
+    public Integer TilesDownloaded;
+    public Integer Percentage;
+    public Boolean Empty;
+    public Integer MyVersion;
+    public Integer CurrentVersion;
+    public Boolean Purchased;
+    public String Availability;
+    public String Description;
+    public String FileName;
+    public Boolean Paused;
+}

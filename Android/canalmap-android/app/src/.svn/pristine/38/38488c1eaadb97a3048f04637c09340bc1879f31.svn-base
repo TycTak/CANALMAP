@@ -1,0 +1,35 @@
+package com.tyctak.cancamapp.entities;
+
+import com.tyctak.cancamapp.Library;
+import com.tyctak.cancamapp.R;
+
+public class _Boat {
+
+    public _Boat() {
+        Library LIB = new Library();
+        BoatGuid = LIB.getUUID().replace("-", "");
+    }
+
+    public enum enmStatus {
+        Moving,
+        NotMoving
+    }
+
+    public String BoatGuid;
+    public String BoatName;
+    public String People;
+    public Boolean AvatarChecked = true;
+    public Double Longitude = -1.332256;
+    public Double Latitude = 52.062873;
+    public Boolean IsHireBoat = false;
+    public byte[] Avatar;
+    public Integer Icon = R.drawable.ic_logo;
+    public enmStatus Status = enmStatus.NotMoving;
+    public Integer Direction = 0;
+    public Boolean Publish = false;
+    public Boolean Changed = false;
+    public Boolean ZeroAngleFixed = false;
+    public byte[] AvatarMarker;
+    public Integer Locks = 0;
+    public Double Distance = 0.0;
+}

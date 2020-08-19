@@ -1,0 +1,11 @@
+package com.tyctak.cancamapp.entities;
+
+public class _Tile {
+    public Integer Key;
+    public String WaterwayGuid;
+    public String TileUrl;
+    public Integer Priority;
+    public boolean Downloaded;
+    public byte[] Tile;
+    public String GroupKey;
+}

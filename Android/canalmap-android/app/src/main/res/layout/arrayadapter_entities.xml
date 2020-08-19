@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="clickGoTo"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp">
+
+                <LinearLayout
+                    android:id="@+id/myEntityMarker"
+                    android:layout_width="5dp"
+                    android:layout_height="40dp"
+                    android:orientation="vertical"
+                    android:background="@color/colorGoto">
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/buttonGoTo"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:textSize="14dp"
+                    android:scaleType="fitXY"
+                    android:visibility="visible"
+                    android:clickable="false"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:srcCompat="@drawable/ic_goto" >
+
+                </ImageButton>
+
+                <ImageView
+                    android:minHeight="20dp"
+                    android:id="@+id/entityType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:background="@null"
+                    android:textSize="14dp"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/ic_narrowboat"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="35dp" >
+
+                </ImageView>
+
+            </FrameLayout>
+
+            <ImageView
+                android:layout_marginTop="11dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/entityMarker"
+                app:srcCompat="@drawable/ic_missing"
+                android:focusable="false"
+                android:clickable="false"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginTop="1dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/entityName"
+                    android:textSize="20sp"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:maxLines="1"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="0dp"
+                    android:visibility="visible"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="19sp"
+                    android:maxLines="1"
+                    android:id="@+id/entityDescription"
+                    android:textSize="14sp"
+                    android:focusable="false"
+                    android:clickable="false" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="2dp">
+
+                <LinearLayout
+                    android:id="@+id/socialMedia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customsocialmedia"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="6dp">
+
+                    <ImageView
+                        android:id="@+id/imageWebsite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:minHeight="22dp"
+                        android:minWidth="22dp"
+                        android:scaleType="fitXY"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14dp"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/ic_website">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/imageYouTube"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:minHeight="22dp"
+                        android:minWidth="22dp"
+                        android:scaleType="fitXY"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14dp"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/ic_youtube">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/imageFacebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:minHeight="22dp"
+                        android:minWidth="22dp"
+                        android:scaleType="fitXY"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14dp"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/ic_facebook">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/imageTwitter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:minHeight="22dp"
+                        android:minWidth="22dp"
+                        android:scaleType="fitXY"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14dp"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/ic_twitter">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/imageInstagram"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:minHeight="22dp"
+                        android:minWidth="22dp"
+                        android:scaleType="fitXY"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14dp"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/ic_instagram">
+
+                    </ImageView>
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/buttonFavourite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:background="@null"
+                    android:minHeight="40dp"
+                    android:minWidth="40dp"
+                    android:layout_marginTop="2dp"
+                    android:onClick="clickFavourite"
+                    android:scaleType="fitXY"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14dp"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/ic_favourite_off">
+
+                </ImageButton>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

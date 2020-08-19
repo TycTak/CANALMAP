@@ -1,0 +1,1565 @@
+package com.tyctak.cancamapp;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.location.Location;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+
+import com.tyctak.cancamapp.entities._Boat;
+import com.tyctak.cancamapp.entities._DownloadedFile;
+import com.tyctak.cancamapp.entities._MySettings;
+import com.tyctak.cancamapp.entities._Poi;
+import com.tyctak.cancamapp.entities._PoiLocation;
+import com.tyctak.cancamapp.entities._System;
+import com.tyctak.cancamapp.entities._Tile;
+import com.tyctak.cancamapp.entities._Waterway;
+
+import org.osmdroid.util.GeoPoint;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+
+public class Library_DB extends SQLiteOpenHelper {
+
+    private final String TAG = "Library_DB";
+
+    public final static String DATABASE_NAME = "cancam.sqlite";
+    public final static String SYSTEM_NAME = "system.sqlite";
+    private final static int DATABASE_VERSION = 2;
+
+    private final String TABLE_MYSETTINGS = "mysettings";
+    private final String TABLE_BOATS = "boats";
+    private final String TABLE_SEARCH = "search";
+    private final String TABLE_WATERWAYS = "waterways";
+    private final String TABLE_POIS = "pois";
+    private final String TABLE_POILOCATIONS = "poilocations";
+    private final String TABLE_TILES = "tiles";
+
+    private static _System system;
+    public static SQLiteDatabase dbConn;
+    private Context context;
+
+    public Library_DB(Context ctx) {
+        super(ctx, String.valueOf((Global.DatOnSdCard ? ContextCompat.getExternalFilesDirs(ctx, "")[ContextCompat.getExternalFilesDirs(ctx, "").length - 1].getPath() + File.separator + DATABASE_NAME : ctx.getDatabasePath(DATABASE_NAME))), null, DATABASE_VERSION);
+        context = ctx;
+    }
+
+    public void createDB(Context ctx, boolean copy) {
+        Library_FS LIBFS = new Library_FS(ctx);
+
+        if (!dataBaseExists()) {
+            Log.d(TAG, "Creating database");
+
+            if (!LIBFS.isDatabase(DATABASE_NAME)) this.getReadableDatabase();
+
+            if (copy) {
+                if (Global.DatOnSdCard) {
+                    Log.d(TAG, "Copy database to SdCardRoot");
+                    LIBFS.copyFile(Library_FS.enmFolder.Assets, Library_FS.enmFolder.SdCard, DATABASE_NAME, null);
+                } else {
+                    Log.d(TAG, "Copy database to Data");
+                    LIBFS.copyFile(Library_FS.enmFolder.Assets, Library_FS.enmFolder.Data, DATABASE_NAME, null);
+                }
+
+                db().setVersion(DATABASE_VERSION);
+            }
+        }
+    }
+
+    private boolean dataBaseExists(){
+        Library_FS LIBFS = new Library_FS(MyApp.getContext());
+        boolean dbExists = LIBFS.isDatabase(DATABASE_NAME);
+        return dbExists;
+    }
+
+    public void closeDb() {
+        if (dbConn != null) dbConn.close();
+        dbConn = null;
+    }
+
+    private synchronized SQLiteDatabase db() {
+        if (dbConn == null) dbConn = this.getWritableDatabase();
+        return dbConn;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG, "onCreate");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d(TAG, "onUpgrade");
+
+        Library_FS LIBFS = new Library_FS();
+        ArrayList<String> sqlScript = LIBFS.readReleaseFile(MyApp.getContext(), oldVersion, newVersion);
+
+        for (String line: sqlScript) {
+            try {
+                db.execSQL(line);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d(TAG, "onDowngrade");
+        //Reset version number on database to previous version
+    }
+
+    private void begin() {
+        db().beginTransaction();
+    }
+
+    private void end() {
+        if (db().inTransaction()) {
+            db().setTransactionSuccessful();
+            db().endTransaction();
+        }
+    }
+
+//    public ArrayList<_Poi> getAllMarkers(String category) {
+//        ArrayList<_Poi> retval =  new ArrayList<_Poi>();
+//
+//        Cursor cursor = db().rawQuery("SELECT category, name, description, orderidx, action FROM " + TABLE_MARKERS + " WHERE area = 'markers' AND category = '" + category + "' ORDER BY orderidx, name", null);
+//
+//        while (cursor.moveToNext()) {
+//            _Poi symbolItem = new _Poi();
+//
+//            symbolItem.Category = cursor.getString(0);
+//            symbolItem.Name = cursor.getString(1);
+//            symbolItem.Description = cursor.getString(2);
+//            symbolItem.OrderIdx = cursor.getInt(3);
+//            symbolItem.Action = cursor.getString(4);
+//
+//            retval.add(symbolItem);
+//        };
+//
+//        cursor.close();
+//
+//        return retval;
+//    }
+
+    public ArrayList<_Poi> getPoisRecent(String area) {
+        Log.d(TAG, "getPoisRecent");
+        ArrayList<_Poi> retval =  new ArrayList<_Poi>();
+
+        Cursor cursor = db().rawQuery("SELECT DISTINCT p1.area AS category, p1.name, p2.description, 0 AS orderidx, p2.action FROM " + TABLE_POILOCATIONS + " p1 INNER JOIN " + TABLE_POIS + " p2 ON p1.name = p2.name WHERE p1.area = '" + area + "' AND (deleted = 0 OR deleted IS NULL) ORDER BY updated DESC LIMIT 10", null);
+
+        while (cursor.moveToNext()) {
+            _Poi poi = new _Poi();
+
+            poi.Category = cursor.getString(0);
+            poi.Name = cursor.getString(1);
+            poi.Description = cursor.getString(2);
+            poi.OrderIdx = cursor.getInt(3);
+            poi.Action = cursor.getString(4);
+
+            retval.add(poi);
+        };
+
+        cursor.close();
+
+        return retval;
+    }
+
+    public ArrayList<_Poi> getPois(String area, String category) {
+        Log.d(TAG, "getPois");
+        ArrayList<_Poi> retval =  new ArrayList<_Poi>();
+
+        Cursor cursor = db().rawQuery("SELECT category, name, description, orderidx, action FROM " + TABLE_POIS + " WHERE area = '" + area + "' AND category = '" + category + "' ORDER BY orderidx, name", null);
+
+        while (cursor.moveToNext()) {
+            _Poi poi = new _Poi();
+
+            poi.Category = cursor.getString(0);
+            poi.Name = cursor.getString(1);
+            poi.Description = cursor.getString(2);
+            poi.OrderIdx = cursor.getInt(3);
+            poi.Action = cursor.getString(4);
+
+            retval.add(poi);
+        };
+
+        cursor.close();
+
+        return retval;
+    }
+
+    public _PoiLocation getPoiLocation(int id) {
+        Log.d(TAG, "getAllMarkers");
+        _PoiLocation poi = null;
+
+        Cursor cursor = db().rawQuery("SELECT id, area, name, latitude, longitude, scope, boatguid, image, marker, action, message, created, updated, deleted FROM " + TABLE_POILOCATIONS + " WHERE id = " + id, null);
+
+        while (cursor.moveToNext()) {
+            poi = new _PoiLocation();
+
+            poi.Id = cursor.getString(0);
+            poi.Area = cursor.getString(1);
+            poi.Name = cursor.getString(2);
+            poi.Latitude = cursor.getDouble(3);
+            poi.Longitude = cursor.getDouble(4);
+            poi.Scope = cursor.getInt(5);
+            poi.BoatGuid = cursor.getString(6);
+            poi.Image = cursor.getBlob(7);
+            poi.Marker = cursor.getBlob(8);
+            poi.Action = cursor.getString(9);
+            poi.Message = cursor.getString(10);
+            poi.IsMessage = (poi.Message != null && !poi.Message.isEmpty());
+            poi.IsImage = (poi.Image != null);
+
+            long created = cursor.getLong(11);
+            long updated = cursor.getLong(12);
+            boolean deleted = (cursor.getInt(13) != 0);
+
+            poi.Status = (deleted ? _PoiLocation.enmStatus.Deleted : (updated == created ? _PoiLocation.enmStatus.Created : _PoiLocation.enmStatus.Updated));
+        };
+
+        cursor.close();
+
+        return poi;
+    }
+
+    public ArrayList<_PoiLocation> getPoiLocations(long last, String area) {
+        Log.d(TAG, "getAllMarkers");
+        ArrayList<_PoiLocation> markers = new ArrayList<>();
+        Cursor cursor;
+        int position = 0;
+
+        // AND updated > " + last
+        cursor = db().rawQuery("SELECT id, area, name, latitude, longitude, scope, boatguid, CASE WHEN image IS NULL THEN 0 ELSE 1 END AS isimage, marker, action, CASE WHEN message IS NULL OR message = '' THEN 0 ELSE 1 END AS ismessage, created, updated, deleted FROM " + TABLE_POILOCATIONS + " WHERE area = '" + area + "' AND (deleted = 0 OR deleted IS NULL)", null);
+
+        while (cursor.moveToNext()) {
+            _PoiLocation poi = new _PoiLocation();
+
+            poi.Id = cursor.getString(0);
+            poi.Area = cursor.getString(1);
+            poi.Name = cursor.getString(2);
+            poi.Latitude = cursor.getDouble(3);
+            poi.Longitude = cursor.getDouble(4);
+            poi.Scope = cursor.getInt(5);
+            poi.BoatGuid = cursor.getString(6);
+            poi.IsImage = (cursor.getInt(7) != 0);
+            poi.Marker = cursor.getBlob(8);
+            poi.Action = cursor.getString(9);
+            poi.IsMessage = (cursor.getInt(10) != 0);
+
+            long created = cursor.getLong(11);
+            long updated = cursor.getLong(12);
+            boolean deleted = (cursor.getInt(13) != 0);
+
+            poi.Updated = updated;
+            poi.Status = (deleted ? _PoiLocation.enmStatus.Deleted : (updated == created ? _PoiLocation.enmStatus.Created : _PoiLocation.enmStatus.Updated));
+
+            //poi.Index = position;
+            position += 1;
+
+            markers.add(poi);
+        };
+
+        cursor.close();
+
+        return markers;
+    }
+
+    public int getDBVersion() {
+        return db().getVersion();
+    }
+
+    public boolean writePoiLocationImage(int poiId, Bitmap image) {
+        boolean retval = false;
+        Library LIB = new Library();
+
+        ContentValues values = new ContentValues();
+
+        values.put("image", (image == null ? null : LIB.encodeBinary(image)));
+        values.put("updated", LIB.getDate(LIB.now()));
+
+        retval = (db().update(TABLE_POILOCATIONS, values, "id = " + poiId, null) > 0);
+
+        return retval;
+    }
+
+    public boolean writePoiLocationText(int poiId, String text) {
+        boolean retval = false;
+        Library LIB = new Library();
+
+        ContentValues values = new ContentValues();
+
+        values.put("message", text);
+        values.put("updated", LIB.getDate(LIB.now()));
+
+        retval = (db().update(TABLE_POILOCATIONS, values, "id = " + poiId, null) > 0);
+
+        return retval;
+    }
+
+    public int writePoiLocation(int id, String area, String name, double[] points, int scope, int status, String boatGuid, Bitmap image, String action, Bitmap marker, String message) {
+        int retval = -1;
+        Library LIB = new Library();
+
+        ContentValues values = new ContentValues();
+
+        if (id >= 0) {
+            values.put("name", name);
+            values.put("image", (image != null ? LIB.encodeBinary(image) : null ));
+            values.put("marker", LIB.encodeBinary(marker));
+            values.put("action", action);
+            values.put("message", message);
+            values.put("updated", LIB.getDate(LIB.now()));
+
+            if (db().update(TABLE_POILOCATIONS, values, "id = " + id, null) > 0) {
+                retval = id;
+            }
+        } else {
+            values.put("area", area);
+            values.put("name", name);
+            values.put("latitude", points[0]);
+            values.put("longitude", points[1]);
+            values.put("scope", scope);
+            values.put("boatguid", boatGuid);
+            values.put("image", (image != null ? LIB.encodeBinary(image) : null ));
+            values.put("marker", LIB.encodeBinary(marker));
+            values.put("action", action);
+            values.put("message", message);
+            long now = LIB.getDate(LIB.now());
+            values.put("created", now);
+            values.put("updated", now);
+
+            if (db().insert(TABLE_POILOCATIONS, null, values) > 0) {
+                Cursor cursor = db().rawQuery("SELECT last_insert_rowid()", null);
+                if (cursor.moveToFirst()) {
+                    retval = cursor.getInt(0);
+                }
+            }
+        }
+
+        return retval;
+    }
+
+    public boolean deletePoiLocation(int id) {
+        Library LIB = new Library();
+        ContentValues values = new ContentValues();
+        values.put("deleted", true);
+        values.put("updated", LIB.getDate(LIB.now()));
+        int retval = db().update(TABLE_POILOCATIONS, values, "id = " + id, null);
+        return (retval > 0);
+    }
+
+    public ArrayList<_PoiLocation> getAllMarkers(long last) {
+        return getPoiLocations(last, "markers");
+    }
+
+    public ArrayList<_PoiLocation> getAllSymbols(long last) {
+        return getPoiLocations(last, "symbols");
+    }
+
+    public ArrayList<_Boat> getBoats(Boolean getAll, String myBoatGuid) {
+        Log.d(TAG, "getBoats");
+        ArrayList<_Boat> boats = new ArrayList<>();
+        Cursor cursor;
+
+        if (getAll) {
+            cursor = db().rawQuery("SELECT boatguid, boatname, people, ishireboat, avatar, icon, status, longitude, latitude, locks, distance, avatarmarker, direction, avatarchecked, publish, changed, zeroanglefixed FROM " + TABLE_BOATS + "", null);
+        } else {
+            cursor = db().rawQuery("SELECT boatguid, boatname, people, ishireboat, avatar, icon, status, longitude, latitude, locks, distance, avatarmarker, direction, avatarchecked, publish, changed, zeroanglefixed FROM " + TABLE_BOATS + " WHERE changed = 1 OR boatguid = '" + myBoatGuid + "'", null);
+        }
+
+        while (cursor.moveToNext()) {
+            _Boat boat = new _Boat();
+
+            boat.BoatGuid = cursor.getString(0);
+            boat.BoatName = cursor.getString(1);
+            boat.People = cursor.getString(2);
+            boat.IsHireBoat = (cursor.getInt(3) != 0);
+            boat.Avatar = cursor.getBlob(4);
+            boat.Icon = cursor.getInt(5);
+            boat.Status = _Boat.enmStatus.values()[cursor.getInt(6)];
+            boat.Longitude = cursor.getDouble(7);
+            boat.Latitude = cursor.getDouble(8);
+            boat.Locks = cursor.getInt(9);
+            boat.Distance = cursor.getDouble(10);
+            boat.AvatarMarker = cursor.getBlob(11);
+            boat.Direction = cursor.getInt(12);
+            boat.AvatarChecked = (cursor.getInt(13) != 0);
+            boat.Publish = (cursor.getInt(14) != 0);
+            boat.Changed = (cursor.getInt(15) != 0);
+            boat.ZeroAngleFixed = (cursor.getInt(16) != 0);
+
+            boats.add(boat);
+        };
+
+        if (!getAll) db().execSQL("UPDATE " + TABLE_BOATS + " SET changed = 0 WHERE changed = 1");
+
+        cursor.close();
+
+        return boats;
+    }
+
+//    public Cursor getAllWaterways() {
+//        Log.d(TAG, "getAllWaterways");
+//        Cursor cursor = db().rawQuery("SELECT waterwayid AS _id, waterwayguid, waterwayname, price, type, map, totaltiles, tilesdownloaded, empty, myversion, currentversion, purchased, availability, paused FROM " + TABLE_WATERWAYS + " p1 ORDER BY price DESC, waterwayname ASC", null);
+//        cursor.moveToLast();
+//
+//        return cursor;
+//    }
+
+    public ArrayList<_Waterway> getAllWaterways() {
+        Log.d(TAG, "getAllWaterways");
+        ArrayList<_Waterway> waterways = new ArrayList<>();
+        //Cursor cursor = db().rawQuery("SELECT waterwayid AS _id, waterwayguid, waterwayname, price, type, map, totaltiles, tilesdownloaded, empty, myversion, currentversion, purchased, availability, paused FROM " + TABLE_WATERWAYS + " p1 ORDER BY price DESC, waterwayname ASC", null);
+        Cursor cursor = db().query(TABLE_WATERWAYS, new String[] {"waterwayid", "waterwayguid", "waterwayname", "price", "type", "totaltiles", "tilesdownloaded", "empty", "myversion", "currentversion", "purchased", "availability", "paused" }, null, null, null, null, "price DESC, waterwayname ASC", null);
+
+        while (cursor.moveToNext()) {
+            _Waterway waterway = new _Waterway();
+
+            waterway.WaterwayId = cursor.getInt(0);
+            waterway.WaterwayGuid = cursor.getString(1);
+            waterway.WaterwayName = cursor.getString(2);
+            waterway.Price = cursor.getString(3);
+            waterway.Type = cursor.getString(4);
+            waterway.TotalTiles = cursor.getInt(5);
+            waterway.TilesDownloaded = cursor.getInt(6);
+            waterway.Empty = (cursor.getInt(7) != 0);
+            waterway.MyVersion = cursor.getInt(8);
+            waterway.CurrentVersion = cursor.getInt(9);
+            waterway.Purchased = (cursor.getInt(10) != 0);
+            waterway.Availability = cursor.getString(11);
+            waterway.Paused = (cursor.getInt(12) != 0);
+
+            waterways.add(waterway);
+        }
+
+        cursor.close();
+
+        return waterways;
+    }
+
+    public ArrayList<String> getPurchasedWaterways() {
+        Log.d(TAG, "getPurchasedWaterways");
+        ArrayList<String> purchasedWaterways = new ArrayList<>();
+
+        Cursor cursor = db().rawQuery("SELECT waterwayguid FROM " + TABLE_WATERWAYS + " WHERE purchased = 1 ORDER BY waterwayname ASC", null);
+
+        while (cursor.moveToNext()) {
+            purchasedWaterways.add(cursor.getString(0));
+        }
+
+        return purchasedWaterways;
+    }
+
+//    public String getWaterwayRoute(String waterwayGuid) {
+//        String retval = "";
+//
+//        Log.d(TAG, "getWaterwaysRoute");
+//        Cursor cursor = db().rawQuery("SELECT route FROM waterways WHERE waterwayguid = '" + waterwayGuid + "'", null);
+//        if (cursor.moveToFirst()) {
+//            retval = cursor.getString(0);
+//        }
+//
+//        cursor.close();
+//
+//        return retval;
+//    }
+
+    public boolean writeAvatarMarker(Bitmap avatarMarker) {
+        Log.d(TAG, "writeAvatarMarker");
+        boolean retval;
+
+        String boatGuid = getMyBoatGuid();
+        Library LIB = new Library();
+
+        ContentValues values = new ContentValues();
+        values.put("avatarmarker", (avatarMarker != null ? LIB.encodeBinary(avatarMarker) : null ));
+        values.put("publish", true);
+
+        retval = (db().update(TABLE_BOATS, values, "boatguid = '" + boatGuid + "'", null) > 0);
+
+        return retval;
+    }
+
+    public boolean writeBoat(String boatguid, String boatname, String people, Boolean ishireboat, Bitmap avatar, Integer icon, Bitmap avatarMarker, Boolean avatarChecked) {
+        Log.d(TAG, "writeBoat");
+        boolean retval;
+        Library LIB = new Library();
+
+        ContentValues values = new ContentValues();
+        values.put("boatname", boatname);
+        values.put("people", people);
+        values.put("ishireboat", ishireboat);
+        values.put("avatar", (avatar != null ? LIB.encodeBinary(avatar) : null ));
+        values.put("icon", icon);
+        values.put("avatarmarker", (avatarMarker != null ? LIB.encodeBinary(avatarMarker) : null ));
+        values.put("changed", true);
+        values.put("avatarchecked", avatarChecked);
+
+        Cursor cursor = db().rawQuery("SELECT avatar, avatarchecked FROM " + TABLE_BOATS + " WHERE boatguid = '" + boatguid + "'", null);
+
+        if (!cursor.moveToFirst()) {
+            values.put("boatguid", boatguid);
+
+            _Boat boat = new _Boat();
+            values.put("longitude", boat.Longitude);
+            values.put("latitude", boat.Latitude);
+            values.put("locks", boat.Locks);
+            values.put("distance", boat.Distance);
+            values.put("status", boat.Status.toString());
+            values.put("direction", boat.Direction);
+            values.put("avatarchecked", false);
+            values.put("publish", true);
+
+            retval = (db().insert(TABLE_BOATS, null, values) > 0);
+        } else {
+            byte[] avatarTemp = cursor.getBlob(0);
+            Boolean avatarCheckedTemp = (cursor.getInt(1) != 0);
+            values.put("avatarchecked", (!avatarCheckedTemp && avatar != null ? avatarCheckedTemp : (avatar == null || (avatarTemp != null && avatar.equals(avatarTemp)))));
+            values.put("publish", true);
+
+            retval = (db().update(TABLE_BOATS, values, "boatguid = '" + boatguid + "'", null) > 0);
+        }
+
+        cursor.close();
+
+        return retval;
+    }
+
+    public String getMyBoatGuid() {
+//        Log.d(TAG, "getMyBoatGuid");
+        String retval;
+
+        Cursor cursor = db().rawQuery("SELECT boatguid FROM " + TABLE_MYSETTINGS, null);
+
+        if (cursor.moveToFirst()) {
+            retval = cursor.getString(0);
+            cursor.close();
+        } else {
+            cursor.close();
+            if (insertMySettings()) {
+                _MySettings mySettings = getMySettings();
+                retval = mySettings.BoatGuid;
+            } else {
+                throw new RuntimeException();
+            }
+        }
+
+        return retval;
+    }
+
+    public _Waterway getWaterway(int waterwayId) {
+        Log.d(TAG, "getWaterway");
+        _Waterway waterway = null;
+
+        Cursor cursor = db().rawQuery("SELECT waterwayid AS _id, waterwayguid, waterwayname, price, type, map, totaltiles, tilesdownloaded, percentage, empty, myversion, currentversion, purchased, availability, description, filename, paused FROM " + TABLE_WATERWAYS + " p1 WHERE waterwayid = '" + waterwayId + "' ORDER BY waterwayname ASC", null);
+
+        if (cursor.moveToFirst()) {
+            waterway =  new _Waterway();
+            waterway.WaterwayId = cursor.getInt(0);
+            waterway.WaterwayGuid = cursor.getString(1);
+            waterway.WaterwayName = cursor.getString(2);
+            waterway.Price = cursor.getString(3);
+            waterway.Type = cursor.getString(4);
+            waterway.Map = cursor.getBlob(5);
+            waterway.TotalTiles = cursor.getInt(6);
+            waterway.TilesDownloaded = cursor.getInt(7);
+            waterway.Percentage = cursor.getInt(8);
+            waterway.Empty = (cursor.getInt(9) != 0);
+            waterway.MyVersion = cursor.getInt(10);
+            waterway.CurrentVersion = cursor.getInt(11);
+            waterway.Purchased = (cursor.getInt(12) != 0);
+            waterway.Availability = cursor.getString(13);
+            waterway.Description = cursor.getString(14);
+            waterway.FileName = cursor.getString(15);
+            waterway.Paused = (cursor.getInt(16) > 0);
+        }
+
+        cursor.close();
+
+        return waterway;
+    }
+
+    public _Waterway getWaterway(String waterwayGuid) {
+        Log.d(TAG, "getWaterway");
+        _Waterway waterway = null;
+
+        Cursor cursor = db().rawQuery("SELECT waterwayid AS _id, waterwayguid, waterwayname, price, type, map, totaltiles, tilesdownloaded, percentage, empty, myversion, currentversion, purchased, availability, description, filename, paused FROM " + TABLE_WATERWAYS + " p1 WHERE waterwayguid = '" + waterwayGuid + "' ORDER BY waterwayname ASC", null);
+
+        if (cursor.moveToFirst()) {
+            waterway =  new _Waterway();
+            waterway.WaterwayId = cursor.getInt(0);
+            waterway.WaterwayGuid = cursor.getString(1);
+            waterway.WaterwayName = cursor.getString(2);
+            waterway.Price = cursor.getString(3);
+            waterway.Type = cursor.getString(4);
+            waterway.Map = cursor.getBlob(5);
+            waterway.TotalTiles = cursor.getInt(6);
+            waterway.TilesDownloaded = cursor.getInt(7);
+            waterway.Percentage = cursor.getInt(8);
+            waterway.Empty = (cursor.getInt(9) != 0);
+            waterway.MyVersion = cursor.getInt(10);
+            waterway.CurrentVersion = cursor.getInt(11);
+            waterway.Purchased = (cursor.getInt(12) != 0);
+            waterway.Availability = cursor.getString(13);
+            waterway.Description = cursor.getString(14);
+            waterway.FileName = cursor.getString(15);
+            waterway.Paused = (cursor.getInt(16) > 0);
+        }
+
+        cursor.close();
+
+        return waterway;
+    }
+
+    public _Boat getBoat(String boatGuid) {
+        Log.d(TAG, "getBoat");
+        _Boat boat = null;
+
+        Cursor cursor = db().rawQuery("SELECT boatguid, boatname, people, ishireboat, avatar, icon, status, longitude, latitude, locks, distance, avatarmarker, direction, avatarchecked, publish, changed, zeroanglefixed FROM " + TABLE_BOATS + " WHERE boatguid = '" + boatGuid + "'", null);
+
+        if (cursor.moveToFirst()) {
+            boat = new _Boat();
+            boat.BoatGuid = cursor.getString(0);
+            boat.BoatName = cursor.getString(1);
+            boat.People = cursor.getString(2);
+            boat.IsHireBoat = (cursor.getInt(3) != 0);
+            boat.Avatar = cursor.getBlob(4);
+            boat.Icon = cursor.getInt(5);
+            boat.Status = _Boat.enmStatus.values()[cursor.getInt(6)];
+            boat.Longitude = cursor.getDouble(7);
+            boat.Latitude = cursor.getDouble(8);
+            boat.Locks = cursor.getInt(9);
+            boat.Distance = cursor.getDouble(10);
+            boat.AvatarMarker = cursor.getBlob(11);
+            boat.Direction = cursor.getInt(12);
+            boat.AvatarChecked = (cursor.getInt(13) != 0);
+            boat.Publish = (cursor.getInt(14) != 0);
+            boat.Changed = (cursor.getInt(15) != 0);
+            boat.ZeroAngleFixed = (cursor.getInt(16) != 0);
+        }
+
+        cursor.close();
+
+        return boat;
+    }
+
+    public _Boat getBoatSettings(String boatGuid) {
+        _Boat boat = getBoat(boatGuid);
+
+        if (boat == null) {
+            _Boat temp = new _Boat();
+            if (writeBoat(boatGuid, null, null, temp.IsHireBoat, null, temp.Icon, null, temp.AvatarChecked)) {
+                boat = getBoatSettings(boatGuid);
+            } else {
+                throw new RuntimeException();
+            }
+        }
+
+        return boat;
+    }
+
+    public _Boat getBoatSettings() {
+        String boatGuid = getMyBoatGuid();
+        return getBoatSettings(boatGuid);
+    }
+
+    public boolean writeBoatPosition(Location location, String boatGuid, int accuracy, boolean zeroAngleFixed, _Boat.enmStatus status) {
+        Log.d(TAG, "writeBoatPosition");
+        boolean retval;
+
+        Library LIB = new Library();
+        _Boat boatSettings = getBoatSettings();
+        Location lastLocation = new Location("");
+
+        if (boatSettings.Latitude > 0) {
+            lastLocation.setLatitude(boatSettings.Latitude);
+            lastLocation.setLongitude(boatSettings.Longitude);
+        } else {
+            lastLocation.setLatitude(location.getLatitude());
+            lastLocation.setLongitude(location.getLongitude());
+        }
+
+        ContentValues boatValues = new ContentValues();
+        boatValues.put("longitude", location.getLongitude());
+        boatValues.put("latitude", location.getLatitude());
+        boatValues.put("direction", (int)location.getBearing());
+        boatValues.put("changed", 1);
+        boatValues.put("zeroanglefixed", (zeroAngleFixed ? 1 : 0));
+        boatValues.put("status", status.ordinal());
+
+        ContentValues mySettingsValues = new ContentValues();
+        mySettingsValues.put("accuracy", accuracy);
+        mySettingsValues.put("stoppedtrigger", (status == _Boat.enmStatus.Moving ? LIB.getDate(LIB.now()) : null));
+
+        begin();
+        retval = (db().update(TABLE_BOATS, boatValues, "boatguid = '" + boatGuid + "'", null) > 0);
+        retval = (!retval || db().update(TABLE_MYSETTINGS, mySettingsValues, null, null) > 0);
+        end();
+
+        return retval;
+    }
+
+    public boolean writeBoatStatus(String boatGuid, _Boat.enmStatus status) {
+        Log.d(TAG, "writeBoatStatus");
+        ContentValues values = new ContentValues();
+        values.put("changed", 1);
+        values.put("status", status.ordinal());
+
+        boolean retval = (db().update(TABLE_BOATS, values, "boatguid = '" + boatGuid + "'", null) > 0);
+
+        return retval;
+    }
+
+    public _MySettings getMySettings() {
+        Log.d(TAG, "getMySettings");
+        _MySettings mySettings =  new _MySettings();
+
+        Cursor cursor = db().rawQuery("SELECT lastzoomlevel, centrelongitude, centrelatitude, boatguid, isdebug, centremyboat, contactserver, updategps, accuracy, waterwaydate, searchdate, boatdate, connectdate, symboldate, itemdate, offset, paused, stoppedtrigger FROM " + TABLE_MYSETTINGS, null);
+
+        if (cursor.moveToFirst()) {
+            mySettings.LastZoomLevel = cursor.getInt(0);
+            mySettings.CentreLongitude = cursor.getDouble(1);
+            mySettings.CentreLatitude = cursor.getDouble(2);
+            mySettings.BoatGuid = cursor.getString(3);
+            mySettings.IsDebug = (cursor.getInt(4) != 0);
+            mySettings.CentreMyBoat = _MySettings.enmCentreMyBoat.values()[cursor.getInt(5)];
+            mySettings.ContactServer = (cursor.getInt(6) > 0);
+            mySettings.UpdateGps = cursor.getInt(7);
+            mySettings.Accuracy = cursor.getInt(8);
+            mySettings.WaterwayDate = new Date(cursor.getLong(9));
+            mySettings.SearchDate = new Date(cursor.getLong(10));
+            mySettings.BoatDate = new Date(cursor.getLong(11));
+            mySettings.ConnectDate = new Date(cursor.getLong(12));
+            mySettings.SymbolDate = new Date(cursor.getLong(13));
+            mySettings.ItemDate = new Date(cursor.getLong(14));
+            mySettings.OffSet = cursor.getInt(15);
+            mySettings.Paused = (cursor.getInt(16) != 0);
+            mySettings.StoppedTrigger = new Date(cursor.getLong(17));
+            cursor.close();
+        } else {
+            cursor.close();
+            if (insertMySettings()) {
+                mySettings = getMySettings();
+            }
+        }
+
+        return mySettings;
+    }
+
+    public synchronized _System getSystem() {
+        if (system == null) system = new _System();
+        return system;
+    }
+
+    public boolean insertMySettings() {
+        Log.d(TAG, "insertMySettings");
+        _MySettings mySettings = new _MySettings();
+
+        ContentValues values = new ContentValues();
+        values.put("lastzoomlevel", mySettings.LastZoomLevel);
+        values.put("centrelatitude", mySettings.CentreLatitude);
+        values.put("centrelongitude", mySettings.CentreLongitude);
+        values.put("centremyboat", mySettings.CentreMyBoat.ordinal());
+        values.put("contactserver", mySettings.ContactServer);
+        values.put("boatguid", mySettings.BoatGuid);
+        values.put("updategps", mySettings.UpdateGps);
+
+        boolean retval = (db().insert(TABLE_MYSETTINGS, null, values) > 0);
+
+        return retval;
+    }
+
+    public boolean writeCentreLocation(Double longitude, Double latitude) {
+        Log.d(TAG, "writeCentreLocation");
+        ContentValues values = new ContentValues();
+        values.put("centrelongitude", longitude);
+        values.put("centrelatitude", latitude);
+
+        boolean retval = (db().update(TABLE_MYSETTINGS, values, null, null) > 0);
+
+        return retval;
+    }
+
+    public boolean writeUpdateGps(Integer updateGpsTiming) {
+        Log.d(TAG, "writeUpdateGps");
+        boolean retval;
+
+        ContentValues values = new ContentValues();
+        values.put("updategps", updateGpsTiming);
+
+        retval = (db().update(TABLE_MYSETTINGS, values, null, null) > 0);
+
+        return retval;
+    }
+
+    public Boolean writePaused(Boolean paused) {
+        Log.d(TAG, "writePaused");
+        Boolean retval;
+
+        ContentValues values = new ContentValues();
+        values.put("paused", (paused ? 1 : 0));
+
+        begin();
+        retval = (db().update(TABLE_MYSETTINGS, values, null, null) > 0);
+        if (!paused && retval) retval = (db().update(TABLE_WATERWAYS, values, "purchased = 1", null) > 0);
+        end();
+
+        return retval;
+    }
+
+    public boolean writeZoomLevel(Integer zoomLevel) {
+        Log.d(TAG, "writeZoomLevel");
+        ContentValues values = new ContentValues();
+        values.put("lastzoomlevel", zoomLevel);
+
+        boolean retval = (db().update(TABLE_MYSETTINGS, values, null, null) > 0);
+
+        return retval;
+    }
+
+    public boolean writeCentreMyBoat(_MySettings.enmCentreMyBoat centreMyBoat) {
+        Log.d(TAG, "writeCentreMyBoat");
+        ContentValues values = new ContentValues();
+        values.put("centremyboat", centreMyBoat.ordinal());
+
+        boolean retval = (db().update(TABLE_MYSETTINGS, values, null, null) > 0);
+
+        return retval;
+    }
+
+    //Todo: need to check whether this does anything
+    public void initialiseCache() {
+        Log.d(TAG, "initialiseCache");
+        begin();
+
+        Cursor cursor = db().rawQuery("SELECT waterwayguid FROM waterways WHERE waterwayguid <> '" + Global.getAllWaterwayGuid() + "'", null);
+
+        while(cursor.moveToNext()) {
+            String waterwayGuid = cursor.getString(0);
+            db().execSQL("UPDATE waterways SET totaltiles = 0, tilesdownloaded = 0, percentage = 0, empty = 1, myversion = 0 WHERE waterwayguid = '" + waterwayGuid + "'");
+            db().execSQL("DELETE FROM tiles WHERE waterwayguid = '" + waterwayGuid + "'");
+        }
+
+        db().execSQL("UPDATE mysettings SET vacuum = 1");
+        end();
+    }
+
+    public void writeVacuum(boolean on) {
+        db().execSQL("UPDATE mysettings SET vacuum = " + (on ? 1 : 0));
+    }
+
+    public boolean getVacuum() {
+        Log.d(TAG, "getVacuum");
+        Log.d(TAG, "Global.DatOnSdCard=" + Global.DatOnSdCard);
+        Cursor cursor = db().rawQuery("SELECT vacuum FROM mysettings", null);
+        boolean retval = (cursor.moveToFirst() && cursor.getInt(0) != 0);
+        cursor.close();
+
+        return retval;
+    }
+
+    public boolean writeEmptyWaterway(String waterwayGuid, boolean delete) {
+        Log.d(TAG, "writeEmptyWaterway");
+        boolean retval = false;
+
+        ContentValues values = new ContentValues();
+        values.put("empty", 1);
+        values.put("tilesdownloaded", 0);
+        values.put("percentage", 0);
+
+        if (delete) {
+            values.put("totaltiles", 0);
+            db().delete("tiles", "waterwayguid = '" + waterwayGuid + "'", null);
+        } else {
+            db().execSQL("UPDATE tiles SET tile = null, downloaded = 0, priority = 0 WHERE waterwayguid = '" + waterwayGuid + "'");
+        }
+
+        retval = (db().update("waterways", values, "waterwayguid = '" + waterwayGuid + "'", null) > 0);
+
+        if (delete) db().execSQL("UPDATE mysettings SET vacuum = 1");
+
+        return retval;
+    }
+
+    public synchronized void cleanDatabase() {
+        Log.d(TAG, "cleanDatabase");
+        db().execSQL("UPDATE mysettings SET vacuum = 0");
+        db().execSQL("vacuum");
+    }
+
+    public boolean getPaused() {
+        Log.d(TAG, "getPaused");
+        Cursor cursor = db().rawQuery("SELECT paused FROM " + TABLE_MYSETTINGS, null);
+        boolean retval = (cursor.moveToFirst() && cursor.getInt(0) != 0);
+        cursor.close();
+
+        return retval;
+    }
+
+    public boolean getStopped(String waterwayGuid) {
+        Log.d(TAG, "getStopped");
+        Cursor cursor = db().rawQuery("SELECT paused, empty FROM " + TABLE_WATERWAYS + " WHERE waterwayguid = '" + waterwayGuid + "'", null);
+        boolean retval = (cursor.moveToFirst() && !((cursor.getInt(0) == 0) && (cursor.getInt(0) == 0)));
+        cursor.close();
+
+        return retval;
+    }
+
+    public boolean getPurchased(String waterwayGuid) {
+        Log.d(TAG, "getPurchased");
+        Cursor cursor = db().rawQuery("SELECT purchased FROM " + TABLE_WATERWAYS + " WHERE waterwayguid = '" + waterwayGuid + "'", null);
+        boolean retval = (cursor.moveToFirst() && cursor.getInt(0) != 0);
+        cursor.close();
+
+        return retval;
+    }
+
+    public void writeTotalTiles(String waterwayGuid, int totalTiles) {
+        Log.d(TAG, "writeTotalTiles");
+//        Cursor cursor = db().rawQuery("SELECT DISTINCT COUNT(*) AS ct FROM tiles WHERE waterwayguid = '" + waterwayGuid + "'", null);
+//        int totalTiles = (cursor.moveToFirst() ? cursor.getInt(0) : 0);
+
+        ContentValues values = new ContentValues();
+        values.put("totaltiles", totalTiles);
+        db().update("waterways", values, "waterwayguid = '" + waterwayGuid + "'", null);
+    }
+
+//    public String getInClause() {
+//        String inClause = "";
+//        //empty = 0 AND
+//        Cursor waterwaysCursor = db().rawQuery("SELECT waterwayguid FROM waterways WHERE purchased = 1 AND paused = 0 AND tilesdownloaded < totaltiles", null);
+//        while(waterwaysCursor.moveToNext()) {
+//            if (inClause.isEmpty()) {
+//                inClause = "'" + waterwaysCursor.getString(0) + "'";
+//            } else {
+//                inClause += ", '" + waterwaysCursor.getString(0) + "'";
+//            }
+//        }
+//        return inClause;
+//    }
+
+    public String getEqualsClause() {
+        String inClause = "";
+        //empty = 0 AND
+        Cursor waterwaysCursor = db().rawQuery("SELECT waterwayid FROM waterways WHERE purchased = 1 AND paused = 0 AND tilesdownloaded < totaltiles", null);
+        while(waterwaysCursor.moveToNext()) {
+            if (inClause.isEmpty()) {
+                inClause = "(waterwayid = " + waterwaysCursor.getInt(0);
+            } else {
+                inClause += " OR waterwayid = " + waterwaysCursor.getString(0);
+            }
+        }
+        if (!inClause.isEmpty()) inClause += ") AND ";
+        return inClause;
+    }
+
+    public String getInClause() {
+        String inClause = "";
+        Cursor waterwaysCursor = db().rawQuery("SELECT waterwayid FROM waterways WHERE purchased = 1 AND paused = 0 AND tilesdownloaded < totaltiles", null);
+        while(waterwaysCursor.moveToNext()) {
+            if (inClause.isEmpty()) {
+                inClause = "waterwayid IN (" + waterwaysCursor.getString(0);
+            } else {
+                inClause += ", " + waterwaysCursor.getString(0);
+            }
+        }
+        if (!inClause.isEmpty()) inClause += ") AND ";
+        return inClause;
+    }
+
+    public ArrayList<_Tile> getWaitingTiles(String whereClause) {
+        //Log.d(TAG, "getWaitingTiles START");
+
+        ArrayList<_Tile> tiles = new ArrayList<>();
+
+        if (whereClause != null && whereClause != "") {
+            // removed  "AND type = 1"
+            //Cursor cursor = db().rawQuery("SELECT key, waterwayguid, tileurl FROM tiles INDEXED BY speedUpGetWaitingTilesWaterwayId WHERE waterwayid IN (" + inClause + ") AND downloaded = 0 ORDER BY priority, created DESC LIMIT 50", null);
+            Cursor cursor = db().rawQuery("SELECT key, waterwayguid, tileurl FROM tiles INDEXED BY speedUpGetWaitingTilesWaterwayId WHERE " + whereClause + " downloaded = 0 ORDER BY priority, created DESC LIMIT 50", null);
+            //
+
+//            int key = 0;
+//
+//            for (int i = 0; i < 10 ; i++) {
+//                Cursor cursor = db().rawQuery("SELECT key, waterwayguid, tileurl FROM tiles INDEXED BY speedUpGetWaitingTilesWaterwayId WHERE " + whereClause + " key > " + key + " AND downloaded = 0 ORDER BY key ASC LIMIT 10", null);
+//                //Cursor cursor = db().rawQuery("SELECT key, waterwayguid, tileurl FROM tiles INDEXED BY speedUpGetWaitingTilesWaterwayId WHERE " + whereClause + " downloaded = 0 ORDER BY priority, created DESC LIMIT 10", null);
+
+            //Log.d(TAG, "getWaitingTiles START #1");
+
+            while (cursor.moveToNext()) {
+                _Tile tile = new _Tile();
+
+                tile.Key = cursor.getInt(0);
+                tile.WaterwayGuid = cursor.getString(1);
+                tile.TileUrl = cursor.getString(2);
+
+//                key = tile.Key;
+
+                tiles.add(tile);
+            }
+
+            cursor.close();
+//            }
+        }
+
+        Log.d(TAG, "getWaitingTiles END");
+
+        return tiles;
+    }
+
+    public boolean writeRetrievedTile(int key, String waterwayGuid, byte[] tile) {
+//        Log.d(TAG, "writeRetrievedTile");
+        ContentValues values = new ContentValues();
+        values.put("downloaded", 1);
+        values.put("tile", tile);
+        values.put("priority", 0);
+
+        begin();
+        boolean retval = (db().update("tiles", values, "key = " + key + " AND waterwayguid = '" + waterwayGuid + "'", null) > 0);
+        db().execSQL("UPDATE " + TABLE_WATERWAYS + " SET tilesdownloaded = tilesdownloaded + 1, percentage = CAST((tilesdownloaded + 1) / CAST(totaltiles AS FLOAT) * 100 AS INT) WHERE waterwayguid = '" + waterwayGuid + "'");
+        end();
+
+        return retval;
+    }
+
+    public boolean writeChangedBoat(String boatGuid, Boolean changed) {
+        Log.d(TAG, "writeChangedBoat");
+        ContentValues values = new ContentValues();
+        values.put("changed", (changed ? "1" : "0"));
+
+        boolean retval = (db().update("boats", values, "boatguid = '" + boatGuid + "'", null) > 0);
+
+        return retval;
+    }
+
+    public ArrayList<_Waterway> getTileWaterways(String groupKey) {
+        Log.d(TAG, "getTileWaterways");
+        ArrayList<_Waterway> tiles = new ArrayList<>();
+
+        Cursor cursor = db().rawQuery("SELECT waterwayname, purchased, paused, empty FROM waterways WHERE waterwayid IN (" + groupKey + ") ORDER BY waterwayname DESC", null);
+
+        while (cursor.moveToNext()) {
+            _Waterway waterway = new _Waterway();
+            waterway.WaterwayName = cursor.getString(0);
+            waterway.Purchased = (cursor.getInt(1) != 0);
+            waterway.Paused = (cursor.getInt(2) != 0);
+            waterway.Empty = (cursor.getInt(3) != 0);
+            tiles.add(waterway);
+        }
+
+        cursor.close();
+
+        return tiles;
+    }
+
+    public ArrayList<_Waterway> getTileWaterways(int key) {
+        Log.d(TAG, "getTileWaterways");
+        ArrayList<_Waterway> tiles = new ArrayList<>();
+
+        //Cursor cursor = db().rawQuery("SELECT p2.waterwayname, p2.purchased, p2.paused, p2.empty FROM tiles p1 INNER JOIN waterways p2 ON p2.waterwayguid = p1.waterwayguid WHERE p1.key = " + key + " AND p1.type = 1 ORDER BY p2.waterwayname DESC", null);
+        Cursor cursor = db().rawQuery("SELECT p2.waterwayname, p2.purchased, p2.paused, p2.empty FROM crosscheck p1 INNER JOIN waterways p2 ON p2.waterwayid = p1.waterwayid WHERE p1.key = " + key + " ORDER BY p2.waterwayname DESC", null);
+
+        while (cursor.moveToNext()) {
+            _Waterway waterway = new _Waterway();
+            waterway.WaterwayName = cursor.getString(0);
+            waterway.Purchased = (cursor.getInt(1) != 0);
+            waterway.Paused = (cursor.getInt(2) != 0);
+            waterway.Empty = (cursor.getInt(3) != 0);
+            tiles.add(waterway);
+        }
+
+        cursor.close();
+
+        return tiles;
+    }
+
+    public _Tile getTile(int key) {
+        Log.d(TAG, "getTile");
+        _Tile tile = new _Tile();
+        tile.Key = key;
+
+        Cursor cursor = db().rawQuery("SELECT key, tile, waterwayguid, downloaded, tileurl FROM tiles WHERE key = " + key + " AND type = 1 ORDER BY tile DESC, waterwayguid DESC", null);
+
+        if (cursor.moveToFirst()) {
+            tile.Tile = cursor.getBlob(1);
+            tile.Downloaded = (cursor.getInt(3) > 0);
+            tile.WaterwayGuid = cursor.getString(2);
+            tile.TileUrl = cursor.getString(4);
+            tile.Priority = 0;
+        } else {
+            cursor = db().rawQuery("SELECT key FROM crosscheck WHERE key = " + key + " LIMIT 1", null);
+            if (cursor.moveToFirst()) {
+                tile.Priority = -1;
+            } else {
+                tile.Priority = -2;
+            }
+        }
+
+//        while(cursor.moveToNext()) {
+//            if (cursor.getPosition() == 0) {
+//                tile.Tile = cursor.getBlob(1);
+//                tile.Downloaded = (cursor.getInt(3) > 0);
+//                tile.WaterwayGuid = cursor.getString(2);
+//                tile.TileUrl = cursor.getString(4);
+//            }
+//        }
+
+//        Cursor cursorCrossCheck = db().rawQuery("SELECT waterwayids FROM crosscheck WHERE key = " + key, null);
+//        if (cursorCrossCheck.moveToFirst()) {
+//            tile.GroupKey = cursorCrossCheck.getString(0);
+//        }
+//        String sGroupKey = "";
+//
+//        while(cursorCrossCheck.moveToNext()) {
+//            if (sGroupKey.isEmpty()) {
+//                sGroupKey = cursor.getInt(0) + "";
+//            } else {
+//                sGroupKey += ";" + cursor.getInt(0);
+//            }
+//        }
+
+        cursor.close();
+        //cursorCrossCheck.close();
+
+        return tile;
+    }
+
+    public ArrayList<_Waterway> getListCrossCheckedWaterways(int key) {
+        ArrayList<_Waterway> waterways = new ArrayList<>();
+
+        Cursor cursorCrossCheck = db().rawQuery("SELECT waterwayid FROM crosscheck WHERE key = " + key, null);
+
+        while (cursorCrossCheck.moveToNext()) {
+            int waterwayId = cursorCrossCheck.getInt(0);
+            _Waterway waterway = getWaterway(waterwayId);
+            waterways.add(waterway);
+        }
+
+        return waterways;
+    }
+
+    public boolean getHasTile(int key) {
+        Log.d(TAG, "getHasTile");
+        Cursor cursor = db().query(TABLE_TILES, new String[] { "key" },"key = " + key, null, null, null, null);
+        boolean retval = (cursor.getCount() != 0);
+
+        cursor.close();
+
+        return retval;
+    }
+
+    public boolean writeDeleteTile(String waterwayGuid, int key) {
+        Log.d(TAG, "writeDeleteTile");
+        boolean retval = (db().delete("tile", "key = ? and waterwayguid = ?", new String[] { key + "", waterwayGuid }) > 0);
+        return retval;
+    }
+
+    public boolean writeWaterwayContainer(int waterwayId, String waterwayGuid, String tilesUrl, String[] tiles, boolean downloaded) {
+        Log.d(TAG, "writeWaterwayContainer");
+        boolean retval = false;
+        final int MAX_BATCH_SIZE = 100;
+
+        Log.d(TAG, "writeWaterwayContainer INSERT Started");
+
+        int count = 0;
+        boolean batch = true;
+        db().delete(TABLE_TILES, "waterwayguid = '" + waterwayGuid + "'", null);
+        writeTotalTiles(waterwayGuid, tiles.length);
+
+        for (String tile : tiles) {
+            if (batch) {
+                begin();
+            }
+
+            String[] splitTile = tile.split(",");
+
+            ContentValues values = new ContentValues();
+            values.put("key", splitTile[0]);
+            values.put("waterwayguid", waterwayGuid);
+            values.put("waterwayid", waterwayId);
+            values.put("type", 1);
+            values.put("downloaded", (downloaded ? 1 : 0));
+            values.put("tileurl", String.format("%s%s.png", tilesUrl, splitTile[1]));
+
+            retval = (db().insert(TABLE_TILES, null, values) > 0);
+            if (!retval) break;
+
+//            try {
+//                Thread.sleep(5);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+
+            count += 1;
+            batch = ((count % MAX_BATCH_SIZE) == 0);
+
+            if (batch) {
+                Log.d(TAG, "writeWaterwayContainer INSERT " + count);
+                //writeTotalTiles(waterwayGuid);
+                end();
+            }
+        }
+
+        if (retval) {
+            //writeTotalTiles(waterwayGuid);
+            end();
+        }
+
+        Log.d(TAG, "writeWaterwayContainer INSERT Completed");
+
+        return retval;
+    }
+
+    public void clearMarkers(String area) {
+        Log.d(TAG, "clearMarkers");
+        db().execSQL("DELETE FROM poilocations WHERE area = '" + area + "'");
+    }
+
+    public void writeTogglePaused(String waterwayGuid) {
+        Log.d(TAG, "writeTogglePaused");
+        db().execSQL("UPDATE waterways SET paused = CASE paused WHEN 1 THEN 0 ELSE 1 END WHERE waterwayguid = '" + waterwayGuid + "'");
+    }
+
+    public Cursor getSearch(String search) {
+        Log.d(TAG, "getSearch");
+        Cursor cursor = null;
+
+        if (!search.isEmpty()) {
+            String searchStr = String.format("%s*", search.replace("*", "**").replace(" ","* ").replace("'", "''"));
+            cursor = db().rawQuery("SELECT id AS _id, name, description, longitude, latitude FROM " + TABLE_SEARCH + " WHERE " + TABLE_SEARCH + " MATCH '" + searchStr + "' LIMIT 30", null);
+        }
+
+        return cursor;
+    }
+
+    public void writeWaterway(String waterwayGuid, String price, Integer version, String availability, String name, String description, String type, ArrayList<String> zipFiles, String fileName) {
+        Log.d(TAG, "writeWaterway " + name);
+        Cursor cursor = db().rawQuery("SELECT currentversion FROM " + TABLE_WATERWAYS + " WHERE waterwayguid = '" + waterwayGuid + "'", null);
+
+        if (cursor.moveToFirst()) {
+            if (cursor.getInt(0) != version) {
+                db().execSQL("DELETE FROM tiles WHERE type = 0 AND waterwayguid = '" + waterwayGuid + "'");
+                for (String file : zipFiles) {
+                    ContentValues zipValues = new ContentValues();
+                    zipValues.put("tileurl", getSystem().BaseUrl + file);
+                    zipValues.put("waterwayguid", waterwayGuid);
+                    zipValues.put("downloaded", 0);
+                    zipValues.put("type", 0);
+                    zipValues.put("priority", 0);
+                    db().insert(TABLE_TILES, null, zipValues);
+                }
+
+                ContentValues values;
+                values = new ContentValues();
+                values.put("price", price);
+                values.put("currentversion", version);
+                values.put("availability", availability);
+                values.put("waterwayname", name);
+                values.put("type", type);
+                values.put("description", description);
+                values.put("filename", fileName);
+
+                Log.d(TAG, "Writing and DOWNLOADING " + fileName + ".jpg");
+
+                Library_WS LIBWS = new Library_WS();
+                byte[] map = LIBWS.downloadBinaryFile(getSystem().BaseUrl + fileName + ".jpg");
+                if (map != null) values.put("map", map);
+
+                db().update(TABLE_WATERWAYS, values, "waterwayguid = '" + waterwayGuid + "'", null);
+            }
+        }
+
+        cursor.close();
+    }
+
+    public boolean writeBuyWaterway(String waterwayGuid) {
+        Log.d(TAG, "writeBuyWaterway");
+        boolean retval = false;
+
+        ContentValues values = new ContentValues();
+        values.put("purchased", 1);
+
+        if (waterwayGuid.equals(Global.getAllWaterwayGuid())) {
+            begin();
+            retval = writeEmptyWaterway(waterwayGuid, false);
+            retval = retval && (db().update(TABLE_WATERWAYS, values, "waterwayguid = '" + waterwayGuid + "'", null) > 0);
+            end();
+
+            if (retval) {
+                Cursor cursor = db().rawQuery("SELECT waterwayguid FROM waterways WHERE waterwayguid <> '" + Global.getAllWaterwayGuid() + "' AND purchased = 0", null);
+
+                while (cursor.moveToNext()) {
+                    begin();
+                    waterwayGuid = cursor.getString(0);
+                    retval = writeEmptyWaterway(waterwayGuid, false);
+                    retval = retval && (db().update(TABLE_WATERWAYS, values, "waterwayguid = '" + waterwayGuid + "'", null) > 0);
+                    end();
+                    if (!retval) break;
+                }
+            }
+        } else {
+            begin();
+            retval = writeEmptyWaterway(waterwayGuid, false);
+            retval = retval && (db().update(TABLE_WATERWAYS, values, "waterwayguid = '" + waterwayGuid + "'", null) > 0);
+            end();
+        }
+
+        return retval;
+    }
+
+    public boolean writeUpdateWaterway(String waterwayGuid) {
+        Log.d(TAG, "writeUpdateWaterway");
+        boolean retval;
+
+        Cursor cursor = db().rawQuery("SELECT currentversion FROM waterways WHERE waterwayguid = '" + waterwayGuid + "'", null);
+        cursor.moveToFirst();
+
+        ContentValues values = new ContentValues();
+        values.put("empty", 0);
+        values.put("paused", 0);
+        values.put("tilesdownloaded", 0);
+        values.put("percentage", 0);
+        values.put("myversion", cursor.getInt(0));
+
+        ContentValues tileValues = new ContentValues();
+        tileValues.put("downloaded", 0);
+        tileValues.put("priority", 0);
+
+        retval = (db().update("waterways", values, "waterwayguid = '" + waterwayGuid + "'", null) > 0);
+        retval = retval && (db().update("tiles", tileValues, "waterwayguid = '" + waterwayGuid + "'", null) > 0);
+
+        cursor.close();
+
+        return retval;
+    }
+
+    public boolean writeRemoveWaterway(String waterwayGuid) {
+        Log.d(TAG, "writeRemoveWaterway");
+        boolean retval = false;
+
+        begin();
+
+        ContentValues values = new ContentValues();
+        values.put("purchased", 0);
+
+        if (waterwayGuid.equals(Global.getAllWaterwayGuid())) {
+            Cursor cursor = db().rawQuery("SELECT waterwayguid FROM waterways WHERE waterwayguid <> '" + Global.getAllWaterwayGuid() + "'", null);
+
+            while (cursor.moveToNext()) {
+                waterwayGuid = cursor.getString(0);
+                retval = writeEmptyWaterway(waterwayGuid, true);
+                retval = retval && (db().update(TABLE_WATERWAYS, values, "waterwayguid = '" + waterwayGuid + "'", null) > 0);
+                if (!retval) break;
+            }
+        } else {
+            retval = writeEmptyWaterway(waterwayGuid, true);
+            retval = retval && (db().update(TABLE_WATERWAYS, values, "waterwayguid = '" + waterwayGuid + "'", null) > 0);
+        }
+
+        end();
+
+        return retval;
+
+//        Log.d(TAG, "writeRemoveWaterway");
+//        boolean retval = false;
+//        begin();
+
+//        Cursor cursor = db().rawQuery("SELECT currentversion FROM waterways WHERE waterwayguid = '" + waterwayGuid + "'", null);
+//        cursor.moveToFirst();
+//
+//        ContentValues values = new ContentValues();
+//        values.put("purchased", 0);
+//        values.put("empty", 0);
+//        values.put("paused", 0);
+//        values.put("tilesdownloaded", 0);
+//        values.put("totaltiles", 0);
+//        values.put("percentage", 0);
+//        values.put("myversion", cursor.getInt(0));
+//        retval = (db().update(TABLE_WATERWAYS, values, "waterwayguid = '" + waterwayGuid + "'", null) > 0);
+//
+//        db().execSQL("DELETE FROM tiles WHERE waterwayguid = '" + waterwayGuid + "'");
+//        db().execSQL("UPDATE mysettings SET vacuum = 1");
+//
+//        end();
+//
+//        cursor.close();
+//
+//        return retval;
+    }
+
+    public int writeTilePriority(Double latitude, Double longitude, Integer zoomLevel) {
+        Log.d(TAG, "writeTilePriority");
+        GeoPoint geoPoint = new GeoPoint(longitude, latitude);
+        ArrayList<Point> points = new ArrayList<>();
+
+        Library_OS LIBOS = new Library_OS();
+        points.add(LIBOS.getMapTileFromCoordinates(latitude, longitude, zoomLevel));
+        points.addAll(LIBOS.GetAllSurroundingTiles(geoPoint, zoomLevel));
+
+        String key = "";
+
+        for (Point point : points) {
+            if (!key.isEmpty()) key += ", ";
+            long index = ((zoomLevel << zoomLevel) + point.x << zoomLevel) + point.y;
+            key += index;
+        }
+
+//        begin();
+
+        int retval = 0;
+
+        db().execSQL("UPDATE tiles SET priority = priority + 1 WHERE downloaded = 0 AND key IN (" + key + ")");
+        Cursor cursor = db().rawQuery("SELECT changes()", null);
+        if (cursor.moveToFirst()) retval = cursor.getInt(0);
+
+        if (retval > 0) Log.d(TAG, "writeTilePriority updated " + retval + " records");
+
+        cursor.close();
+//        end();
+
+        return retval;
+    }
+
+    // ####################################################################################
+
+    //TODO: i dont think this is used as its been replaced with the one from C#
+    public void writeTileRequest(String tileUrl, Integer key, String waterwayGuid) {
+        Log.d(TAG, "writeTileRequest");
+        begin();
+
+        Cursor cursor = db().rawQuery("SELECT 1 FROM tiles WHERE key = " + key + " AND waterwayguid = '" + waterwayGuid + "' AND downloaded = 0", null);
+
+        if (!cursor.moveToFirst()) {
+            Library LIB = new Library();
+
+            ContentValues values = new ContentValues();
+            values.put("key", key);
+            values.put("waterwayguid", waterwayGuid);
+            values.put("tileurl", tileUrl);
+            values.put("downloaded", false);
+            values.put("type", 1);
+            values.put("created", LIB.getDate(LIB.now()));
+
+            Integer inserted = (int)db().insert("tiles", null, values);
+
+            cursor.close();
+
+            cursor = db().rawQuery("SELECT totaltiles, tilesdownloaded FROM waterways WHERE waterwayguid = '" + waterwayGuid + "'", null);
+
+            if (cursor.moveToFirst()) {
+                values = new ContentValues();
+                Integer tt = cursor.getInt(cursor.getColumnIndex("totaltiles")) + 1;
+                Integer td = cursor.getInt(cursor.getColumnIndex("tilesdownloaded"));
+                values.put("totaltiles", tt);
+                values.put("percentage", (int)((double)td / (double)tt * 100.0));
+
+                db().update("waterways", values, "waterwayguid = '" + waterwayGuid + "'", null);
+            }
+        }
+
+        cursor.close();
+        end();
+    }
+
+    public boolean getIsPurchased() {
+        Log.d(TAG, "getIsPurchased");
+        Cursor cursor = db().rawQuery("SELECT 1 FROM waterways WHERE purchased = 1", null);
+        boolean retval = (cursor.moveToFirst() && cursor.getInt(0) == 1);
+        return retval;
+    }
+
+    public boolean getIsDownloading() {
+        Log.d(TAG, "getIsDownloading");
+        Cursor cursor = db().rawQuery("SELECT DISTINCT 1 FROM waterways WHERE purchased = 1 AND totaltiles > tilesdownloaded AND paused = 0 AND empty = 0", null);
+        boolean retval = (cursor.moveToFirst() && cursor.getInt(0) == 1);
+        return retval;
+    }
+
+    public boolean getIsUpdate() {
+        Log.d(TAG, "getIsUpdate");
+        Cursor cursor = db().rawQuery("SELECT DISTINCT 1 FROM waterways WHERE purchased = 1 AND myversion < currentversion AND paused = 0 AND empty = 0", null);
+        boolean retval = (cursor.moveToFirst() && cursor.getInt(0) == 1);
+        return retval;
+    }
+
+    public void writeTryTilesAgain() {
+        boolean retval = false;
+        Log.d(TAG, "writeTryTilesAgain");
+        //begin();
+        String inClause = "";
+        //Cursor waterwaysCursor = db().rawQuery("SELECT waterwayguid FROM waterways WHERE paused = 0 AND purchased = 1 AND empty = 0 AND waterwayguid <> '" + Global.getAllWaterwayGuid() + "'", null);
+        Cursor waterwaysCursor = db().rawQuery("SELECT waterwayguid FROM waterways WHERE paused = 0", null);
+        while(waterwaysCursor.moveToNext()) {
+            db().execSQL("UPDATE tiles SET downloaded = 0 WHERE waterwayguid = '" + waterwaysCursor.getString(0) + "' AND downloaded = 1 AND tile IS NULL");
+//            if (inClause.isEmpty()) {
+//                inClause = "'" + waterwaysCursor.getString(0) + "'";
+//            } else {
+//                inClause += ", '" + waterwaysCursor.getString(0) + "'";
+//            }
+        }
+
+        Log.d(TAG, "writeTryTilesAgain #2");
+
+//        Cursor tilesCursor = db().rawQuery("SELECT key FROM tiles WHERE downloaded = 1 AND tile IS NULL AND waterwayguid IN ("+ inClause + ")", null);
+//        Log.d(TAG, "writeTryTilesAgain #2A " + tilesCursor.getCount());
+//        while(tilesCursor.moveToNext()) {
+//            db().execSQL("UPDATE tiles SET downloaded = 0 WHERE key = " + tilesCursor.getInt(0));
+//        }
+
+        Log.d(TAG, "writeTryTilesAgain #3");
+/*
+        Cursor cursor = db().rawQuery("SELECT waterwayguid, COUNT(*) FROM tiles WHERE tile IS null AND downloaded = 0 GROUP BY waterwayguid", null);
+        Log.d(TAG, "writeTryTilesAgain #4");
+
+        while(cursor.moveToNext()) {
+            db().execSQL("UPDATE waterways SET tilesdownloaded = totaltiles - " + cursor.getInt(1) + " WHERE waterwayguid = '" + cursor.getString(0) + "' AND paused = 0");
+        }
+*/
+        Log.d(TAG, "writeTryTilesAgain #5");
+        //end();
+    }
+
+    public boolean downloadTiles(String waterwayGuid, boolean downloaded) {
+        boolean retval = false;
+        Log.d(TAG, "downloadTiles");
+        _Waterway waterway = getWaterway(waterwayGuid);
+        String filePath = getSystem().BaseUrl + waterway.FileName + ".zip";
+
+        Library_WS LIBWS = new Library_WS();
+        ArrayList<_DownloadedFile> files = LIBWS.downloadWaterwayContainer(filePath);
+        String[] tiles = null;
+
+        for (_DownloadedFile file : files) {
+            if (file.getName().equals("tiles.csv")) {
+                tiles = new String(file.getContents()).split("\n");
+            }
+        }
+
+        if (tiles != null && tiles.length > 0) {
+            Log.d(TAG, "Tiles found");
+            retval = writeWaterwayContainer(waterway.WaterwayId, waterwayGuid, Global.getLIBDB().getSystem().TilesUrl, tiles, downloaded);
+        }
+
+        return retval;
+    }
+
+    public ArrayList<String> getListWaterwaysNoTiles() {
+        Log.d(TAG, "getListWaterwaysNoTiles");
+        ArrayList<String> retval = new ArrayList<>();
+        Cursor cursor = db().rawQuery("SELECT DISTINCT p1.waterwayguid FROM waterways p1 LEFT OUTER JOIN tiles p2 ON p2.waterwayguid = p1.waterwayguid WHERE p2.waterwayguid IS NULL AND p1.waterwayguid <> '" + Global.getAllWaterwayGuid() + "'", null);
+
+        while (cursor.moveToNext()) {
+            retval.add(cursor.getString(0));
+        }
+
+        return retval;
+    }
+}

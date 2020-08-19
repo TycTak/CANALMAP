@@ -1,0 +1,77 @@
+package com.tyctak.cancamapp;
+
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import java.util.ArrayList;
+
+public class Library_PE extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+
+    private final String TAG = "Library_PE";
+    private ArrayList<String> refusedPermission = new ArrayList<>();
+
+    public enum enmPermissionGranted {
+        Granted,
+        Waiting,
+        Refused,
+        Standby
+    }
+
+    public enmPermissionGranted permissionGranted = enmPermissionGranted.Standby;
+    private final int REQUEST_ACCESS = 0;
+
+    public void checkPermissions(Activity parent, Boolean forceRequest, String[] permissions) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!checkAllPermissions(parent, permissions)) {
+                if (forceRequest) {
+                    ActivityCompat.requestPermissions(parent, permissions, REQUEST_ACCESS);
+                } else {
+                    permissionGranted = enmPermissionGranted.Refused;
+                }
+            } else {
+                permissionGranted = enmPermissionGranted.Granted;
+            }
+        } else {
+            Log.d(TAG, "Permission automatically granted");
+            permissionGranted = enmPermissionGranted.Granted;
+        }
+    }
+
+    public boolean isRefused(String permission) {
+        return refusedPermission.contains(permission);
+    }
+
+    private boolean checkAllPermissions(Activity parent, String[] permissions) {
+        Boolean retval = true;
+        refusedPermission.clear();
+
+        for (String permission : permissions) {
+            if (ActivityCompat.checkSelfPermission(parent, permission) != PackageManager.PERMISSION_GRANTED) {
+                retval = false;
+                refusedPermission.add(permission);
+                Log.w(TAG, String.format("Permission refused %s", permission));
+            }
+        }
+
+        return retval;
+    }
+
+    public static boolean verifyPermissions(int[] grantResults) {
+        Boolean retval = true;
+
+        if(grantResults.length >= 1) {
+            for (int result : grantResults) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    retval = false;
+                    break;
+                }
+            }
+        }
+
+        return retval;
+    }
+}

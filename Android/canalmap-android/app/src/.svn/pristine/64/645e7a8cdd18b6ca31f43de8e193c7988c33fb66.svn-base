@@ -1,0 +1,180 @@
+package com.tyctak.cancamapp;
+
+import android.Manifest;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import static com.tyctak.cancamapp.Global.LIBPE;
+import static com.tyctak.cancamapp.Global.getLIBDB;
+import static com.tyctak.cancamapp.Library_PE.verifyPermissions;
+
+public class Activity_Splash extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+
+    final private String TAG = "Activity_Splash";
+
+    static int count = 0;
+    final private int DELAY = 500; // milliseconds
+    final private int DELAY_UNTIL_FINISH = 1120; // seconds
+
+    private final class WorkerThread implements Runnable {
+
+        @Override
+        public void run() {
+            if (getLIBDB().getVacuum()) {
+                //getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+                Log.d(TAG, "Vacuum database");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ProgressBar progress = (ProgressBar)findViewById(R.id.progressSplash);
+                        progress.setVisibility(View.VISIBLE);
+
+                        TextView progressText = (TextView) findViewById(R.id.progressText);
+                        progressText.setVisibility(View.VISIBLE);
+                        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+                        anim.setDuration(150);
+                        anim.setStartOffset(20);
+                        anim.setRepeatMode(Animation.REVERSE);
+                        anim.setRepeatCount(Animation.INFINITE);
+                        progressText.startAnimation(anim);
+                    }
+                });
+
+                Log.d(TAG,"CleanDatabase");
+                getLIBDB().cleanDatabase();
+
+                //getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
+
+            LIBPE.checkPermissions(Activity_Splash.this, true, new String[] { Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE });
+        }
+    }
+
+    static
+    {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+
+        Library_UI LIBUI = new Library_UI();
+        final Library_CP LIBCP = new Library_CP();
+
+        if (LIBCP.isCopyToSDCard() || LIBCP.isCopyToDevice()) {
+            LIBUI.confirmationDialogYesNoRepeat("Move Data", "Do you want to move the data to the " + (LIBCP.isCopyToSDCard() ? "SD Card" : "Device") + ", this will free up space?", new Runnable() {
+                @Override
+                public void run() {
+                    // YES
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ProgressBar progress = (ProgressBar) findViewById(R.id.progressSplash);
+                            progress.setVisibility(View.VISIBLE);
+                        }
+                    });
+
+                    Log.d(TAG, "Copy to SDCARD");
+
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            Library_FS LIBFS = new Library_FS(MyApp.getContext());
+
+                            if (LIBCP.isCopyToSDCard()) {
+                                if (LIBFS.copyFile(Library_FS.enmFolder.Data, Library_FS.enmFolder.SdCard, Library_DB.DATABASE_NAME, null)) {
+                                    LIBFS.deleteFile(Library_FS.enmFolder.Data, Library_DB.DATABASE_NAME);
+                                }
+                            } else if (LIBFS.isDataOnDevice(Library_DB.DATABASE_NAME)) {
+                                LIBFS.deleteFile(Library_FS.enmFolder.SdCard, Library_DB.DATABASE_NAME);
+                            } else {
+                                if (LIBFS.copyFile(Library_FS.enmFolder.SdCard, Library_FS.enmFolder.Data, Library_DB.DATABASE_NAME, null)) {
+                                    LIBFS.deleteFile(Library_FS.enmFolder.SdCard, Library_DB.DATABASE_NAME);
+                                }
+                            }
+
+                            continueProcess();
+                        }
+                    };
+
+                    runnable.run();
+                }
+            }, new Runnable() {
+                @Override
+                public void run() {
+                    // NO
+                    Log.d(TAG, "NO");
+                    continueProcess();
+                }
+            }, new Runnable() {
+                @Override
+                public void run() {
+                    // DO NOT ASK
+                    Log.d(TAG, "DO NOT ASK");
+                    LIBCP.createIgnoreFile();
+                    continueProcess();
+                }
+            }, this);
+        } else {
+            continueProcess();
+        }
+    }
+
+    private void continueProcess() {
+        final Handler handlerInitialisation = new Handler();
+        handlerInitialisation.post(new Runnable() {
+            @Override
+            public void run() {
+                Global.createDB();
+                LIBPE = new Library_PE();
+                Thread thread = new Thread(new WorkerThread());
+                thread.start();
+            }
+        });
+
+        final Handler handlerPermissions = new Handler();
+        handlerPermissions.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (LIBPE.permissionGranted == Library_PE.enmPermissionGranted.Granted || LIBPE.permissionGranted == Library_PE.enmPermissionGranted.Refused) {
+                    Log.d(TAG, String.format("Permission received %s", LIBPE.permissionGranted));
+
+                    startService(new Intent(MyApp.getContext(), Service_MD.class));
+
+                    Intent intent = new Intent(Activity_Splash.this, Activity_Main.class);
+                    intent.putExtra("Permission", (LIBPE.permissionGranted == Library_PE.enmPermissionGranted.Granted));
+                    startActivity(intent);
+                    finish();
+                } else if (count > ((DELAY_UNTIL_FINISH * 1000) / 500)) {
+                    Log.w(TAG, "Permissions did not respond in a sensible interval");
+                    finish();
+                } else {
+                    count += 1;
+                    Log.w(TAG, "Splash screen delayed, waiting for response from permission");
+                    handlerPermissions.postDelayed(this, DELAY);
+                }
+            }
+        }, DELAY);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        LIBPE.permissionGranted = (verifyPermissions(grantResults) ? Library_PE.enmPermissionGranted.Granted : Library_PE.enmPermissionGranted.Refused);
+    }
+}

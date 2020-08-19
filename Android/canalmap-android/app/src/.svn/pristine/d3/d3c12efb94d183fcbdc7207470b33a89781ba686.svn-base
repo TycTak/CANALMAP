@@ -1,0 +1,41 @@
+package com.tyctak.cancamapp;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+
+import com.tyctak.cancamapp.entities._PoiLocation;
+
+import org.osmdroid.views.overlay.OverlayItem;
+
+public class Dialog_Select extends AppCompatActivity {
+
+    private final String TAG = "Dialog_Select";
+    double[] points;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.dialog_select);
+        points = getIntent().getDoubleArrayExtra("GeoPoint");
+    }
+
+    public void selectMarker(View view) {
+        Intent intent = new Intent();
+        intent.putExtra("GeoPoint", points);
+        intent.putExtra("Selected", "marker");
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    }
+
+    public void selectSymbol(View view) {
+        Intent intent = new Intent();
+        intent.putExtra("GeoPoint", points);
+        intent.putExtra("Selected", "symbol");
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    }
+}

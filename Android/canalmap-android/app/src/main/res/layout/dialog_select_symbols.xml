@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/selectSymbolSummary"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/deleteSymbol_Layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:srcCompat="@drawable/ic_symbol_blank"
+                        android:onClick="deleteSymbol"
+                        android:id="@+id/symbol_delete"/>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Delete symbol"
+                        android:paddingTop="10dp"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp"
+                        android:onClick="deleteSymbol"
+                        android:textSize="18dp"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Recent 10 Symbols"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <View style="@style/Divider"/>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    android:id="@+id/symbol_select_symbols_recent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="10dp"
+                    app:flexWrap="wrap">
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <!--<org.apmem.tools.layouts.FlowLayout-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layoutDirection="rtl"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:id="@+id/symbol_select_symbols_recent"-->
+                    <!--android:layout_marginLeft="8dp"-->
+                    <!--android:layout_marginBottom="20dp">-->
+
+                <!--</org.apmem.tools.layouts.FlowLayout>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Services"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <View style="@style/Divider"/>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    android:id="@+id/symbol_select_services"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="10dp"
+                    app:flexWrap="wrap">
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <!--<org.apmem.tools.layouts.FlowLayout-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layoutDirection="rtl"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:id="@+id/symbol_select_services"-->
+                    <!--android:layout_marginLeft="8dp"-->
+                    <!--android:layout_marginBottom="20dp">-->
+
+                <!--</org.apmem.tools.layouts.FlowLayout>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Food &amp; Drink"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <View style="@style/Divider"/>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    android:id="@+id/symbol_select_fooddrink"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="10dp"
+                    app:flexWrap="wrap">
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <!--<org.apmem.tools.layouts.FlowLayout-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layoutDirection="rtl"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:id="@+id/symbol_select_fooddrink"-->
+                    <!--android:layout_marginLeft="8dp"-->
+                    <!--android:layout_marginBottom="20dp">-->
+
+                <!--</org.apmem.tools.layouts.FlowLayout>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Travel"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <View style="@style/Divider"/>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    android:id="@+id/symbol_select_travel"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="10dp"
+                    app:flexWrap="wrap">
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <!--<org.apmem.tools.layouts.FlowLayout-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layoutDirection="rtl"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:id="@+id/symbol_select_travel"-->
+                    <!--android:layout_marginLeft="8dp"-->
+                    <!--android:layout_marginBottom="20dp">-->
+
+                <!--</org.apmem.tools.layouts.FlowLayout>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Essentials"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <View style="@style/Divider"/>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    android:id="@+id/symbol_select_essentials"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="10dp"
+                    app:flexWrap="wrap">
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <!--<org.apmem.tools.layouts.FlowLayout-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layoutDirection="rtl"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:id="@+id/symbol_select_essentials"-->
+                    <!--android:layout_marginLeft="8dp"-->
+                    <!--android:layout_marginBottom="20dp">-->
+
+                <!--</org.apmem.tools.layouts.FlowLayout>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Entertainment"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <View style="@style/Divider"/>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    android:id="@+id/symbol_select_entertainment"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="10dp"
+                    app:flexWrap="wrap">
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <!--<org.apmem.tools.layouts.FlowLayout-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layoutDirection="rtl"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:id="@+id/symbol_select_entertainment"-->
+                    <!--android:layout_marginLeft="8dp"-->
+                    <!--android:layout_marginBottom="20dp">-->
+
+                <!--</org.apmem.tools.layouts.FlowLayout>-->
+
+                <android.support.v4.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minHeight="5dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

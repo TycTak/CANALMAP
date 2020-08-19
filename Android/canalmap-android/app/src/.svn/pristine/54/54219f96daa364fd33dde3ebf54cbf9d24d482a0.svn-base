@@ -1,0 +1,104 @@
+package com.tyctak.cancamapp;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MenuItem;
+import android.widget.TextView;
+
+public class Activity_EditText extends AppCompatActivity {
+
+    final private String TAG = "Activity_EditText";
+    final private Activity_EditText activityEditText = this;
+
+    private static int poiId;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edittext);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_sub);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.editTextTitle);
+
+        String description = getIntent().getStringExtra("description");
+        poiId = getIntent().getIntExtra("poiid", -1);
+
+        final TextView txtUpdateText = (TextView) findViewById(R.id.textUpdate);
+        final TextView locationDescription = (TextView) findViewById(R.id.locationDescription);
+
+        txtUpdateText.setText(displayUpdateText(description.length()));
+        locationDescription.append(description);
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Message msg = new Message();
+                msg.arg1 = s.length();
+                myHandler.dispatchMessage(msg);
+
+                invalidateOptionsMenu();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        };
+
+        locationDescription.addTextChangedListener(textWatcher);
+    }
+
+    private String displayUpdateText(Integer length) {
+        String retval;
+
+        if (length == 0) {
+            retval = "200 characters";
+        } else if (length < 200) {
+            retval = length + " / 200 characters";
+        } else {
+            retval = "200 character maximum reached";
+        }
+
+        return retval;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();  return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private final Handler myHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            updateText(msg.arg1);
+        }
+    };
+
+    private void updateText(Integer length) {
+        TextView txtUpdate = (TextView) findViewById(R.id.textUpdate);
+        txtUpdate.setText(displayUpdateText(length));
+
+        final TextView locationDescription = (TextView) findViewById(R.id.locationDescription);
+
+        Intent intent = new Intent();
+        intent.putExtra("process", "write");
+        intent.putExtra("text", locationDescription.getText());
+        intent.putExtra("poiid", poiId);
+        setResult(Activity.RESULT_OK, intent);
+    }
+}

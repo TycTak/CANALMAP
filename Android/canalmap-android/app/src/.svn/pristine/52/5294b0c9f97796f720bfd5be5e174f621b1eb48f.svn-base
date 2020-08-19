@@ -1,0 +1,142 @@
+package com.tyctak.cancamapp;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.tyctak.cancamapp.entities._PoiLocation;
+
+public class Dialog_Select_Markers_Display extends AppCompatActivity {
+
+    private final String TAG = "Dialog_Select_Markers Display";
+    final Activity dialogSelectMarkersDisplay = this;
+    private static int poiId = -1;
+    private static int index = -1;
+    private double[] points;
+    int request;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.dialog_select_markers_display);
+
+        final double[] pts = getIntent().getDoubleArrayExtra("GeoPoint");
+        points = pts;
+
+        poiId = getIntent().getIntExtra("Id", -1);
+        index = getIntent().getIntExtra("Index", -1);
+        request = getIntent().getIntExtra("Request", -1);
+
+        //LinearLayout delete_layout = (LinearLayout) findViewById(R.id.deleteMarker_Layout);
+
+        //delete_layout.setVisibility(View.VISIBLE);
+        _PoiLocation poi = Global.getLIBDB().getPoiLocation(poiId);
+        int id = (int) this.getResources().getIdentifier(poi.Name, "drawable", this.getPackageName());
+        ImageView image = (ImageView) findViewById(R.id.marker_selected);
+        image.setImageResource(id);
+
+        Library lib = new Library();
+        setMarkerImage(lib.decodeBinary(poi.Image), poi.Message);
+
+        final ImageView markerImage = (ImageView) findViewById(R.id.marker_image);
+        markerImage.setTag(poiId);
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.displayMarker);
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    private void setMarkerImage(Bitmap image, String text) {
+        boolean isImage = (image != null);
+        boolean isText = (text != null && !text.isEmpty());
+
+//        LinearLayout text_or_image = (LinearLayout) findViewById(R.id.text_or_image);
+//        if (isImage || isText) {
+//            text_or_image.setVisibility(View.VISIBLE);
+//        } else {
+//            text_or_image.setVisibility(View.GONE);
+//        }
+
+        TextView markerText = (TextView) findViewById(R.id.marker_text);
+        ImageView markerImage = (ImageView) findViewById(R.id.marker_image);
+
+        if (isImage) {
+            markerImage.setVisibility(View.VISIBLE);
+            markerImage.setImageBitmap(image);
+        } else {
+            markerImage.setVisibility(View.GONE);
+            markerImage.setImageBitmap(null);
+        }
+
+        if (isText) {
+            markerText.setVisibility(View.VISIBLE);
+            markerText.setText(text);
+        } else {
+            markerText.setVisibility(View.GONE);
+            markerText.setText(null);
+        }
+
+        LinearLayout.LayoutParams paramsText = (LinearLayout.LayoutParams) markerText.getLayoutParams();
+        LinearLayout.LayoutParams paramsImage = (LinearLayout.LayoutParams) markerImage.getLayoutParams();
+
+        if (isImage && isText) {
+            paramsImage.weight = 3;
+            paramsText.weight = 2;
+        } else if (isImage && !isText) {
+            paramsImage.weight = 5;
+            paramsText.weight = 0;
+        } else {
+            paramsImage.weight = 0;
+            paramsText.weight = 5;
+        }
+
+        markerText.setLayoutParams(paramsText);
+        markerImage.setLayoutParams(paramsImage);
+    }
+
+    public void displayEditMarker(View view) {
+        Intent intent = new Intent();
+        intent.putExtra("GeoPoint", points);
+        intent.putExtra("Index", index);
+        intent.putExtra("Id", poiId);
+        intent.putExtra("Request", request);
+
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    }
+
+    public void showFullPhoto(View view) {
+        ImageView markerImage = (ImageView) findViewById(R.id.marker_image);
+
+        Library_GR LIBGR = new Library_GR();
+        final byte[] mapFullScreen = LIBGR.getByteArrayFromImageView(markerImage);
+
+        Intent intent = new Intent(dialogSelectMarkersDisplay, Activity_FullScreenImage.class);
+        intent.putExtra("picture", mapFullScreen);
+        intent.putExtra("stretch", true);
+        startActivity(intent);
+    }
+
+    public void showFullText(View view) {
+        TextView markerText = (TextView) findViewById(R.id.marker_text);
+
+        Intent intent = new Intent(dialogSelectMarkersDisplay, Activity_FullScreenText.class);
+        intent.putExtra("text", markerText.getText().toString());
+        startActivity(intent);
+    }
+
+    public void closeMarkers(View view) {
+        finish();
+    }
+}

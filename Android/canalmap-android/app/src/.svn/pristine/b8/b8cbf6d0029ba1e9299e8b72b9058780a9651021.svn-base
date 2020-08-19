@@ -1,0 +1,77 @@
+package com.tyctak.cancamapp._archive;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.tyctak.cancamapp.Global;
+import com.tyctak.cancamapp.Library_UI;
+import com.tyctak.cancamapp.R;
+import com.tyctak.cancamapp.entities._PoiLocation;
+
+import org.apmem.tools.layouts.FlowLayout;
+
+public class Dialog_Select_Symbols extends AppCompatActivity {
+
+    private final String TAG = "Dialog_Select_Symbols";
+    final Activity dialogSymbols = this;
+    private int poiId;
+    private int index;
+    final private int GALLERY_REQUEST = 1;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.dialog_select_symbols);
+
+        final double[] points = getIntent().getDoubleArrayExtra("GeoPoint");
+        index = getIntent().getIntExtra("Index", -1);
+        poiId = getIntent().getIntExtra("Id", -1);
+        //final String action = getIntent().getStringExtra("Action");
+
+        LinearLayout delete_layout = (LinearLayout) findViewById(R.id.deleteSymbol_Layout);
+
+        if (poiId >= 0) {
+            delete_layout.setVisibility(View.VISIBLE);
+            _PoiLocation poi = Global.getLIBDB().getPoiLocation(poiId);
+            int id = (int) this.getResources().getIdentifier(poi.Name, "drawable", this.getPackageName());
+            ImageView image = (ImageView) findViewById(R.id.symbol_delete);
+            image.setImageResource(id);
+        } else {
+            delete_layout.setVisibility(View.GONE);
+        }
+
+        final Library_UI LIBUI = new Library_UI();
+
+        final ImageView symbolImage = (ImageView) findViewById(R.id.marker_image);
+
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                LIBUI.addPois("symbols", points, symbolImage, index, poiId, dialogSymbols, Global.getLIBDB().getPoisRecent("symbols"), (FlowLayout)findViewById(R.id.symbol_select_symbols_recent), false);
+                LIBUI.addPois("symbols", points, symbolImage, index, poiId, dialogSymbols, Global.getLIBDB().getPois("symbols", "Services"), (FlowLayout)findViewById(R.id.symbol_select_services), false);
+                LIBUI.addPois("symbols", points, symbolImage, index, poiId, dialogSymbols, Global.getLIBDB().getPois("symbols", "Food & Drink"), (FlowLayout)findViewById(R.id.symbol_select_fooddrink), false);
+                LIBUI.addPois("symbols", points, symbolImage, index, poiId, dialogSymbols, Global.getLIBDB().getPois("symbols", "Travel"), (FlowLayout)findViewById(R.id.symbol_select_travel), false);
+                LIBUI.addPois("symbols", points, symbolImage, index, poiId, dialogSymbols, Global.getLIBDB().getPois("symbols", "Essentials"), (FlowLayout)findViewById(R.id.symbol_select_essentials), false);
+                LIBUI.addPois("symbols", points, symbolImage, index, poiId, dialogSymbols, Global.getLIBDB().getPois("symbols", "Entertainment"), (FlowLayout)findViewById(R.id.symbol_select_entertainment), false);
+            }
+        });
+    }
+
+    public void deleteSymbol(View view) {
+        Global.getLIBDB().deletePoiLocation(poiId);
+
+        Intent intent = new Intent();
+        intent.putExtra("process", "delete");
+        intent.putExtra("poiid", poiId);
+        intent.putExtra("index", index);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+}

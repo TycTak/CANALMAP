@@ -1,0 +1,78 @@
+package com.tyctak.cancamapp;
+
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.util.Log;
+
+public class Library_CP {
+    private final String TAG = "Library_CP";
+
+    final private String ignoreFile = MyApp.getContext().getFilesDir() + "/ignore.flag";
+
+    public boolean deleteDatabase(boolean onSDCard) {
+        Library_FS LIBFS = new Library_FS(MyApp.getContext());
+        return LIBFS.deleteDatabase(onSDCard, Library_DB.DATABASE_NAME);
+    }
+
+    public boolean isCopyToSDCard() {
+        Library_FS LIBFS = new Library_FS(MyApp.getContext());
+
+        boolean ignore = LIBFS.fileExists(ignoreFile);
+        boolean isInstalledOnSDCard = isInstalledOnSdCard(MyApp.getContext());
+        boolean isDataOnSDCard = LIBFS.isDataOnSDCard(Library_DB.DATABASE_NAME);
+        boolean isDataOnDevice = LIBFS.isDataOnDevice(Library_DB.DATABASE_NAME);
+
+        Log.d(TAG, "isInstalledOnSDCard=" + isInstalledOnSDCard + ", isDataOnSDCard=" + isDataOnSDCard + ", isDataOnDevice=" + isDataOnDevice + ", ignore=" + ignore);
+
+        //return (isInstalledOnSDCard && (!isDataOnSDCard || isDataOnDevice) && !ignore);
+        return (isInstalledOnSDCard && !isDataOnSDCard && !ignore);
+    }
+
+    public boolean isCopyToDevice() {
+        Library_FS LIBFS = new Library_FS(MyApp.getContext());
+
+        boolean ignore = LIBFS.fileExists(ignoreFile);
+        boolean isInstalledOnSDCard = isInstalledOnSdCard(MyApp.getContext());
+        boolean isDataOnSDCard = LIBFS.isDataOnSDCard(Library_DB.DATABASE_NAME);
+        boolean isDataOnDevice = LIBFS.isDataOnDevice(Library_DB.DATABASE_NAME);
+
+        Log.d(TAG, "isInstalledOnSDCard=" + isInstalledOnSDCard + ", isDataOnSDCard=" + isDataOnSDCard + ", isDataOnDevice=" + isDataOnDevice + ", ignore=" + ignore);
+
+        return (!isInstalledOnSDCard && isDataOnSDCard && !ignore);
+    }
+
+    public boolean isIgnoreFile() {
+        Library_FS LIBFS = new Library_FS(MyApp.getContext());
+        return LIBFS.fileExists(ignoreFile);
+    }
+
+    public boolean createIgnoreFile() {
+        Library_FS LIBFS = new Library_FS(MyApp.getContext());
+        return LIBFS.createFile(ignoreFile);
+    }
+
+    public boolean deleteIgnoreFile() {
+        Library_FS LIBFS = new Library_FS(MyApp.getContext());
+        return LIBFS.deleteFile(ignoreFile);
+    }
+
+    public static boolean isInstalledOnSdCard(Context ctx) {
+        boolean retval = false;
+
+        if (Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.ECLAIR_MR1) {
+            PackageManager pm = ctx.getPackageManager();
+            try {
+                PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(), 0);
+                ApplicationInfo ai = pi.applicationInfo;
+                retval = (ai.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) == ApplicationInfo.FLAG_EXTERNAL_STORAGE;
+            } catch (PackageManager.NameNotFoundException e) {
+                // ignore
+            }
+        }
+
+        return retval;
+    }
+}

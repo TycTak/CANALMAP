@@ -1,0 +1,11 @@
+package com.tyctak.cancamapp.entities;
+
+public class _System {
+    public Integer MaxZoom = 17;
+    public Integer MinZoom = 7;
+    public Integer PixelSize = 256;
+    public String TilesUrl = "http://osm.westeurope.cloudapp.azure.com/osm_tiles/";
+    public Integer DistanceGps = 5;
+    public String BaseUrl = "http://osm.westeurope.cloudapp.azure.com/";
+    public String TileSourceName = "CanCam";
+}

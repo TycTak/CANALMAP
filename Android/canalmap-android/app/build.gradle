@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        cancamRelease {
+            keyAlias 'cancamRelease'
+            keyPassword 'A1819668a'
+            storeFile file('C:/Users/tycta/Desktop/Development/Source/Releases/release.jks')
+            storePassword 'A1819668a'
+        }
+    }
+    aaptOptions {
+        noCompress "sqlite"
+    }
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+    defaultConfig {
+        applicationId "com.tyctak.canalmap"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 239
+        versionName '2.39'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        signingConfig signingConfigs.cancamRelease
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            useProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            useProguard false
+            debuggable true
+        }
+    }
+    sourceSets {
+        main {
+            java {
+                exclude '**/_archive'
+            }
+        }
+    }
+    lintOptions{
+        disable "ResourceType"
+    }
+    packagingOptions {
+        exclude 'src/main/res/drawable/originals/*'
+        exclude 'src/main/res/drawable/google_play/*'
+        exclude 'src/main/res/drawable/symbols/*'
+        exclude 'src/main/res/drawable/icons/*'
+        exclude 'src/main/assets/scripts/*'
+        exclude 'src/main/assets/certificate/*'
+        exclude 'src/main/assets/documents/*'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude '.readme'
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation(
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.4.1'],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.4.1'],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.1']
+    )
+    implementation project(':common')
+    implementation 'org.apache.commons:commons-compress:1.13'
+    implementation 'com.android.billingclient:billing:1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'org.osmdroid:osmdroid-android:5.6.5'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:support-core-utils:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.google.android:flexbox:1.0.0'
+    implementation ('com.weiwangcn.betterspinner:library:1.1.0') {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+}

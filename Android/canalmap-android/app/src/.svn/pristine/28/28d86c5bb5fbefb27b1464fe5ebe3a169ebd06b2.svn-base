@@ -1,0 +1,26 @@
+package com.tyctak.cancamapp._archive;
+
+import com.tyctak.cancamapp.Library;
+
+public class _Item {
+    public enum enmScope {
+        Private,
+        Connected,
+        Public
+    }
+
+    public _Item() {
+        Library LIB = new Library();
+        ItemGuid = LIB.getUUID().replace("-", "");
+    }
+
+    public String ItemGuid;
+    public Integer Icon;
+    public Double Longitude = 0.0;
+    public Double Latitude = 0.0;
+    public enmScope Scope = enmScope.Private;
+    public Integer Localisation = 0;
+    public String Message;
+    public String BoatGuid;
+    public Boolean Publish = false;
+}

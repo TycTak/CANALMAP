@@ -1,0 +1,9 @@
+package com.tyctak.cancamapp.entities;
+
+public class _Poi {
+    public String Category;
+    public String Name;
+    public String Description;
+    public Integer OrderIdx;
+    public String Action;
+}

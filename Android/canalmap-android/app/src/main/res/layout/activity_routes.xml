@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tyctak.canalmap.Activity_Routes">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <include
+            layout="@layout/toolbar_pause"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!--<ProgressBar-->
+            <!--android:id="@+id/progressListView"-->
+            <!--style="?android:attr/progressBarStyleLarge"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="visible"-->
+            <!--android:indeterminate="true"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginTop="27dp"-->
+            <!--android:theme="@style/AppTheme.WhiteAccent" />-->
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/list_waterways"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="15dp"
+            android:scrollbarStyle="insideOverlay"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

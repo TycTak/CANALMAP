@@ -1,0 +1,19 @@
+package com.tyctak.cancamapp.entities;
+
+public class _DownloadedFile {
+    private String name;
+    private byte[] contents;
+
+    public _DownloadedFile(String pName, byte[] pContents) {
+        name = pName;
+        contents = pContents;
+    }
+
+    public byte[] getContents() {
+        return contents;
+    }
+
+    public String getName() {
+        return name;
+    }
+}

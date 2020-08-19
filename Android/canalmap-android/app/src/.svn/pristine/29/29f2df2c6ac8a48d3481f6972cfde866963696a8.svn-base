@@ -1,0 +1,498 @@
+package com.tyctak.cancamapp;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.tyctak.cancamapp.entities._PoiLocation;
+
+import org.apmem.tools.layouts.FlowLayout;
+
+public class Dialog_Select_Markers extends AppCompatActivity {
+
+    private final String TAG = "Dialog_Select_Markers";
+    final Activity dialogMarkers = this;
+    private static int poiId = -1;
+    private String type;
+    private double[] points;
+    private int index;
+    private Uri imageUri;
+
+    final private String display_image = "ic_image";
+    final private String display_text = "ic_text";
+    final private String display_image_text = "ic_image_text";
+
+    final private int GALLERY_REQUEST = 1;
+    final private int CAMERA_REQUEST = 2;
+    final private int TEXT_REQUEST = 3;
+
+    final public static String MARKERS = "markers";
+    final public static String SYMBOLS = "symbols";
+
+    final public static String MARKER = "marker";
+    final public static String SYMBOL = "symbol";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.dialog_select_markers);
+
+        final double[] pts = getIntent().getDoubleArrayExtra("GeoPoint");
+        points = pts;
+
+        poiId = getIntent().getIntExtra("Id", -1);
+        type = getIntent().getStringExtra("Type");
+
+        LinearLayout delete_layout = (LinearLayout) findViewById(R.id.deleteMarker_Layout);
+        index = getIntent().getIntExtra("Index", -1);
+
+        if (poiId >= 0) {
+            delete_layout.setVisibility(View.VISIBLE);
+            _PoiLocation poi = Global.getLIBDB().getPoiLocation(poiId);
+            //poi.Message = "This is the message to display here and this is the test of its ability to wrap correctly";
+            int id = (int) this.getResources().getIdentifier(poi.Name, "drawable", this.getPackageName());
+            ImageView image = (ImageView) findViewById(R.id.marker_selected);
+            image.setImageResource(id);
+
+            Library lib = new Library();
+
+            setMarkerImage(lib.decodeBinary(poi.Image), poi.Message);
+
+            type = poi.Area;
+        } else {
+            delete_layout.setVisibility(View.GONE);
+        }
+
+        final Library_UI LIBUI = new Library_UI();
+
+        final ImageView markerImage = (ImageView) findViewById(R.id.marker_image);
+        markerImage.setTag(poiId);
+
+        final TextView markerText = (TextView) findViewById(R.id.marker_text);
+
+        final LinearLayout markerLayout = (LinearLayout) findViewById(R.id.marker_layout);
+        final LinearLayout symbolLayout = (LinearLayout) findViewById(R.id.symbol_layout);
+
+        Handler handler = new Handler();
+
+        if (type.equals(MARKERS)) {
+            markerLayout.setVisibility(View.VISIBLE);
+            symbolLayout.setVisibility(View.GONE);
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    LIBUI.addPois("markers", pts, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPoisRecent("markers"), (FlowLayout) findViewById(R.id.symbol_select_markers_recent), false);
+                    LIBUI.addPois("markers", pts, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPois("markers", "Moorings"), (FlowLayout) findViewById(R.id.symbol_select_moorings), false);
+                    LIBUI.addPois("markers", pts, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPois("markers", "Activities"), (FlowLayout) findViewById(R.id.icon_flow_activities), false);
+                    LIBUI.addPois("markers", pts, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPois("markers", "Routes"), (FlowLayout) findViewById(R.id.icon_flow_routes), false);
+                    LIBUI.addPois("markers", pts, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPois("markers", "Area of Interest"), (FlowLayout) findViewById(R.id.icon_flow_areainterest), false);
+                    LIBUI.addPois("markers", pts, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPois("markers", "Food & Drink"), (FlowLayout) findViewById(R.id.icon_flow_fooddrink), false);
+                }
+            });
+        } else {
+            markerLayout.setVisibility(View.GONE);
+            symbolLayout.setVisibility(View.VISIBLE);
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    LIBUI.addPois("symbols", points, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPoisRecent("symbols"), (FlowLayout)findViewById(R.id.symbol_select_symbols_recent), false);
+                    LIBUI.addPois("symbols", points, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPois("symbols", "Services"), (FlowLayout)findViewById(R.id.symbol_select_services), false);
+                    LIBUI.addPois("symbols", points, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPois("symbols", "Food & Drink"), (FlowLayout)findViewById(R.id.symbol_select_fooddrink), false);
+                    LIBUI.addPois("symbols", points, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPois("symbols", "Travel"), (FlowLayout)findViewById(R.id.symbol_select_travel), false);
+                    LIBUI.addPois("symbols", points, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPois("symbols", "Essentials"), (FlowLayout)findViewById(R.id.symbol_select_essentials), false);
+                    LIBUI.addPois("symbols", points, markerText, markerImage, index, poiId, dialogMarkers, Global.getLIBDB().getPois("symbols", "Entertainment"), (FlowLayout)findViewById(R.id.symbol_select_entertainment), false);
+                }
+            });
+        }
+    }
+
+    private String getMarkerIcon(Bitmap image, String text) {
+        String retval = "ic_missing";
+
+        boolean isImage = (image != null);
+        boolean isText = (text != null && !text.isEmpty());
+
+        if (isImage && !isText) {
+            retval = "ic_marker_default_image";
+        } else if (!isImage && isText) {
+            retval = "ic_marker_default_text";
+        } else if (isImage && isText) {
+            retval = "ic_marker_default_image_text";
+        }
+
+        return retval;
+    }
+
+    private void setMarkerImage(Bitmap image, String text) {
+        boolean isImage = (image != null);
+        boolean isText = (text != null && !text.isEmpty());
+
+        LinearLayout text_or_image = (LinearLayout) findViewById(R.id.text_or_image);
+        if (isImage || isText) {
+            text_or_image.setVisibility(View.VISIBLE);
+        } else {
+            text_or_image.setVisibility(View.GONE);
+        }
+
+        LinearLayout deleteimagelayout = (LinearLayout) findViewById(R.id.deleteimage_layout);
+        LinearLayout deletetextlayout = (LinearLayout) findViewById(R.id.deletetext_layout);
+        LinearLayout delete_layout = (LinearLayout) findViewById(R.id.deleteMarker_Layout);
+
+        TextView markerText = (TextView) findViewById(R.id.marker_text);
+        ImageView markerImage = (ImageView) findViewById(R.id.marker_image);
+
+        if (poiId >= 0) {
+            delete_layout.setVisibility(View.VISIBLE);
+        } else {
+            delete_layout.setVisibility(View.GONE);
+        }
+
+        if (isImage) {
+            deleteimagelayout.setVisibility(View.VISIBLE);
+            markerImage.setVisibility(View.VISIBLE);
+            markerImage.setImageBitmap(image);
+        } else {
+            deleteimagelayout.setVisibility(View.GONE);
+            markerImage.setVisibility(View.GONE);
+            markerImage.setImageBitmap(null);
+        }
+
+        if (isText) {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)markerText.getLayoutParams();
+
+            if (image == null) {
+                params.setMargins(0, 0, 0, 0);
+            } else {
+                params.setMargins(0, 8, 0, 0);
+            }
+
+            markerText.setLayoutParams(params);
+
+            deletetextlayout.setVisibility(View.VISIBLE);
+            markerText.setVisibility(View.VISIBLE);
+            markerText.setText(text);
+        } else {
+            deletetextlayout.setVisibility(View.GONE);
+            markerText.setVisibility(View.GONE);
+            markerText.setText(null);
+        }
+
+        LinearLayout.LayoutParams paramsText = (LinearLayout.LayoutParams) markerText.getLayoutParams();
+        LinearLayout.LayoutParams paramsImage = (LinearLayout.LayoutParams) markerImage.getLayoutParams();
+
+        if (isImage && isText) {
+            paramsImage.weight = 3;
+            paramsText.weight = 2;
+        } else if (isImage && !isText) {
+            paramsImage.weight = 5;
+            paramsText.weight = 0;
+        } else {
+            paramsImage.weight = 0;
+            paramsText.weight = 5;
+        }
+
+        markerText.setLayoutParams(paramsText);
+        markerImage.setLayoutParams(paramsImage);
+    }
+
+    public void deleteMarker(View view) {
+        Library_UI LIBUI = new Library_UI();
+
+        if (type.equals(MARKERS)) {
+            LIBUI.confirmationDialogYesNo(getString(R.string.confirm_deletemarker_title), getString(R.string.confirm_deletemarker), new Runnable() {
+                @Override
+                public void run() {
+                    deleteMarker();
+                }
+            }, this);
+        } else {
+            LIBUI.confirmationDialogYesNo(getString(R.string.confirm_deletesymbol_title), getString(R.string.confirm_deletesymbol), new Runnable() {
+                @Override
+                public void run() {
+                    deleteMarker();
+                }
+            }, this);
+        }
+    }
+
+    private void deleteMarker() {
+        Global.getLIBDB().deletePoiLocation(poiId);
+
+        Intent intent = new Intent();
+        intent.putExtra("process", "delete");
+        intent.putExtra("poiid", poiId);
+        intent.putExtra("index", index);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    public void attachImage(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+
+        Library_FS LIBFS = new Library_FS();
+        imageUri = LIBFS.createTemporaryFile("picture", ".jpg");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+
+        startActivityForResult(intent, GALLERY_REQUEST);
+    }
+
+    public void attachText(View view) {
+        TextView markerText = (TextView) findViewById(R.id.marker_text);
+
+        Intent intent = new Intent(this, Activity_EditText.class);
+        intent.putExtra("description", markerText.getText().toString());
+        intent.putExtra("poiid", poiId);
+
+        startActivityForResult(intent, TEXT_REQUEST);
+    }
+
+    public void attachCamera(View view) {
+        Library_FS LIBFS = new Library_FS(MyApp.getContext());
+        imageUri = LIBFS.createTemporaryFile("picture", ".jpg");
+
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        cameraIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, -1);
+
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == TEXT_REQUEST) {
+            Library_GR LIBGR = new Library_GR();
+            String text = data.getExtras().get("text").toString();
+
+            if (text != null && !text.isEmpty()) {
+                ImageView markerImageView = (ImageView) findViewById(R.id.marker_image);
+                Bitmap markerImage = LIBGR.getBitmapFromImageView(markerImageView);
+                Bitmap marker;
+
+                String poiName = null;
+
+                if (poiId >= 0) {
+                    _PoiLocation poi = Global.getLIBDB().getPoiLocation(poiId);
+                    poiName = poi.Name;
+                }
+
+                ImageView selectedImage = (ImageView) findViewById(R.id.marker_selected);
+                if (poiName == null || poiName.startsWith("ic_default_")) {
+                    poiName = getMarkerIcon(markerImage, text);
+                }
+                selectedImage.setImageResource(LIBGR.getDrawableId(this, poiName));
+                marker = LIBGR.getDrawableImage(this, poiName, 384, 384);
+
+                int tempPoiId = Global.getLIBDB().writePoiLocation(poiId, "markers", poiName, points, 0, 0, Global.getLIBDB().getMyBoatGuid(), markerImage, null, marker, text);
+
+                if (poiId == -1) {
+                    markerImageView.setTag(tempPoiId);
+                    poiId = tempPoiId;
+                    Intent putintent = getIntent();
+                    putintent.putExtra("Id", poiId);
+                    setIntent(putintent);
+                }
+
+                Intent intent = new Intent();
+                intent.putExtra("process", "write");
+                intent.putExtra("poiid", poiId);
+                intent.putExtra("index", index);
+                dialogMarkers.setResult(Activity.RESULT_OK, intent);
+
+                setMarkerImage(markerImage, text);
+            }
+        } else if (requestCode == CAMERA_REQUEST) {
+            if (imageUri != null){
+                Library_GR LIBGR = new Library_GR();
+                Bitmap bitmap = LIBGR.grabImage(this, imageUri);
+
+                if(bitmap != null) {
+                    TextView markerText = (TextView) findViewById(R.id.marker_text);
+
+                    Bitmap marker = null;
+                    String poiName = null;
+
+                    if (poiId >= 0) {
+                        _PoiLocation poi = Global.getLIBDB().getPoiLocation(poiId);
+                        poiName = poi.Name;
+                    }
+
+                    ImageView selectedImage = (ImageView) findViewById(R.id.marker_selected);
+                    if (poiName == null || poiName.startsWith("ic_default_")) {
+                        poiName = getMarkerIcon(bitmap, markerText.getText().toString());
+                    }
+                    selectedImage.setImageResource(LIBGR.getDrawableId(this, poiName));
+                    marker = LIBGR.getDrawableImage(this, poiName, 384, 384);
+
+                    Bitmap resizedImage = LIBGR.getResizedBitmap(bitmap, 512);
+
+                    resizedImage = LIBGR.rotateImage(resizedImage, 90);
+
+                    int tempPoiId = Global.getLIBDB().writePoiLocation(poiId, "markers", poiName, points, 0, 0, Global.getLIBDB().getMyBoatGuid(), resizedImage, null, marker, markerText.getText().toString());
+
+                    if (poiId == -1) {
+                        ImageView markerImageView = (ImageView) findViewById(R.id.marker_image);
+                        markerImageView.setTag(tempPoiId);
+                        poiId = tempPoiId;
+                        Intent putintent = getIntent();
+                        putintent.putExtra("Id", poiId);
+                        setIntent(putintent);
+                    }
+
+                    Intent intent = new Intent();
+                    intent.putExtra("process", "write");
+                    intent.putExtra("poiid", poiId);
+                    intent.putExtra("index", index);
+                    dialogMarkers.setResult(Activity.RESULT_OK, intent);
+
+                    setMarkerImage(resizedImage, markerText.getText().toString());
+                }
+            }
+        } else if (requestCode == GALLERY_REQUEST) {
+            Uri contentUri = data.getData();
+
+            Library_GR LIBGR = new Library_GR();
+            Bitmap bitmap = LIBGR.grabImage(this, contentUri);
+
+            if (bitmap != null) {
+                TextView markerText = (TextView) findViewById(R.id.marker_text);
+
+                Bitmap marker = null;
+                String poiName = null;
+
+                if (poiId >= 0) {
+                    _PoiLocation poi = Global.getLIBDB().getPoiLocation(poiId);
+                    poiName = poi.Name;
+                }
+
+                ImageView selectedImage = (ImageView) findViewById(R.id.marker_selected);
+                if (poiName == null || poiName.startsWith("ic_default_")) {
+                    poiName = getMarkerIcon(bitmap, markerText.getText().toString());
+                }
+                selectedImage.setImageResource(LIBGR.getDrawableId(this, poiName));
+                marker = LIBGR.getDrawableImage(this, poiName, 384, 384);
+
+                Bitmap resizedImage = LIBGR.getResizedBitmap(bitmap, 512);
+                resizedImage = LIBGR.rotateImage(resizedImage, 90);
+
+                int tempPoiId = Global.getLIBDB().writePoiLocation(poiId, "markers", poiName, points, 0, 0, Global.getLIBDB().getMyBoatGuid(), resizedImage, null, marker, markerText.getText().toString());
+
+                if (poiId == -1) {
+                    ImageView markerImageView = (ImageView) findViewById(R.id.marker_image);
+                    markerImageView.setTag(tempPoiId);
+                    poiId = tempPoiId;
+                    Intent putintent = getIntent();
+                    putintent.putExtra("Id", poiId);
+                    setIntent(putintent);
+                }
+
+                Intent intent = new Intent();
+                intent.putExtra("process", "write");
+                intent.putExtra("poiid", poiId);
+                intent.putExtra("index", index);
+                dialogMarkers.setResult(Activity.RESULT_OK, intent);
+
+                setMarkerImage(resizedImage, markerText.getText().toString());
+            }
+        }
+    }
+
+    public void showFullPhoto(View view) {
+        ImageView markerImage = (ImageView) findViewById(R.id.marker_image);
+
+        Library_GR LIBGR = new Library_GR();
+        final byte[] mapFullScreen = LIBGR.getByteArrayFromImageView(markerImage);
+
+        Intent intent = new Intent(dialogMarkers, Activity_FullScreenImage.class);
+        intent.putExtra("picture", mapFullScreen);
+        intent.putExtra("stretch", true);
+        startActivity(intent);
+    }
+
+    public void showFullText(View view) {
+        TextView markerText = (TextView) findViewById(R.id.marker_text);
+
+        Intent intent = new Intent(dialogMarkers, Activity_FullScreenText.class);
+        intent.putExtra("text", markerText.getText().toString());
+        startActivity(intent);
+    }
+
+    public void deleteImage(View view) {
+        Library_UI LIBUI = new Library_UI();
+        LIBUI.confirmationDialogYesNo(getString(R.string.confirm_deleteimage_title), getString(R.string.confirm_deleteimage), new Runnable() {
+            @Override
+            public void run() {
+                deleteImage();
+            }
+        }, this);
+    }
+
+    private void deleteImage() {
+        Global.getLIBDB().writePoiLocationImage(poiId, null);
+        TextView markerText = (TextView) findViewById(R.id.marker_text);
+        setMarkerImage(null, markerText.getText().toString());
+
+        Intent intent = new Intent();
+        intent.putExtra("process", "write");
+        intent.putExtra("poiid", poiId);
+        intent.putExtra("index", index);
+        setResult(Activity.RESULT_OK, intent);
+    }
+
+    public void deleteText(View view) {
+        Library_UI LIBUI = new Library_UI();
+        LIBUI.confirmationDialogYesNo(getString(R.string.confirm_deletetext_title), getString(R.string.confirm_deletetext), new Runnable() {
+            @Override
+            public void run() {
+                deleteText();
+            }
+        }, this);
+    }
+
+    public void rotateCurrentImage(View view) {
+        _PoiLocation poi = Global.getLIBDB().getPoiLocation(poiId);
+        Library_GR LIBGR = new Library_GR();
+
+        Library lib = new Library();
+
+        Bitmap bitmap = lib.decodeBinary(poi.Image);
+        bitmap = LIBGR.rotateImage(bitmap, 90);
+
+        Global.getLIBDB().writePoiLocationImage(poiId, bitmap);
+        setMarkerImage(bitmap, poi.Message);
+    }
+
+    private void deleteText() {
+        Global.getLIBDB().writePoiLocationText(poiId, null);
+        ImageView markerImage = (ImageView) findViewById(R.id.marker_image);
+
+        Library_GR LIBGR = new Library_GR();
+        Bitmap markerImageBitmap = LIBGR.getBitmapFromImageView(markerImage);
+
+        setMarkerImage(markerImageBitmap, "");
+
+        Intent intent = new Intent();
+        intent.putExtra("process", "write");
+        intent.putExtra("poiid", poiId);
+        intent.putExtra("index", index);
+        setResult(Activity.RESULT_OK, intent);
+    }
+
+    public void closeMarkers(View view) {
+        finish();
+    }
+}

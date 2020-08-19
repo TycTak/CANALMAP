@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBorder">#669999</color>
+    <color name="colorPrimary">#7b88d1</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorLightText">#7dc2c2</color>
+    <color name="colorSidebarHeader">#37E54B</color>
+    <color name="colorActionBarTitle">#FFFFFF</color>
+    <color name="colorHighlightEditText">#FFEFDB</color>
+    <color name="progressBar">#9fa0c6</color>
+    <color name="progressBarBackground">#80ffff</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorMore">#563fff</color>
+    <color name="transparentBackground">#99000000</color>
+    <drawable name="options_menu_item_text">@drawable/options_menu_item_color</drawable>
+    <color name="updateButton">#B7FF91</color>
+    <color name="colorPopupBorder">#669999</color>
+    <color name="colorPopup">#FFFFFF</color>
+    <color name="colorBand">#4b81d8</color>
+
+    <color name="colorIsPhoto">#ff3300</color>
+    <color name="colorIsText">#3333ff</color>
+</resources>

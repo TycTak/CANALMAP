@@ -1,0 +1,646 @@
+package com.tyctak.cancamapp._archive;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.tyctak.cancamapp.Activity_AboutUs;
+import com.tyctak.cancamapp.Activity_EntitySettings;
+import com.tyctak.cancamapp.Activity_Markers;
+import com.tyctak.cancamapp.Activity_MySettings;
+import com.tyctak.cancamapp.Activity_Symbols;
+import com.tyctak.cancamapp.Activity_Waterways;
+import com.tyctak.cancamapp.BuildConfig;
+import com.tyctak.cancamapp.Dialog_Action;
+import com.tyctak.cancamapp.Dialog_Select;
+import com.tyctak.cancamapp.Global;
+import com.tyctak.cancamapp.Library;
+import com.tyctak.cancamapp.Library_GR;
+import com.tyctak.cancamapp.Library_WS;
+import com.tyctak.cancamapp.R;
+import com.tyctak.cancamapp.Service_GP;
+import com.tyctak.cancamapp.entities._Boat;
+import com.tyctak.cancamapp.entities._MySettings;
+import com.tyctak.cancamapp.entities._PoiLocation;
+import com.tyctak.cancamapp.map.LocalMapTileProvider;
+
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.events.DelayedMapListener;
+import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.events.MapListener;
+import org.osmdroid.events.ScrollEvent;
+import org.osmdroid.events.ZoomEvent;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
+import org.osmdroid.util.BoundingBox;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
+import org.osmdroid.views.overlay.MapEventsOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import static com.tyctak.cancamapp.R.id.centreMyBoat;
+import static com.tyctak.cancamapp.R.string.close;
+
+public class Activity_Main2 extends AppCompatActivity {
+
+    private static final String TAG = "Activity_Main";
+
+    private final int BOAT_OVERLAY = 1;
+    private final int MARKER_OVERLAY = 2;
+    private final int SYMBOL_OVERLAY = 3;
+
+    private final class CheckWaterwaysThread implements Runnable {
+
+        @Override
+        public void run() {
+            Log.d(TAG,"CheckWaterwaysThread START");
+            Library_WS LIBWS = new Library_WS();
+
+            try {
+                int count = 0;
+                while (!LIBWS.getWaterways() && count < 20) {
+                    Thread.sleep(30 * 1000);
+                    count++;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ImageView addmap = (ImageView)findViewById(R.id.add_map);
+                    if (!Global.getLIBDB().getIsPurchased()) {
+                        addmap.setImageResource(R.drawable.ic_add_map);
+                        addmap.setVisibility(View.VISIBLE);
+                    } else if (Global.getLIBDB().getIsUpdate()) {
+                        addmap.setImageResource(R.drawable.ic_update_due);
+                        addmap.setVisibility(View.VISIBLE);
+                    } else {
+                        addmap.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            Log.d(TAG,"CheckWaterwaysThread END");
+        }
+    }
+
+    private Integer MOVEMENT_INTERVAL = 500;
+    private Integer SRCH_ZOOM = 11;
+
+    private Service_GP SRVGP;
+    private Library_GR LIBGR = new Library_GR();
+
+    private MapView map;
+    private IMapController mapController;
+
+    //ItemizedIconOverlay.OnItemGestureListener currentGestureListener;
+    //ItemizedIconOverlay.OnItemGestureListener poiGestureListener;
+    //ItemizedIconOverlay currentLocationOverlay;
+    MapEventsReceiver currentMapReceive;
+
+    final Activity activityMain = this;
+
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
+    private SearchView searchView;
+    private MenuItem searchViewMenu;
+
+    //private NavigationView navigationSidebar;
+    private Integer myBoatItemPosition = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //Context ctx = getApplicationContext();
+        setContentView(R.layout.activity_main);
+
+        Log.d(TAG, "ONCREATE");
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_search);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.title_map);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.mainLayout);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, close);
+
+        SRVGP = new Service_GP();
+
+        //navigationSidebar = (NavigationView) findViewById(R.id.navigationSidebar);
+
+//        if (!getIntent().getBooleanExtra("Permission", false)) {
+//            ImageButton centreMyBoat = (ImageButton) findViewById(R.id.centreMyBoat);
+//            centreMyBoat.setVisibility(View.INVISIBLE);
+//            Global.getgetLIBDB().writeCentreMyBoat(_MySettings.enmCentreMyBoat.inactive);
+//        }
+
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        map = (MapView)findViewById(R.id.map);
+
+        final XYTileSource tileSource = new XYTileSource(getLIBDB().getSystem().TileSourceName, getLIBDB().getSystem().MinZoom, getLIBDB().getSystem().MaxZoom, getLIBDB().getSystem().PixelSize, ".png", new String[] { getLIBDB().getSystem().TilesUrl } );
+        map.setTileProvider(new LocalMapTileProvider(this, tileSource));
+
+        map.setMultiTouchControls(true);
+        mapController = map.getController();
+        map.setTilesScaledToDpi(true);
+        map.setBackgroundColor(Color.TRANSPARENT);
+
+        map.getOverlayManager().getTilesOverlay().setLoadingBackgroundColor(Color.TRANSPARENT);
+        map.getOverlayManager().getTilesOverlay().setLoadingLineColor(Color.TRANSPARENT);
+
+        Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+
+        map.setMapListener(new DelayedMapListener(new MapListener() {
+            public boolean onZoom(final ZoomEvent e) {
+                getLIBDB().writeZoomLevel(e.getZoomLevel());
+
+                _MySettings mySettings = getLIBDB().getMySettings();
+                Integer rowsUpdated = getLIBDB().writeTilePriority(mySettings.CentreLatitude, mySettings.CentreLongitude, mySettings.LastZoomLevel);
+                Log.d(TAG, "ZoomLevel = " + e.getZoomLevel() + " - TilePriorityRows = " + rowsUpdated.toString());
+
+                getLIBDB().writeChangedBoat(mySettings.BoatGuid, true);
+
+                return true;
+            }
+
+            public boolean onScroll(final ScrollEvent e) {
+                Log.d(TAG, "onScoll");
+                BoundingBox bb = map.getProjection().getBoundingBox();
+                GeoPoint currentCenter = bb.getCenter();
+                getLIBDB().writeCentreLocation(currentCenter.getLongitude(), currentCenter.getLatitude());
+
+                _MySettings mySettings = getLIBDB().getMySettings();
+                Integer rowsUpdated = getLIBDB().writeTilePriority(mySettings.CentreLatitude, mySettings.CentreLongitude, mySettings.LastZoomLevel);
+                Log.d(TAG, "TilePriorityRows = " + rowsUpdated.toString());
+
+                //getgetLIBDB().writeChangedBoat(mySettings.BoatGuid, true);
+
+                return true;
+            }
+        }, 200));
+
+        currentMapReceive = new MapEventsReceiver() {
+            @Override
+            public boolean singleTapConfirmedHelper(GeoPoint p) {
+                Log.d(TAG, "singleTapConfirmedHelper");
+                Intent intent = new Intent(activityMain, Dialog_Select.class);
+                intent.putExtra("GeoPoint", new double[] { p.getLatitude(), p.getLongitude()});
+                startActivityForResult(intent, CHANGE_MARKER_REQUEST);
+                return false;
+            }
+
+            @Override
+            public boolean longPressHelper(GeoPoint p) {
+                Log.d(TAG, "longPressHelper");
+                Intent intent = new Intent(activityMain, Dialog_Action.class);
+                intent.putExtra("GeoPoint", new double[] { p.getLatitude(), p.getLongitude()});
+                startActivityForResult(intent, 0);
+                return false;
+            }
+        };
+
+        MapEventsOverlay OverlayEvents = new MapEventsOverlay(getBaseContext(), currentMapReceive);
+        map.getOverlays().add(OverlayEvents);
+
+        _MySettings mySettings = getLIBDB().getMySettings();
+
+        mapController.setZoom(mySettings.LastZoomLevel);
+        mapController.setCenter(new GeoPoint(mySettings.CentreLatitude, mySettings.CentreLongitude));
+        setCentreMyBoat(mySettings);
+
+        reDrawMarkers(true);
+
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                boolean redrawMap = Global.getRedrawMap(true);
+                if (redrawMap) {
+                    Log.d(TAG, "Reset map");
+                    int tempZoomLevel = map.getZoomLevel();
+                    mapController.setZoom(0);
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    mapController.setZoom(tempZoomLevel);
+                }
+
+                reDrawMarkers(false);
+                handler.postDelayed(this, MOVEMENT_INTERVAL);
+            }
+        });
+
+        Thread checkWaterwaysThread = new Thread(new CheckWaterwaysThread());
+        checkWaterwaysThread.start();
+
+        final Handler delayHandler = new Handler();
+        delayHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                map.invalidate();
+
+                CheckMovement();
+                delayHandler.postDelayed(this, 5000);
+            }
+        });
+    }
+
+    public void addMap(View view) {
+        Intent intent = new Intent(this, Activity_Waterways.class);
+        startActivity(intent);
+    }
+
+    private void CheckMovement() {
+        _MySettings mySettings = getLIBDB().getMySettings();
+        _Boat myBoatSettings = getLIBDB().getBoatSettings();
+        Library LIB = new Library();
+
+        Calendar instance = Calendar.getInstance();
+        Date now = LIB.now();
+        instance.setTime(now);
+        instance.add(Calendar.SECOND, -30);
+
+        if (mySettings.StoppedTrigger.before(instance.getTime()) && !myBoatSettings.Status.equals(_Boat.enmStatus.NotMoving)) {
+            getLIBDB().writeBoatStatus(myBoatSettings.BoatGuid, _Boat.enmStatus.NotMoving);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SRVGP.stopListener();
+    }
+
+    private boolean removeMyBoatPosition() {
+        boolean retval = false;
+
+        if (getOverlay(BOAT_OVERLAY).size() > 0) {
+            getOverlay(BOAT_OVERLAY).removeItem(myBoatItemPosition);
+            retval = true;
+        }
+
+        return retval;
+    }
+
+    private OverlayItem getPoi(_PoiLocation poi) {
+        OverlayItem retval;
+
+        GeoPoint location = new GeoPoint(poi.Latitude, poi.Longitude);
+        retval = new OverlayItem(poi.Name, null, location);
+
+        retval.setMarker(LIBGR.getResizedPoi(getBaseContext(), poi.DrawableId, map.getZoomLevel()));
+        retval.setMarkerHotspot(OverlayItem.HotspotPlace.CENTER);
+
+        return retval;
+    }
+
+    private OverlayItem getMarker(_Boat boat) {
+        OverlayItem retval;
+
+        GeoPoint location = new GeoPoint(boat.Latitude, boat.Longitude);
+        retval = new OverlayItem(boat.BoatName, boat.People, location);
+
+        String name = getBaseContext().getResources().getResourceName(boat.Icon);
+        Boolean isAvatar = (name.contains("ic_icon__marker"));
+
+        retval.setMarker(LIBGR.getResizedIcon(getBaseContext(), boat.Icon, map.getZoomLevel(), boat.AvatarMarker, boat.Status, boat.Direction, isAvatar, boat.ZeroAngleFixed));
+
+        if (!isAvatar) {
+            retval.setMarkerHotspot(OverlayItem.HotspotPlace.CENTER);
+        } else {
+            retval.setMarkerHotspot(OverlayItem.HotspotPlace.BOTTOM_CENTER);
+        }
+
+        return retval;
+    }
+
+    private ItemizedIconOverlay getOverlay(int overlay) {
+        Integer size = map.getOverlays().size();
+
+        if (size <= 1) {
+            // Following can be used to trap clicks on the map, not used at the moment
+            ItemizedIconOverlay.OnItemGestureListener gestureListener = new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                    Log.d(TAG, "Click on marker");
+                    _Boat myBoatSettings = getLIBDB().getBoatSettings();
+                    _MySettings mySettings = getLIBDB().getMySettings();
+
+                    if (mySettings.LastZoomLevel > SRCH_ZOOM ) mapController.setZoom(SRCH_ZOOM);
+                    mapController.animateTo(new GeoPoint(myBoatSettings.Latitude, myBoatSettings.Longitude));
+                    map.invalidate();
+                    return true;
+                }
+
+                public boolean onItemLongPress(final int index, final OverlayItem item) {
+                    return true;
+                }
+            };
+
+            map.getOverlays().add(new ItemizedOverlayWithFocus<OverlayItem>(this, new ArrayList<OverlayItem>(), gestureListener));
+
+            // Following can be used to trap clicks on the map, not used at the moment
+            ItemizedIconOverlay.OnItemGestureListener poiGestureListener = new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                    Log.d(TAG, "Click on poi marker");
+                    //map.invalidate();
+                    return true;
+                }
+
+                public boolean onItemLongPress(final int index, final OverlayItem item) {
+                    return true;
+                }
+            };
+
+            map.getOverlays().add(new ItemizedOverlayWithFocus<OverlayItem>(this, new ArrayList<OverlayItem>(), poiGestureListener));
+            map.getOverlays().add(new ItemizedOverlayWithFocus<OverlayItem>(this, new ArrayList<OverlayItem>(), poiGestureListener));
+        }
+
+        return ((ItemizedIconOverlay) (map.getOverlays().get(overlay)));
+    }
+
+//    private void setCurrentLocationOverlay() {
+//        Integer size = map.getOverlays().size();
+//
+//        if (size > 1) {
+//            currentLocationOverlay = ((ItemizedIconOverlay) (map.getOverlays().get(1)));
+//        } else {
+//            currentLocationOverlay = new ItemizedOverlayWithFocus<OverlayItem>(this, new ArrayList<OverlayItem>(), currentGestureListener);
+//            map.getOverlays().add(currentLocationOverlay);
+//        }
+//    }
+
+    private void reDrawMarkers(Boolean getAll) {
+        _MySettings mySettings = getLIBDB().getMySettings();
+        setGpsSignal(mySettings.Accuracy);
+
+        ArrayList<_Boat> boats = getLIBDB().getBoats(getAll, mySettings.BoatGuid);
+
+        if (boats.size() > 0) {
+            if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.inactive) {
+                Integer size = map.getOverlays().size();
+
+                if (size > 1) {
+                    //currentLocationOverlay = ((ItemizedIconOverlay) (map.getOverlays().get(1)));
+                    getOverlay(BOAT_OVERLAY).removeAllItems();
+                    map.invalidate();
+                }
+            } else if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.following) {
+                //setCurrentLocationOverlay();
+
+                removeMyBoatPosition();
+
+                _Boat myBoatSettings = getLIBDB().getBoatSettings();
+                OverlayItem marker = getMarker(myBoatSettings);
+
+                if (getOverlay(BOAT_OVERLAY).addItem(marker)) {
+                    myBoatItemPosition = getOverlay(BOAT_OVERLAY).size() - 1;
+                    mapController.animateTo(new GeoPoint(myBoatSettings.Latitude, myBoatSettings.Longitude));
+                    map.invalidate();
+                }
+            } else if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.active) {
+                //setCurrentLocationOverlay();
+                Boolean alreadyActive = removeMyBoatPosition();
+
+                _Boat myBoatSettings = getLIBDB().getBoatSettings();
+                OverlayItem marker = getMarker(myBoatSettings);
+
+                if (getOverlay(BOAT_OVERLAY).addItem(marker)) {
+                    myBoatItemPosition = getOverlay(BOAT_OVERLAY).size() - 1;
+                    if (!alreadyActive) mapController.animateTo(new GeoPoint(myBoatSettings.Latitude, myBoatSettings.Longitude));
+                    map.invalidate();
+                }
+            }
+
+            getLIBDB().writeChangedBoat(mySettings.BoatGuid, false);
+        }
+
+        ArrayList<_PoiLocation> markers = getLIBDB().getAllMarkers();
+
+        if (markers.size() > 0) {
+            getOverlay(MARKER_OVERLAY).removeAllItems();
+
+            OverlayItem poi = getPoi(markers.get(0));
+
+            if (getOverlay(MARKER_OVERLAY).addItem(poi)) {
+                Log.d(TAG, "Added marker");
+                //myBoatItemPosition = getOverlay(BOAT_OVERLAY).size() - 1;
+                //mapController.animateTo(new GeoPoint(myBoatSettings.Latitude, myBoatSettings.Longitude));
+                //map.invalidate();
+            }
+
+            map.invalidate();
+        }
+    }
+
+    private void setGpsSignal(int value) {
+        ImageView accuracy = (ImageView) findViewById(R.id.gps_signal);
+        accuracy.setImageResource(getSignal(value));
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void boatSettingsOnClick(MenuItem menu) {
+        drawerLayout.closeDrawers();
+        Intent intent = new Intent(this, Activity_EntitySettings.class);
+        startActivity(intent);
+    }
+
+    public void mySettingsOnClick(MenuItem menu) {
+        drawerLayout.closeDrawers();
+        Intent intent = new Intent(this, Activity_MySettings.class);
+        startActivity(intent);
+    }
+
+    public void aboutUsOnClick(MenuItem menu) {
+        drawerLayout.closeDrawers();
+        Intent intent = new Intent(this, Activity_AboutUs.class);
+        startActivity(intent);
+    }
+
+    public void waterwaysCoveredOnClick(MenuItem menu) {
+        drawerLayout.closeDrawers();
+        Intent intent = new Intent(this, Activity_Waterways.class);
+        startActivity(intent);
+    }
+
+    public void symbolsOnClick(MenuItem menu) {
+        drawerLayout.closeDrawers();
+        Intent intent = new Intent(this, Activity_Symbols.class);
+        startActivity(intent);
+    }
+
+    public void markersOnClick(MenuItem menu) {
+        drawerLayout.closeDrawers();
+        Intent intent = new Intent(this, Activity_Markers.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mapactionbar, menu);
+/*
+        searchViewMenu = (MenuItem) menu.findItem(R.id.search_action);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchViewMenu);
+
+        ListView searchList = (ListView)findViewById(R.id.searchList);
+        searchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick");
+                Cursor row = (Cursor)parent.getItemAtPosition(position);
+
+                ListView searchList = (ListView)findViewById(R.id.searchList);
+                searchView.onActionViewCollapsed();
+                searchList.setVisibility(View.GONE);
+
+                Log.d(TAG, "onItemClick");
+                GeoPoint geop = new GeoPoint(row.getDouble(4), row.getDouble(3));
+
+                _MySettings mySettings = getgetLIBDB().getMySettings();
+
+                if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.following) {
+                    Global.getgetLIBDB().writeCentreMyBoat(_MySettings.enmCentreMyBoat.active);
+                    ImageButton imgB = (ImageButton) findViewById(centreMyBoat);
+                    imgB.setImageResource(R.drawable.ic_location);
+                }
+
+                if (mySettings.LastZoomLevel != SRCH_ZOOM) mapController.setZoom(SRCH_ZOOM);
+
+                mapController.animateTo(geop);
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+            ListView searchList = (ListView)findViewById(R.id.searchList);
+            if (searchList.getVisibility() == View.VISIBLE) searchList.setVisibility(View.GONE);
+            return false;
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ListView searchList = (ListView)findViewById(R.id.searchList);
+                Cursor cursor = Global.getgetLIBDB().getSearch(newText);
+                searchList.setAdapter(new CursorAdapter_Search(getBaseContext(), cursor));
+                if (searchList.getVisibility() != View.VISIBLE) searchList.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+
+        */
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private int getSignal(int accuracy) {
+        int retval = R.drawable.ic_signal0;
+
+        if (accuracy < 4) {
+            retval = R.drawable.ic_signal5;
+        } else if (accuracy < 8) {
+            retval = R.drawable.ic_signal4;
+        } else if (accuracy < 14) {
+            retval = R.drawable.ic_signal3;
+        } else if (accuracy < 20) {
+            retval = R.drawable.ic_signal2;
+        } else if (accuracy < 50) {
+            retval = R.drawable.ic_signal1;
+        }
+
+        return retval;
+    }
+
+    private void setCentreMyBoat(_MySettings mySettings) {
+        ImageButton imgB = (ImageButton) findViewById(centreMyBoat);
+        ImageView accuracy = (ImageView) findViewById(R.id.gps_signal);
+        LinearLayout accuracy_layout = (LinearLayout) findViewById(R.id.gps_signal_layout);
+
+        if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.active) {
+            SRVGP.startListener();
+            imgB.setImageResource(R.drawable.ic_location);
+            accuracy_layout.setVisibility(View.VISIBLE);
+            accuracy.setImageResource(getSignal(mySettings.Accuracy));
+        } else if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.following) {
+            SRVGP.startListener();
+            imgB.setImageResource(R.drawable.ic_location_follow);
+            accuracy_layout.setVisibility(View.VISIBLE);
+            accuracy.setImageResource(getSignal(mySettings.Accuracy));
+        } else {
+            SRVGP.stopListener();
+            imgB.setImageResource(R.drawable.ic_location_waiting);
+            accuracy_layout.setVisibility(View.GONE);
+        }
+    }
+
+    public void centreMyBoatOnClick(View view) {
+        ImageButton imgB = (ImageButton) findViewById(centreMyBoat);
+        _MySettings mySettings = getLIBDB().getMySettings();
+        ImageView accuracy = (ImageView) findViewById(R.id.gps_signal);
+        LinearLayout accuracy_layout = (LinearLayout) findViewById(R.id.gps_signal_layout);
+
+        if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.active) {
+            // If active need to change to following
+            getLIBDB().writeCentreMyBoat(_MySettings.enmCentreMyBoat.following);
+            imgB.setImageResource(R.drawable.ic_location_follow);
+            accuracy_layout.setVisibility(View.VISIBLE);
+            accuracy.setImageResource(getSignal(mySettings.Accuracy));
+        } else if (mySettings.CentreMyBoat == _MySettings.enmCentreMyBoat.following) {
+            // If following need to change to inactive
+            SRVGP.stopListener();
+            getLIBDB().writeCentreMyBoat(_MySettings.enmCentreMyBoat.inactive);
+            imgB.setImageResource(R.drawable.ic_location_waiting);
+            accuracy_layout.setVisibility(View.GONE);
+        } else {
+            // If inactive need to change to active
+            SRVGP.startListener();
+            getLIBDB().writeCentreMyBoat(_MySettings.enmCentreMyBoat.active);
+            imgB.setImageResource(R.drawable.ic_location);
+            accuracy_layout.setVisibility(View.VISIBLE);
+            accuracy.setImageResource(getSignal(mySettings.Accuracy));
+        }
+
+        getLIBDB().writeChangedBoat(mySettings.BoatGuid, true);
+    }
+}

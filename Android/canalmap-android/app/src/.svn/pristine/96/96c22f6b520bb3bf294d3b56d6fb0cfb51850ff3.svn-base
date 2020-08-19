@@ -1,0 +1,170 @@
+<resources>
+    <string name="app_name">CanCam</string>
+    <string name="title_map">UK Canal and River Map</string>
+    <string name="search_title">Search Map</string>
+
+    <string-array name="boattype_array">
+        <item>Narrow Boat</item>
+        <item>Wide Beam</item>
+    </string-array>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="entitySettingsTitle">Boat Settings</string>
+
+    <string name="editTextTitle">Location Description</string>
+
+    <string name="favouritesTitle">Favourites</string>
+    <string name="mySettingsTitle">My Settings</string>
+    <string name="why_reset_db">Reset to empty database</string>
+    <string name="why_initialise_cache">Initialise map cache</string>
+    <string name="why_copy_tosdcard">Copy to SdCard</string>
+    <string name="why_copy_fromsdcard">Copy from SdCard</string>
+    <string name="copy_from">Copy From</string>
+    <string name="copy_to">Copy To</string>
+    <string name="why_clear_markers">Clear map markers</string>
+    <string name="why_clear_ignore">Clear ignore indicator</string>
+    <string name="clear_markers">Clear</string>
+    <string name="clear_ignore">Ignore</string>
+    <string name="why_repair_ownership">Repair map ownership</string>
+    <string name="cleaning">cleaning\nplease wait\nthis may take several minutes</string>
+
+    <string name="boatNameHint">boat name (min 5 characters)</string>
+    <string name="locationHint">description (max 250 characters)</string>
+    <string name="boatNameTitle">Enter your boat name</string>
+    <string name="boatTypeTitle">Select boat type</string>
+
+    <string name="boatPeopleHint">people (min 5 characters)</string>
+    <string name="boatPeopleTitle">Enter captain\'s name and crew</string>
+    <string name="mySettingsSummary">Alter your application setting information below...</string>
+    <string name="mySettingsUpdatePosition">Slide to update your position at different intervals, the more often you update your position, the faster your battery power will be used...</string>
+
+    <string name="boatTwitterHint">twitter url</string>
+    <string name="boatTwitterTitle">Enter your twitter url</string>
+    <string name="boatFacebookHint">facebook url</string>
+    <string name="boatFacebookTitle">Enter your facebook url</string>
+    <string name="boatIconTitle">Select your Icon?</string>
+
+    <string name="hireBoatQuestion">Is this a hire boat</string>
+
+    <string name="boatSettingsSummary">To identify your boat on the UK Canal and River Map please enter your name and choose an icon</string>
+    <string name="selectIconSummary">Please select an icon to use on the map to show everyone your current position.</string>
+
+    <string name="markerLocationSummary">Please enter your text to associate it with this location...</string>
+
+    <string name="selectSymbolSummary">Please select a symbol to use...</string>
+    <string name="selectMarkerSummary">Please select a marker to use...</string>
+
+    <string name="aboutUsSummary">CanCam has been developed by TycTak Ltd a specialist UK computer company who happens to be run by a passionate Narrow Boat owner. Look out for our narrow boat "Locksley" and give Mike and Lesley a wave.\n\nThe map has been designed and improved by canal users for canal users and we have drawn upon what boat owners would actually need from a mapping system.  We intend continue its development, our aim being to make it the definitive and essential guide to enjoying yourself on the UK waterways.\n\nMap data is supplied under the Open Data Commons Open Database Licence (ODbL) by the OpenStreetMap Foundation - http://www.openstreetmap.org/copyright.\n\nThe map style and display is solely owned by TycTak Ltd, no reproduction is allowed unless expressly permitted, please contact support@tyctak.com for further information.</string>
+    <string name="aboutUs">About CanCam</string>
+    <string name="aboutUsSupportContext">The following buttons are error fixing features for use only when advised by support...</string>
+    <string name="myMaps">My Maps</string>
+    <string name="waterwaysCoveredSummary">Click on map name for details...</string>
+
+    <string name="symbolsTitle">Symbols</string>
+    <string name="symbolsSummary">A list of all the symbols used on the UK Canal and River map</string>
+    <string name="markersTitle">Markers</string>
+    <string name="markersSummary">A list of markers you can use to place on the UK Canal and River map</string>
+    <string name="waterwayName">Details of the waterway</string>
+
+    <string name="editTextFormat">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 &amp;,.</string>
+    <string name="editTextFormatFull">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 &amp;,.;:-+@!#$</string>
+    <string name="editUrlFormat">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 &amp;,./:</string>
+
+    <string name="displayStatsTitle">Display Where we\'ve Been</string>
+    <string name="locationMapTitle">Track Current Map Location</string>
+    <string name="favouriteListTitle">Display List of Favourite Boats</string>
+
+    <string name="locationSend">Sending current position to others</string>
+    <string name="locationStopSend">Stopped sending current position</string>
+    <string name="locationInvalid">You must enter your boat settings first</string>
+
+    <string name="reset_database">CanCam has been reset</string>
+    <string name="clear_cache">The cache is cleared, please restart application</string>
+    <string name="empty_waterway">The waterway has been cleared, please restart application</string>
+    <string name="copy_sdcard_technical">adb pull /storage/emulated/0/cancam.sqlite</string>
+    <string name="copy_sdcard">Database has been copied to SD Card</string>
+
+    <string name="already_on_sdcard">Database is already on SD Card</string>
+    <string name="unable_as_on_sdcard">Database is on SD Card so unable to copy</string>
+    <string name="initialise_database">The database has been initialised</string>
+    <string name="title_activity_dialog__icons">Dialog_Icons</string>
+    <string name="title_activity_dialog__action">Dialog_Action</string>
+    <string name="title_activity_dialog__markers">Dialog_Markers</string>
+    <string name="title_activity_dialog__markers_display">Dialog_Markers Display</string>
+    <string name="title_activity_dialog__select">Dialog_Select</string>
+    <string name="title_activity_dialog__symbols">Dialog_Symbols</string>
+
+    <string name="title_activity_searchable">searchableActivity</string>
+    <string name="title_activity_dialog__waterway">Dialog_Waterway</string>
+
+    <string name="confirm_clearmarkers_title">Clear Markers &amp; Sumbols?</string>
+    <string name="confirm_clearmarkers">This process will clear all markers and symbols from this device, once done there is no way to recover them</string>
+
+    <string name="confirm_clearignore_title">Clear Ignore Indicator?</string>
+    <string name="confirm_clearignore">This process will clear the ignore indicator which stops data copying when you select "Don''t Ask"</string>
+
+    <string name="confirm_repairownership_title">Repair Ownership?</string>
+    <string name="confirm_repairownership">This process will check what maps you have actually bought and repair against the list of waterways where necessary</string>
+    <string name="confirm_initialisecache_title">Confirm Initialise Cache?</string>
+    <string name="confirm_initialisecache">Are you sure you want to initialise the map cache, this will clear the current map tiles and allow you to download them again</string>
+
+    <string name="confirm_deleteimage_title">Confirm Delete Photo?</string>
+    <string name="confirm_deleteimage">Are you sure you want to delete the attached photo</string>
+
+    <string name="confirm_deletemarker_title">Confirm Delete Marker?</string>
+    <string name="confirm_deletemarker">Are you sure you want to delete this marker</string>
+
+    <string name="confirm_deletesymbol_title">Confirm Delete Symbol?</string>
+    <string name="confirm_deletesymbol">Are you sure you want to delete this symbol</string>
+
+    <string name="confirm_deletetext_title">Confirm Delete Text?</string>
+    <string name="confirm_deletetext">Are you sure you want to delete the attached text</string>
+
+    <string name="restart_application_title">Restart Application</string>
+    <string name="restart_application_initialisecache">You have initialised the map cache, we will now exit CanCam so that it will automatically free up space on your device. Just restart CanCam using the normal application button.</string>
+
+    <string name="clear_markers_done">All markers &amp; symbols have been cleared, we will now exit CanCam to complete. Just restart CanCam using the normal application button.</string>
+    <string name="clear_ignore_done">The ignore indicator has been cleared, we will now exit CanCam to complete. Just restart CanCam using the normal application button.</string>
+
+    <string name="confirm_resetdb_title">Confirm Reset Database?</string>
+    <string name="confirm_resetdb">Are you sure you want to reset the database, this will mean that the app will be reset to when it was originally installed.\n\nYou will NOT however loose your purchased maps but you will need to restart this application for them to be reloaded</string>
+    <string name="confirm_emptywaterway_title">Confirm Empty Waterway?</string>
+    <string name="confirm_emptywaterway">If you empty this waterway it will reduce the amount of storage used on your device and free it up for something else, you will still be able to download the map at a later stage</string>
+    <string name="confirm_updatewaterway_title">Confirm Update Waterway?</string>
+    <string name="confirm_downloadwaterway_title">Confirm Download Waterway?</string>
+    <string name="confirm_updatewaterway">Updating this map will make sure that you have the latest version of it, with any amendments to waterway features such as locks, bridges etc as well as the latest points of interest</string>
+    <string name="confirm_downloadwaterway">Downloading this map will make sure that you will be able to use it for touring on your narrow boat, walking or cycling the UK waterway network</string>
+    <string name="confirm_routewaterway_title">Confirm Create Route?</string>
+    <string name="confirm_routewaterway">Are you sure you want to remove current route and create a new one, this may take some time</string>
+    <string name="buy_all_works">You can still BUY ALL maps and when this map becomes available it will automatically be included as one you can download.</string>
+    <string name="sorry_not_available">Sorry but this map is not available at the moment, we are expecting to complete it by the end of %s, please come back again.</string>
+    <string name="buy_all">You have already bought ALL MAPS.\n\nTherefore as maps become available in your area then you will be able to download them. Thank you for your support of our application.</string>
+
+    <string name="msg_failed_debug">Sorry but failed to work (x01)</string>
+    <string name="msg_failed_response">Sorry but failed to work (x02)</string>
+    <string name="msg_success_response">Successfully checked and updated</string>
+    <string name="msg_failed_ready">Sorry but failed to work (x03)</string>
+    <string name="msg_failed_ready2">Sorry but failed to work (x06)</string>
+    <string name="msg_failed_billing1">Sorry but failed to work (x04)</string>
+    <string name="msg_failed_billing2">Sorry but failed to work (x05)</string>
+    <string name="msg_failed_network">Network unavailable at this time</string>
+    <string name="msg_email_support">Email support@tyctak.com</string>
+    <string name="title_activity__full_screen">Activity_FullScreen</string>
+    <string name="version">Version: </string>
+    <string name="versionUnknown">Version: Unknown</string>
+
+    <string name="more">(more)</string>
+    <string name="less">(less)</string>
+
+    <string name="gpstext0">every 10 seconds</string>
+    <string name="gpstext1">every 15 seconds</string>
+    <string name="gpstext2">every 20 seconds</string>
+    <string name="gpstext3">every 25 seconds</string>
+    <string name="gpstext4">every 30 seconds</string>
+    <string name="gpstext5">every 1 minute</string>
+    <string name="gpstext6">every 1 minute 30 seconds</string>
+    <string name="gpstext7">every 2 minutes</string>
+    <string name="gpstext8">every 2 minutes 30 seconds</string>
+    <string name="gpstext">every 3 minutes</string>
+</resources>

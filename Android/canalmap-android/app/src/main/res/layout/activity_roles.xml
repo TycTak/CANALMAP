@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tyctak.canalmap.Activity_Roles">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/toolbar_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/phoneNumberLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textVerifyYourself"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rolesTitle" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/confirmLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:weightSum="4"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/textViewRoleTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textStyle="bold|italic"
+                        android:textSize="18dp"/>
+
+                    <TextView
+                        android:id="@+id/textViewRoleDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:text=""/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:paddingBottom="2dp"
+                android:text="@string/rolesPhoneNumberTitle" />
+
+            <EditText
+                android:id="@+id/phone_number_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:ems="20"
+                android:textSize="28dp"
+                android:inputType="phone"
+                android:maxLines="2"
+                android:hint="@string/phoneNumberHint"
+                android:textColorHint="@color/colorGray"
+                android:digits="@string/editTextFormatFull"
+                android:maxLength="50"
+                android:paddingLeft="9dp"
+                android:background="@color/colorHighlightEditText" />
+
+            <TextView
+                android:id="@+id/textViewRoleError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorRed"
+                android:textStyle="italic"
+                android:textSize="12dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="right">
+
+                <Button
+                    android:id="@+id/confirmRoleRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="120dp"
+                    android:onClick="confirmRoleRequest"
+                    android:text="Send Code"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewRoleOverview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textStyle="italic"
+                android:textSize="16dp"
+                android:text=""/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/verificationLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="6dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewVerifyTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Enter Verification Code"
+                        android:textStyle="bold|italic"
+                        android:layout_marginTop="7dp"
+                        android:textSize="18dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:paddingBottom="9dp"
+                        android:text="You should of received a verification code on your mobile phone, simply type it in here and verify that you received it"/>
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:paddingBottom="2dp"
+                        android:text="@string/rolesVerifyTitle" />
+
+                    <EditText
+                        android:id="@+id/verification_code_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:ems="4"
+                        android:textSize="28dp"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:hint="@string/verificationCodeHint"
+                        android:textColorHint="@color/colorGray"
+                        android:maxLength="50"
+                        android:paddingLeft="9dp"
+                        android:background="@color/colorHighlightEditText" />
+
+                    <TextView
+                        android:id="@+id/textViewCodeError"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="22222"
+                        android:textColor="@color/colorRed"
+                        android:textStyle="italic"
+                        android:textSize="12dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="right">
+
+                <Button
+                    android:id="@+id/cancelVerificationCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="120dp"
+                    android:onClick="cancelVerificationCode"
+                    android:text="Cancel"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/confirmVerificationCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="120dp"
+                    android:onClick="confirmVerificationCode"
+                    android:text="Verify"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

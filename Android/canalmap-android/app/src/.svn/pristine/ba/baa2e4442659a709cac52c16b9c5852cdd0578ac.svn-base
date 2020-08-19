@@ -1,0 +1,18 @@
+package com.tyctak.cancamapp._archive;
+
+
+public class _ZipFile {
+
+//    public _ZipFile (String sourceName, String sourcePath, String destinationPath, byte[] contents) {
+//        this.sourceName = sourceName;
+//        this.sourcePath = sourcePath;
+//        this.destinationPath = destinationPath;
+//        this.contents = contents;
+//    }
+
+    public String sourceName;
+    public Integer key;
+//    public String sourcePath;
+//    public String destinationPath;
+    public byte[] contents;
+}

@@ -1,0 +1,247 @@
+package com.tyctak.cancamapp;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import static android.view.View.GONE;
+
+public class Activity_AboutUs extends AppCompatActivity {
+
+    final private String TAG = "Activity_AboutUs";
+    final private Activity_AboutUs activityAboutUs = this;
+    private Library_GG LIBGG;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_aboutus);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_keyboard);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.aboutUs);
+
+        TextView version = (TextView) findViewById(R.id.aboutus_version);
+        TextView located1 = (TextView) findViewById(R.id.aboutus_located1);
+        TextView located2 = (TextView) findViewById(R.id.aboutus_located2);
+
+        LIBGG = new Library_GG(this);
+        Library_UI LIBUI = new Library_UI();
+
+        version.setText(LIBUI.getVersion());
+
+        Library_FS LIBFS = new Library_FS(MyApp.getContext());
+        Library_CP LIBCP = new Library_CP();
+
+        located1.setText((LIBFS.isDataOnDevice(Library_DB.DATABASE_NAME) ? "On Device" : "Not On Device" ) + " - " + (LIBFS.isDataOnSDCard(Library_DB.DATABASE_NAME) ? "On SD Card" : "Not On SD Card" ));
+        located2.setText((Global.DatOnSdCard ? "Using SD Card Data" : "Using Device Data") + " - " + (LIBCP.isIgnoreFile() ? "ignore" : "not ignored"));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.keyboardactionbar_aboutus, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public void DisplayKeyboard(MenuItem item) {
+        LinearLayout aboutus_buttons = (LinearLayout) findViewById(R.id.aboutus_buttons);
+        aboutus_buttons.setVisibility(aboutus_buttons.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        item.setIcon(aboutus_buttons.getVisibility() == View.VISIBLE ? R.drawable.ic_keyboard_show : R.drawable.ic_keyboard_hide);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed(); return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void clearIgnore(View view) {
+        Library_UI LIBUI = new Library_UI();
+        LIBUI.confirmationDialogYesNo(getString(R.string.confirm_clearignore_title), getString(R.string.confirm_clearignore), new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "Clear ignore");
+
+                Library_CP LIBCP = new Library_CP();
+                LIBCP.deleteIgnoreFile();
+
+                Library_UI LIBUI = new Library_UI();
+                LIBUI.popupExitDialog(getString(R.string.restart_application_title), getString(R.string.clear_ignore_done), activityAboutUs);
+            }
+        }, this);
+    }
+
+    public void clearMarkers(View view) {
+        Library_UI LIBUI = new Library_UI();
+        LIBUI.confirmationDialogYesNo(getString(R.string.confirm_clearmarkers_title), getString(R.string.confirm_clearmarkers), new Runnable() {
+            @Override
+            public void run() {
+                clearMarkers();
+            }
+        }, this);
+    }
+
+    private void clearMarkers() {
+        Log.d(TAG, "Clear markers");
+
+        FrameLayout progress = (FrameLayout) findViewById(R.id.progressWaitingFullScreenAboutUs);
+        progress.setVisibility(View.VISIBLE);
+
+        Thread worker = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Global.getLIBDB().clearMarkers("markers");
+                Global.getLIBDB().clearMarkers("symbols");
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FrameLayout progress = (FrameLayout) findViewById(R.id.progressWaitingFullScreenAboutUs);
+                        progress.setVisibility(GONE);
+
+                        Library_UI LIBUI = new Library_UI();
+                        LIBUI.popupExitDialog(getString(R.string.restart_application_title), getString(R.string.clear_markers_done), activityAboutUs);
+                    }
+                });
+            }
+        });
+
+        worker.start();
+    }
+
+    public void initialiseCache(View view) {
+        Library_UI LIBUI = new Library_UI();
+        LIBUI.confirmationDialogYesNo(getString(R.string.confirm_initialisecache_title), getString(R.string.confirm_initialisecache), new Runnable() {
+            @Override
+            public void run() {
+                initialiseCache();
+            }
+        }, this);
+    }
+
+    private void initialiseCache() {
+        Log.d(TAG, "Initialise Cache");
+
+        FrameLayout progress = (FrameLayout) findViewById(R.id.progressWaitingFullScreenAboutUs);
+        progress.setVisibility(View.VISIBLE);
+
+        Thread worker = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Global.getLIBDB().initialiseCache();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FrameLayout progress = (FrameLayout) findViewById(R.id.progressWaitingFullScreenAboutUs);
+                        progress.setVisibility(GONE);
+
+                        Library_UI LIBUI = new Library_UI();
+                        LIBUI.popupExitDialog(getString(R.string.restart_application_title), getString(R.string.restart_application_initialisecache), activityAboutUs);
+                    }
+                });
+            }
+        });
+
+        worker.start();
+    }
+
+    public void copyToSDCard(View view) {
+        Log.d(TAG, "Copy to SD Card");
+
+        FrameLayout progress = (FrameLayout) findViewById(R.id.progressWaitingFullScreenAboutUs);
+        progress.setVisibility(View.VISIBLE);
+
+        Thread worker = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Library_FS LIBFS = new Library_FS(MyApp.getContext());
+                if (!Global.DatOnSdCard) {
+                    Global.getLIBDB().closeDb();
+                    LIBFS.copyFile(Library_FS.enmFolder.Data, Library_FS.enmFolder.SdCardRoot, Library_DB.DATABASE_NAME, null);
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FrameLayout progress = (FrameLayout) findViewById(R.id.progressWaitingFullScreenAboutUs);
+                        progress.setVisibility(GONE);
+
+                        Library_UI LIBUI = new Library_UI();
+                        if (BuildConfig.DEBUG) {
+                            LIBUI.snackBar(activityAboutUs, R.string.copy_sdcard_technical);
+                        } else if (Global.DatOnSdCard) {
+                            LIBUI.snackBar(activityAboutUs, R.string.unable_as_on_sdcard);
+                        } else {
+                            LIBUI.snackBar(activityAboutUs, R.string.copy_sdcard);
+                        }
+                    }
+                });
+            }
+        });
+
+        worker.start();
+    }
+
+    public void repairOwnership(View view) {
+        Library_UI LIBUI = new Library_UI();
+        LIBUI.confirmationDialogYesNo(getString(R.string.confirm_repairownership_title), getString(R.string.confirm_repairownership), new Runnable() {
+            @Override
+            public void run() {
+                repairOwnership();
+            }
+        }, this);
+    }
+
+    private void repairOwnership() {
+        Log.d(TAG, "Repair ownership");
+
+        FrameLayout progress = (FrameLayout) findViewById(R.id.progressWaitingFullScreenAboutUs);
+        progress.setVisibility(View.VISIBLE);
+
+        Thread worker = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int messageId = LIBGG.repairWaterwaysPurchased();
+
+                class completePurchase implements Runnable {
+                    private int value;
+                    completePurchase(int pValue) { value = pValue; }
+                    public void run() {
+                        FrameLayout progress = (FrameLayout) findViewById(R.id.progressWaitingFullScreenAboutUs);
+                        progress.setVisibility(GONE);
+
+                        Library_UI LIBUI = new Library_UI();
+                        LIBUI.snackBar(activityAboutUs, getString(value));
+                    }
+                };
+
+                runOnUiThread(new completePurchase(messageId));
+            }
+        });
+
+        worker.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (LIBGG != null) {
+            LIBGG.endConnection();
+        }
+    }
+}

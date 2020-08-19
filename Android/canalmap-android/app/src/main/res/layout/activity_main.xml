@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context="com.tyctak.canalmap.Activity_Main"
+    android:id="@+id/mainLayout">
+
+    <LinearLayout
+        android:id="@+id/subLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <include
+            layout="@layout/toolbar_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:srcCompat="@drawable/ic_canal" />-->
+
+            <!--<EditText-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/searchMap"/>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<android.support.v7.widget.SearchView-->
+            <!--android:id="@+id/searchMap"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:queryHint="type in name"-->
+            <!--android:clickable="true"-->
+            <!--android:visibility="visible"/>-->
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/map"
+            android:background="@color/colorMap"
+            android:backgroundTint="@color/colorMap"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/moveFunctions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <com.tyctak.canalmap.FocusView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="26dp"
+                android:layout_marginTop="150dp"
+                android:text="Move a Point"
+                android:textColor="@color/colorMoveText"
+                android:gravity="center"
+                android:clickable="false"/>
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="42dp"
+                app:srcCompat="@drawable/ic_center"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:background="@null" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="150dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/ic_yes"
+                    android:onClick="actionMovePoi"
+                    android:scaleType="fitCenter"
+                    android:background="@null" />
+
+                <ImageButton
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/ic_no"
+                    android:onClick="displayMapAfterMove"
+                    android:scaleType="fitCenter"
+                    android:background="@null" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@color/colorMoveText"
+                android:gravity="center"
+                android:layout_marginTop="185dp"
+                android:text="move map around to change\nposition of point of interest"
+                android:clickable="false"/>
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/mapfunctions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="bottom|left">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/gps_signal_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="bottom|left"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text="Gps"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="8dp" />
+
+                    <ImageView
+                        android:id="@+id/gps_signal"
+                        android:layout_width="20dp"
+                        android:layout_height="17dp"
+                        android:background="@drawable/gpslayout"
+                        app:srcCompat="@drawable/ic_signal5" />
+
+                </LinearLayout>
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/network_signal_layout"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_gravity="bottom|left"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:visibility="gone">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="20dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Net"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="8dp" />-->
+
+                    <!--<ImageView-->
+                        <!--android:layout_width="20dp"-->
+                        <!--android:layout_height="17dp"-->
+                        <!--app:srcCompat="@drawable/ic_isnetwork" />-->
+
+                <!--</LinearLayout>-->
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/compass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom|right"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="12dp"
+                app:srcCompat="@drawable/ic_compass"
+                android:onClick="pointNorth"
+                android:background="@null"
+                android:scaleType="fitCenter"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/centreMyEntity"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="-60dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="75dp"
+                android:padding="4dp"
+                app:srcCompat="@drawable/ic_location_waiting"
+                android:onClick="centreMyEntityOnClick"
+                android:longClickable="true"
+                android:scaleType="fitCenter"
+                android:background="@null" />
+
+            <ImageButton
+                android:id="@+id/server"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="-60dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="60dp"
+                android:padding="4dp"
+                app:srcCompat="@drawable/ic_server_waiting"
+                android:onClick="sendPosition"
+                android:longClickable="true"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:id="@+id/filter"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="-60dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="60dp"
+                android:padding="4dp"
+                app:srcCompat="@drawable/ic_filter_none"
+                android:onClick="changeFilter"
+                android:longClickable="true"
+                android:scaleType="fitCenter"
+                android:background="@null"/>
+
+            <ImageButton
+                android:id="@+id/filterpoi"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="-60dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="60dp"
+                android:padding="4dp"
+                app:srcCompat="@drawable/ic_filterpoi"
+                android:onClick="displayFilterOptions"
+                android:longClickable="true"
+                android:scaleType="fitCenter"
+                android:background="@null"/>
+
+            <LinearLayout
+                android:id="@+id/displayFilterOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageButton
+                    android:id="@+id/filterpoi_justitems"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="-60dp"
+                    android:layout_marginRight="13dp"
+                    android:layout_marginTop="60dp"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/ic_filterpoi_justitems"
+                    android:onClick="changeFilterPoi"
+                    android:longClickable="true"
+                    android:scaleType="fitCenter"
+                    android:background="@null"/>
+
+                <ImageButton
+                    android:id="@+id/filterpoi_created"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="-60dp"
+                    android:layout_marginRight="13dp"
+                    android:layout_marginTop="60dp"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/ic_filterpoi_created"
+                    android:onClick="changeFilterPoiCreated"
+                    android:longClickable="true"
+                    android:scaleType="fitCenter"
+                    android:background="@null"/>
+
+                <ImageButton
+                    android:id="@+id/filterpoi_tick"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="-60dp"
+                    android:layout_marginRight="13dp"
+                    android:layout_marginTop="60dp"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/ic_filterpoi_tick"
+                    android:onClick="changeFilterPoiTick"
+                    android:longClickable="true"
+                    android:scaleType="fitCenter"
+                    android:background="@null"/>
+
+                <ImageButton
+                    android:id="@+id/filterpoi_new"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="-60dp"
+                    android:layout_marginRight="13dp"
+                    android:layout_marginTop="60dp"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/ic_filterpoi_new"
+                    android:onClick="changeFilterNew"
+                    android:longClickable="true"
+                    android:scaleType="fitCenter"
+                    android:background="@null"/>
+
+            </LinearLayout>
+
+            <!--<ImageButton-->
+                <!--android:layout_width="65dp"-->
+                <!--android:layout_height="65dp"-->
+                <!--android:id="@+id/cart_twitter"-->
+                <!--android:layout_marginRight="8dp"-->
+                <!--android:layout_marginTop="60dp"-->
+                <!--android:padding="4dp"-->
+                <!--android:onClick="clickCartTwitter"-->
+                <!--app:srcCompat="@drawable/ic_cart_twitter"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:background="@null"/>-->
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize">
+
+            <ListView
+                android:id="@+id/searchList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="false"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <android.support.design.widget.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:menu="@menu/sidebar"
+        android:layout_gravity="start"
+        android:id="@+id/navigationSidebar">
+
+    </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

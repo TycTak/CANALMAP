@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/gp_one"
+        android:checkableBehavior="single">
+        <!--<item-->
+            <!--android:icon="@drawable/ic_settings_black_24dp"-->
+            <!--android:id="@+id/mysettingsmenu"-->
+            <!--android:title="My Settings"-->
+            <!--android:onClick="mySettingsOnClick"/>-->
+
+        <!--<item-->
+            <!--android:icon="@drawable/ic_favorite_black_24dp"-->
+            <!--android:id="@+id/favouritesmenu"-->
+            <!--android:title="Favourites"-->
+            <!--android:onClick="favouritesOnClick"/>-->
+
+        <item
+            android:id="@+id/boatsettingsmenu"
+            android:icon="@drawable/ic_directions_boat_black_24dp"
+            android:title="Boat Settings"
+            android:onClick="boatSettingsOnClick"/>
+
+        <item
+            android:id="@+id/mysettingsmenu"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="My Settings"
+            android:onClick="mySettingsOnClick"/>
+
+        <item
+            android:id="@+id/waterways_covered"
+            android:icon="@drawable/ic_list"
+            android:title="My Maps"
+            android:onClick="waterwaysCoveredOnClick"/>
+    </group>
+
+    <item
+        android:id="@+id/symbols"
+        android:icon="@drawable/ic_list"
+        android:title="Symbols"
+        android:onClick="symbolsOnClick"/>
+
+    <item
+        android:id="@+id/markers"
+        android:icon="@drawable/ic_list"
+        android:title="Markers"
+        android:onClick="markersOnClick"/>
+
+    <item
+        android:id="@+id/aboutus"
+        android:icon="@drawable/ic_person"
+        android:title="About CanCam"
+        android:onClick="aboutUsOnClick"/>
+
+</menu>

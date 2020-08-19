@@ -1,0 +1,38 @@
+package com.tyctak.cancamapp.entities;
+
+import com.tyctak.cancamapp.Library;
+
+import java.util.Date;
+
+public class _MySettings {
+    public enum enmCentreMyBoat {
+        following,
+        active,
+        inactive
+    }
+
+    public _MySettings() {
+        Library LIB = new Library();
+        BoatGuid = LIB.getUUID().replace("-", "");
+    }
+
+    public Integer LastZoomLevel = 9;
+    public Double CentreLongitude = -1.321500;
+    public Double CentreLatitude = 52.270603;
+    public String BoatGuid;
+    public Boolean IsDebug = false;
+    public enmCentreMyBoat CentreMyBoat = enmCentreMyBoat.inactive;
+    public Boolean ContactServer = false;
+    public Integer UpdateGps = 5;
+    public Integer Accuracy = 0;
+    public Boolean Paused = false;
+    public Date WaterwayDate;
+    public Date SearchDate;
+    public Date BoatDate;
+    public Date ConnectDate;
+    public Date SymbolDate;
+    public Date ItemDate;
+    public Integer OffSet = 0;
+    public Date StoppedTrigger;
+    public Boolean ExternalStorage;
+}

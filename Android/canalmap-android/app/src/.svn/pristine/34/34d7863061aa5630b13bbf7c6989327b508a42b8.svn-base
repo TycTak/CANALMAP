@@ -1,0 +1,221 @@
+package com.tyctak.cancamapp;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.ActionMenuItemView;
+import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.tyctak.cancamapp.entities._Boat;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+public class Activity_EntitySettings extends AppCompatActivity {
+
+    final private String TAG = "Activity_EntitySettings";
+    final private Activity_EntitySettings activityEntitySettings = this;
+
+    final private int GALLERY_REQUEST = 1;
+    final private int PICK_ICON_REQUEST = 2;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_entitysettings);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_save);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.entitySettingsTitle);
+
+        EditText boat_name_edit = (EditText) findViewById(R.id.boat_name_edit);
+        EditText boat_people_edit = (EditText) findViewById(R.id.boat_people_edit);
+        CheckBox boat_ishireboat_edit = (CheckBox) findViewById(R.id.boat_ishireboat_edit);
+        ImageView boat_avatar = (ImageView) findViewById(R.id.boat_avatar);
+        ImageView boat_icon = (ImageView) findViewById(R.id.boat_icon);
+
+        _Boat myBoatSettings = Global.getLIBDB().getBoatSettings();
+
+        boat_name_edit.setText(myBoatSettings.BoatName);
+        boat_people_edit.setText(myBoatSettings.People);
+        boat_ishireboat_edit.setChecked(myBoatSettings.IsHireBoat);
+
+        if (myBoatSettings.Icon > 0) {
+            boat_icon.setImageResource(myBoatSettings.Icon);
+            boat_icon.setTag(myBoatSettings.Icon);
+        } else {
+            boat_icon.setImageResource(R.drawable.ic_icon__logo);
+            boat_icon.setTag(R.drawable.ic_icon__logo);
+        }
+
+        if (myBoatSettings.Avatar != null) {
+            Library lib = new Library();
+            boat_avatar.setImageBitmap(lib.decodeBinary(myBoatSettings.Avatar));
+        } else {
+            boat_avatar.setImageResource(R.drawable.ic_photo);
+        }
+    }
+
+    public void pickImage(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+
+        intent.setType("image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 256);
+        intent.putExtra("outputY", 256);
+        intent.putExtra("return-data", true);
+
+        startActivityForResult(intent, GALLERY_REQUEST);
+    }
+
+    public void saveBoatSettings(MenuItem item) {
+        EditText boat_name_edit = (EditText) findViewById(R.id.boat_name_edit);
+        EditText boat_people_edit = (EditText) findViewById(R.id.boat_people_edit);
+        CheckBox boat_ishireboat_edit = (CheckBox) findViewById(R.id.boat_ishireboat_edit);
+        ImageView boat_icon = ((ImageView)findViewById(R.id.boat_icon));
+        ImageView boat_avatar = ((ImageView)findViewById(R.id.boat_avatar));
+
+        Bitmap avatar = (boat_avatar.getDrawable() instanceof BitmapDrawable ? ((BitmapDrawable)boat_avatar.getDrawable()).getBitmap() : null);
+        Integer iconId = (boat_icon.getTag() != null ? (Integer) boat_icon.getTag() : 0 );
+
+        Library_GR LIBGR = new Library_GR();
+        Bitmap avatarMarker = LIBGR.getAvatarMarker(this.getBaseContext(), iconId, avatar, boat_ishireboat_edit.isChecked());
+
+        _Boat myBoatSettings = Global.getLIBDB().getBoatSettings();
+
+        if (Global.getLIBDB().writeBoat(myBoatSettings.BoatGuid, boat_name_edit.getText().toString(),boat_people_edit.getText().toString(), boat_ishireboat_edit.isChecked(), avatar, iconId, avatarMarker, myBoatSettings.AvatarChecked)) {
+            onBackPressed();
+        }
+    }
+
+    public void clearImage(View view) {
+        ImageView avatar = (ImageView) findViewById(R.id.boat_avatar);
+        avatar.setImageResource(R.drawable.ic_photo);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+
+        Bundle extras;
+
+        if (requestCode == GALLERY_REQUEST) {
+            Bitmap newAvatar = null;
+            extras = data.getExtras();
+
+            if (extras != null) {
+                newAvatar = extras.getParcelable("data");
+            } else if (data != null) {
+                try {
+                    Uri selectedImageUri = data.getData();
+                    InputStream is = this.getContentResolver().openInputStream(selectedImageUri);
+                    if (is != null) newAvatar = BitmapFactory.decodeStream(is);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (newAvatar != null) {
+                Library_GR LIBGR = new Library_GR();
+                Bitmap resizedAvatar = LIBGR.getResizedBitmap(newAvatar, 384, 384);
+
+                ImageView avatar = (ImageView) findViewById(R.id.boat_avatar);
+                avatar.setImageBitmap(resizedAvatar);
+            }
+        }
+
+        if (requestCode == PICK_ICON_REQUEST) {
+            extras = data.getExtras();
+
+            if (extras != null) {
+                Integer iconId = extras.getInt("iconId");
+
+                ImageView boat_icon = (ImageView) findViewById(R.id.boat_icon);
+
+                if (iconId != 0) {
+                    boat_icon.setImageResource(iconId);
+                    boat_icon.setTag(iconId);
+                } else {
+                    boat_icon.setImageResource(R.drawable.ic_icon__logo);
+                    boat_icon.setTag(R.drawable.ic_icon__logo);
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.saveactionbar_boatsettings, menu);
+
+        MenuItem boat_save_button = (MenuItem)menu.getItem(0);
+        EditText boat_name_edit = (EditText) findViewById(R.id.boat_name_edit);
+        EditText boat_people_edit = (EditText) findViewById(R.id.boat_people_edit);
+
+        if ((boat_name_edit.getText().length() >= 5) && (boat_people_edit.getText().length() >= 5)) {
+            boat_save_button.setEnabled(true);
+        } else {
+            boat_save_button.setEnabled(false);
+        }
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ActionMenuItemView boat_save_button = (ActionMenuItemView) findViewById(R.id.save_action);
+                EditText boat_name_edit = (EditText) findViewById(R.id.boat_name_edit);
+                EditText boat_people_edit = (EditText) findViewById(R.id.boat_people_edit);
+
+                if ((boat_name_edit.getText().length() >= 5) && (boat_people_edit.getText().length() >= 5)) {
+                    boat_save_button.setEnabled(true);
+                } else {
+                    boat_save_button.setEnabled(false);
+                }
+
+                invalidateOptionsMenu();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        };
+
+        boat_name_edit.addTextChangedListener(textWatcher);
+        boat_people_edit.addTextChangedListener(textWatcher);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();  return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void pickIcon(View view) {
+        startActivityForResult(new Intent(this, Dialog_Icons.class), PICK_ICON_REQUEST);
+    }
+}

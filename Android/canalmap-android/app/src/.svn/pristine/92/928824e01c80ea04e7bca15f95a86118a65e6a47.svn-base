@@ -1,0 +1,53 @@
+package com.tyctak.cancamapp;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+
+import org.apmem.tools.layouts.FlowLayout;
+
+public class Activity_Symbols extends AppCompatActivity {
+
+    final private String TAG = "Activity_Symbols";
+    final private Activity activitySymbols = this;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_symbols);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_sub);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.symbolsTitle);
+
+        final Library_UI LIBUI = new Library_UI();
+
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                LIBUI.addPois("symbols", null, null, null, -1, -1, activitySymbols, Global.getLIBDB().getPois("symbols", "Services"), (FlowLayout)findViewById(R.id.icon_flow_services), true);
+                LIBUI.addPois("symbols", null, null, null, -1, -1, activitySymbols, Global.getLIBDB().getPois("symbols", "Food & Drink"), (FlowLayout)findViewById(R.id.icon_flow_fooddrink), true);
+                LIBUI.addPois("symbols", null, null, null, -1, -1, activitySymbols, Global.getLIBDB().getPois("symbols", "Travel"), (FlowLayout)findViewById(R.id.icon_flow_travel), true);
+                LIBUI.addPois("symbols", null, null, null, -1, -1, activitySymbols, Global.getLIBDB().getPois("symbols", "Essentials"), (FlowLayout)findViewById(R.id.icon_flow_essentials), true);
+                LIBUI.addPois("symbols", null, null, null, -1, -1, activitySymbols, Global.getLIBDB().getPois("symbols", "Entertainment"), (FlowLayout)findViewById(R.id.icon_flow_entertainment), true);
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();  return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}

@@ -1,0 +1,17 @@
+package com.tyctak.cancamapp._archive;
+
+public class _FtpCommand {
+    public enum enmCommand {
+        SendFile,
+        GetFile,
+        ChangeFolder
+    }
+
+    public _FtpCommand(enmCommand command, String... args) {
+        this.Command = command;
+        this.Args = args;
+    }
+
+    public enmCommand Command;
+    public String[] Args;
+}

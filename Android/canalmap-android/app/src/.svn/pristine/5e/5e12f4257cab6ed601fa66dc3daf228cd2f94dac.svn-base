@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="400"
+   height="400"
+   viewBox="0 0 399.99998 399.99998"
+   id="svg8264"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="marker2.svg">
+  <defs
+     id="defs8266" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="36.892102"
+     inkscape:cy="205.25677"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata8269">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-652.36216)">
+    <circle
+       style="opacity:1;fill:#a9c8ff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5.0240531;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path12750"
+       cx="200.04895"
+       cy="852.58606"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4"
+       r="200" />
+    <path
+       style="opacity:1;fill:#004e64;fill-opacity:1;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 179.72782,710.08651 c -0.0559,8.33624 -0.0943,16.67157 -0.13672,25.00781 l -63.92383,0 c -7.92892,34.77917 -15.817246,69.56596 -23.728523,104.35157 20.090203,-2.08866 40.221993,-3.77512 60.382813,-4.8418 0.1414,-23.42244 0.3118,-46.83927 0.47657,-70.26172 34.0645,0.22352 68.12885,0.26204 102.19336,0.51758 0.1,23.46717 0.30607,46.94049 0.45898,70.41406 19.94894,1.29665 39.85034,3.27029 59.70508,5.74219 -6.3455,-35.3221 -12.87882,-70.61253 -19.28906,-105.92188 l -68.35938,0 c -0.0479,-8.21498 -0.0996,-16.4298 -0.0996,-24.64257 -15.8897,-0.29812 -31.78492,-0.23094 -47.67968,-0.36524 z"
+       id="path6-5-7-5-5-2-8-8-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#004e64;fill-opacity:1;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 175.93716,823.26507 c 0.0936,-10.82117 0.13567,-21.64229 0.22966,-32.46341 18.2713,0.1191 36.5426,0.0596 54.80803,0.32385 0,10.65586 0.13585,21.31835 0.18242,31.97422 -16.37,-11.97131 -38.92658,-12.0176 -55.22006,0.16645 z"
+       id="path6-5-6-0-1-9-0-5"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#004e64;fill-opacity:1;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 198.86836,839.15864 c 6.99888,-1.33481 14.49813,0.17645 20.41395,4.15707 6.993,4.61573 11.74334,12.40074 12.73814,20.7091 1.01839,7.77329 -1.14776,15.93457 -6.02768,22.09679 -4.72673,6.09749 -12.03761,10.1781 -19.76647,10.75435 -8.31154,0.74666 -16.80559,-2.61653 -22.47415,-8.70816 -6.67514,-6.92069 -9.43583,-17.21643 -7.39918,-26.57138 2.18975,-11.03662 11.34895,-20.44448 22.51539,-22.43777 z"
+       id="path8-5-5-9-1-5-2-6"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <path
+       style="opacity:1;fill:#004e64;fill-opacity:1;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 151.63602,853.78378 c -18.71116,1.16267 -37.39806,3.02063 -56.021493,5.58594 -7.8186,1.45794 -15.686255,2.4659 -23.509755,3.88085 1.37753,21.19776 2.75838,42.39599 4.13867,63.59375 4.75302,-0.83048 9.724265,-1.37976 25.134768,-6.25781 14.31285,-4.53061 22.72292,-10.22105 28.52929,-13.60156 3.86244,-2.24876 8.91143,-7.35496 11.22852,-7.37695 2.61555,-0.0249 3.304,2.29628 2.8457,4.61132 -0.45831,2.31504 -10.12672,16.95518 -18.42773,23.02344 -12.85846,9.39983 -21.56156,13.11992 -28.300783,15.625 -2.64169,0.982 -13.994465,4.07532 -18.279295,4.67969 l -3.26367,0 0,18.85742 252.294918,0 0,-14.80469 c 0.086,-1.31963 0.17186,-2.63933 0.25781,-3.95898 -0.0642,0.007 -0.17274,-2.7e-4 -0.25781,0 l 0,-0.0937 -1.11914,0 c -4.28481,-0.60436 -15.63762,-3.69769 -18.2793,-4.67969 -6.73923,-2.50508 -15.44424,-6.22517 -28.30273,-15.625 -8.301,-6.06826 -17.96747,-20.7084 -18.42578,-23.02344 -0.4583,-2.31504 0.2282,-4.63622 2.84375,-4.61132 2.31708,0.022 7.36606,5.12819 11.22851,7.37695 5.80637,3.38051 14.21643,9.07095 28.5293,13.60156 15.41049,4.87805 20.38369,5.42733 25.13672,6.25781 1.38028,-21.19776 2.76115,-42.39599 4.13867,-63.59375 -7.8235,-1.41495 -15.69116,-2.42291 -23.50977,-3.88085 -18.62343,-2.56531 -37.31032,-4.42327 -56.02148,-5.58594 0.1033,6.37944 -0.76861,14.24844 -1.66992,20.5664 -1.71961,12.77119 -6.02916,23.24866 -13.91602,31.53516 -3.42949,3.74647 -7.46457,6.44341 -11.52734,8.86719 2.6744,3.74647 5.62103,7.16264 8.50976,10.64453 6.84727,8.04033 14.14956,15.61994 21.97461,22.15039 l -109.33203,0 c 7.82528,-6.53056 15.12912,-14.10985 21.97656,-22.15039 2.88873,-3.48189 5.83537,-6.89806 8.50977,-10.64453 -4.06278,-2.42378 -8.09786,-5.12072 -11.52734,-8.86719 -7.88687,-8.2865 -12.19642,-18.76397 -13.91602,-31.53516 -0.90132,-6.31796 -1.77322,-14.18696 -1.66992,-20.5664 z"
+       id="path10-7-6-3-0-1-2-61"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Pause"
+        android:id="@+id/keyboard_action"
+        app:showAsAction="always"
+        android:onClick="DisplayKeyboard"
+        android:icon="@drawable/ic_keyboard_hide" />
+
+</menu>

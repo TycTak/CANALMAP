@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tyctak.cancamapp.Activity_Symbols">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <include
+            layout="@layout/toolbar_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/markersSummary"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Moorings"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <View style="@style/Divider"/>
+
+                <org.apmem.tools.layouts.FlowLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    android:id="@+id/icon_flow_moorings"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="20dp">
+
+                </org.apmem.tools.layouts.FlowLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Activities"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <View style="@style/Divider"/>
+
+                <org.apmem.tools.layouts.FlowLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    android:id="@+id/icon_flow_activities"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="20dp">
+
+                </org.apmem.tools.layouts.FlowLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Routes"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <View style="@style/Divider"/>
+
+                <org.apmem.tools.layouts.FlowLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    android:id="@+id/icon_flow_routes"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="20dp">
+
+                </org.apmem.tools.layouts.FlowLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Area of Interest"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <View style="@style/Divider"/>
+
+                <org.apmem.tools.layouts.FlowLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    android:id="@+id/icon_flow_areainterest"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="20dp">
+
+                </org.apmem.tools.layouts.FlowLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Food &amp; Drink"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <View style="@style/Divider"/>
+
+                <org.apmem.tools.layouts.FlowLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    android:id="@+id/icon_flow_fooddrink"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="20dp">
+
+                </org.apmem.tools.layouts.FlowLayout>
+
+                <android.support.v4.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minHeight="5dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

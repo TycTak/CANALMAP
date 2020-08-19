@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/premiumFeatureText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adding your own\nmarker or symbol is\na premium feature"
+        android:inputType="textMultiLine"
+        android:textColor="@color/colorWhiteText"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:clickable="false"
+        android:textAlignment="center"
+        android:layout_marginBottom="30dp"
+        android:maxWidth="400dp"
+        android:contextClickable="false"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="120dp"
+        android:minHeight="120dp"
+        android:id="@+id/symbolSelect"
+        android:onClick="selectSymbol"
+        app:srcCompat="@drawable/ic_symbol_blank"
+        android:layout_marginBottom="20dp"
+        android:scaleType="fitXY"
+        android:background="@android:color/transparent"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="120dp"
+        android:minHeight="120dp"
+        android:id="@+id/markerSelect"
+        android:onClick="selectMarker"
+        app:srcCompat="@drawable/ic_marker_blank"
+        android:scaleType="fitXY"
+        android:background="@android:color/transparent"/>
+
+</LinearLayout>

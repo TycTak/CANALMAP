@@ -1,0 +1,39 @@
+package com.tyctak.cancamapp._archive;
+
+import org.osmdroid.util.GeoPoint;
+import java.util.Date;
+
+public class _Location {
+    public Integer Id;
+    public Integer ClientId;
+    public String ImageName;
+    public String ImageNameTransformed;
+    public Date ActDate;
+    public Double Longitude;
+    public Double Latitude;
+    public GeoPoint Position;
+    public Double Distance;
+    public Double Speed;
+    public Double Altitude;
+    public Double Track;
+    public Date Created;
+    public Integer Record;
+    public String Cid;
+    public Integer UserId;
+    public String DateName;
+    public Double TimeLapsed;
+    public Double Difference;
+    public Boolean IsCtl;
+    public Integer Status;
+    public Date Transferred;
+    //public Integer EntityId;
+    public Integer ImageSize;
+    public Integer ImageTransformedSize;
+    public Integer Satellites;
+    public Integer ReportSeconds;
+    public Integer Delay;
+    public Boolean IsSignal;
+    public Boolean IsDebug;
+    public String Provider;
+    public Integer Accuracy;
+}

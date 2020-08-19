@@ -1,0 +1,318 @@
+package com.tyctak.cancamapp;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.ActionMenuItemView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+
+import com.tyctak.cancamapp.entities._Waterway;
+
+import java.util.ArrayList;
+
+public class Activity_Waterways extends AppCompatActivity {
+
+    final private String TAG = "Activity_Waterways";
+    final private Activity_Waterways activityWaterways = this;
+    final private Integer DELAY = 1000;
+
+    private class pauseMenu {
+        public String PAUSE = "Pause";
+        public String RESUME = "Resume";
+    }
+
+    final private pauseMenu pm = new pauseMenu();
+
+    private Library_GG LIBGG;
+    final Library_UI LIBUI = new Library_UI();
+
+    ListView waterwayList;
+    ArrayAdapter_Waterways arrayAdapter;
+    ArrayList<_Waterway> waterways;
+
+    Handler handlerCheckDetails;
+    Runnable runnable;
+    Boolean stillRunning = false;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_waterways);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_pause);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.myMaps);
+
+        LIBGG = new Library_GG(activityWaterways);
+
+        waterways = Global.getLIBDB().getAllWaterways();
+        arrayAdapter = new ArrayAdapter_Waterways(this, waterways);
+        arrayAdapter.setAllPurchased(Global.getLIBDB().getPurchased(Global.getAllWaterwayGuid()));
+        arrayAdapter.setAllPaused(Global.getLIBDB().getPaused());
+
+        waterwayList = (ListView) findViewById(R.id.list_waterways);
+
+        LayoutInflater inflater = getLayoutInflater();
+        ViewGroup header = (ViewGroup)inflater.inflate(R.layout.listview_header, waterwayList, false);
+        waterwayList.addHeaderView(header);
+
+        waterwayList.setAdapter(arrayAdapter);
+
+        waterwayList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                _Waterway waterway = (_Waterway) parent.getItemAtPosition(position);
+
+                Intent intent = new Intent(Activity_Waterways.this, Dialog_Waterway.class);
+                intent.putExtra("waterwayGuid", waterway.WaterwayGuid);
+                intent.putExtra("purchased", waterway.Purchased);
+                intent.putExtra("nobuttons", false);
+                intent.putExtra("paused", waterway.Paused);
+
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        stillRunning = true;
+        handlerCheckDetails = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                ActionMenuItemView mi = (ActionMenuItemView) findViewById(R.id.pause_action);
+                if (mi != null) mi.setVisibility(Global.getLIBDB().getIsDownloading() ? View.VISIBLE : View.INVISIBLE);
+
+                arrayAdapter.setAllPurchased(Global.getLIBDB().getPurchased(Global.getAllWaterwayGuid()));
+                arrayAdapter.setAllPaused(Global.getLIBDB().getPaused());
+
+                ArrayList<_Waterway> wwList = Global.getLIBDB().getAllWaterways();
+
+                boolean changed = false;
+
+                for (_Waterway waterway : waterways) {
+                    int position = arrayAdapter.getPosition(waterway);
+                    _Waterway ww = wwList.get(position);
+
+                    if (!waterwaySameAs(ww, waterway)) {
+                        waterway.TilesDownloaded = ww.TilesDownloaded;
+                        waterway.Paused = ww.Paused;
+                        waterway.TotalTiles = ww.TotalTiles;
+                        waterway.Empty = ww.Empty;
+                        waterway.Purchased = ww.Purchased;
+                        changed = true;
+                    }
+                }
+
+                if (changed) arrayAdapter.notifyDataSetChanged();
+
+                if (stillRunning) handlerCheckDetails.postDelayed(this, DELAY);
+            }
+        };
+
+        handlerCheckDetails.post(runnable);
+    }
+
+    private boolean waterwaySameAs(_Waterway source, _Waterway destination) {
+        return (source.Empty == destination.Empty && source.Paused == destination.Paused && source.Purchased == destination.Purchased && source.TilesDownloaded == destination.TilesDownloaded && source.TotalTiles == destination.TotalTiles);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+        handlerCheckDetails.removeCallbacks(runnable);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pauseactionbar_waterways, menu);
+        MenuItem pause_button = (MenuItem)menu.getItem(0);
+
+        Boolean paused = Global.getLIBDB().getPaused();
+
+        if (paused) {
+            pause_button.setTitle(pm.RESUME);
+            pause_button.setIcon(R.drawable.ic_play_button_white);
+        } else {
+            pause_button.setTitle(pm.PAUSE);
+            pause_button.setIcon(R.drawable.ic_pause_button_white);
+        }
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onStop() {
+        stillRunning = false;
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (LIBGG.isReady()) {
+            LIBGG.endConnection();
+        }
+    }
+
+    public void clickPausedButton(View view) {
+        final String waterwayGuid = view.getTag().toString();
+        Global.setRedrawMap(true);
+        Global.getLIBDB().writeTogglePaused(waterwayGuid);
+
+        ImageButton paused_button = (ImageButton) view.findViewById(R.id.buttonPaused);
+        if (paused_button.getId() == R.id.buttonPaused) {
+            paused_button.setImageResource(R.drawable.ic_play_button);
+        } else {
+            paused_button.setImageResource(R.drawable.ic_pause_button);
+        }
+    }
+
+    public void clickBuyButton(View view) {
+        final String waterwayGuid = view.getTag().toString();
+
+        Button buy_button = (Button) view.findViewById(R.id.buy_button_item);
+        buy_button.setVisibility(View.GONE);
+
+        try {
+            if (BuildConfig.DEBUG) {
+                Global.getLIBDB().writeBuyWaterway(waterwayGuid);
+                arrayAdapter.notifyDataSetChanged();
+            } else if (LIBGG.isReady()) {
+                LIBGG.buyWaterway(arrayAdapter, waterwayGuid, this);
+            } else {
+                refreshUI(new Runnable() {
+                    @Override
+                    public void run() {
+                        LIBUI.snackBar(activityWaterways, R.string.msg_failed_ready);
+                    }
+                });
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "ERROR for general Exception when running writeBuyWaterway");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();  return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void pauseWaterways(MenuItem item) {
+        Global.setRedrawMap(true);
+
+        if (item.getTitle().equals(pm.PAUSE)) {
+            Global.getLIBDB().writePaused(true);
+            item.setTitle(pm.RESUME);
+            item.setIcon(R.drawable.ic_play_button_white);
+        } else {
+            Global.getLIBDB().writePaused(false);
+            item.setTitle(pm.PAUSE);
+            item.setIcon(R.drawable.ic_pause_button_white);
+        }
+    }
+
+    public void clickWaterwayButton(View view) {
+        final String waterwayGuid = view.getTag().toString();
+        final _Waterway waterway = Global.getLIBDB().getWaterway(waterwayGuid);
+
+        Button update_button = (Button) view.findViewById(R.id.update_button_item);
+        update_button.setVisibility(View.GONE);
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (!Global.getIsNetworkConnected()) {
+                    refreshUI(new Runnable() {
+                        @Override
+                        public void run() {
+                            LIBUI.snackBar(activityWaterways, R.string.msg_failed_network);
+                        }
+                    });
+
+                    return;
+                }
+
+                new Thread(new Worker_DownloadTiles(waterwayGuid, new Worker_DownloadTiles.DownloadTilesListener() {
+                    @Override
+                    public void onSuccess() {
+                        refreshUI(null);
+                    }
+
+                    @Override
+                    public void onFailed() {
+                        refreshUI(new Runnable() {
+                            @Override
+                            public void run() {
+                                LIBUI.snackBar(activityWaterways, R.string.msg_failed_network);
+                            }
+                        });
+                    }
+                })).start();
+            }
+        };
+
+        Runnable cancelRunnable = new Runnable() {
+            @Override
+            public void run() {
+                refreshUI(null);
+            }
+        };
+
+        arrayAdapter.setDialogWaterwayGuid(waterwayGuid);
+
+        if (waterway.Empty) {
+            LIBUI.confirmationDialogYesNo(getString(R.string.confirm_downloadwaterway_title), getString(R.string.confirm_downloadwaterway), runnable, cancelRunnable, activityWaterways);
+        } else {
+            LIBUI.confirmationDialogYesNo(getString(R.string.confirm_updatewaterway_title), getString(R.string.confirm_updatewaterway), runnable, cancelRunnable, activityWaterways);
+        }
+    }
+  
+    private void refreshUI(final Runnable runnable) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                arrayAdapter.setDialogWaterwayGuid("");
+                arrayAdapter.notifyDataSetChanged();
+                if (runnable != null) runnable.run();
+            }
+        });
+    }
+
+    public void showMore(View view) {
+        Button moreInfo = (Button) findViewById(R.id.moreInfo);
+        LinearLayout moreOptions = (LinearLayout) findViewById(R.id.moreOptions);
+
+        if (moreInfo.getText().equals(getString(R.string.more))) {
+            moreInfo.setText(getString(R.string.less));
+            moreOptions.setVisibility(View.VISIBLE);
+        } else {
+            moreInfo.setText(getString(R.string.more));
+            moreOptions.setVisibility(View.GONE);
+        }
+    }
+}

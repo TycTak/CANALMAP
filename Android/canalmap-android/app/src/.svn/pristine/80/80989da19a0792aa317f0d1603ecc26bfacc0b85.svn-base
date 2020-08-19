@@ -1,0 +1,5 @@
+--Upgrade 2
+ALTER TABLE poilocations ADD COLUMN updated LONG;
+ALTER TABLE poilocations ADD COLUMN deleted BOOLEAN DEFAULT 0;
+ALTER TABLE poilocations ADD COLUMN status INTEGER DEFAULT 0;
+UPDATE poilocations SET deleted = 0, updated = created;

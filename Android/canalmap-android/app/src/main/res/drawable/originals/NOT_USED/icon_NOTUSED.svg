@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="589"
+   height="589"
+   viewBox="0 0 588.99999 589.00001"
+   id="svg8222"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="icon.svg"
+   inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-xxxhdpi\ic_launcher.png"
+   inkscape:export-xdpi="29.34"
+   inkscape:export-ydpi="29.34">
+  <defs
+     id="defs8224">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient9386">
+      <stop
+         style="stop-color:#747474;stop-opacity:1;"
+         offset="0"
+         id="stop9388" />
+      <stop
+         style="stop-color:#747474;stop-opacity:0;"
+         offset="1"
+         id="stop9390" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient8944"
+       inkscape:collect="always">
+      <stop
+         id="stop8946"
+         offset="0"
+         style="stop-color:#ffffff;stop-opacity:1" />
+      <stop
+         id="stop8948"
+         offset="1"
+         style="stop-color:#0db51c;stop-opacity:0" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient8938"
+       inkscape:collect="always">
+      <stop
+         id="stop8940"
+         offset="0"
+         style="stop-color:#5cd9f7;stop-opacity:1" />
+      <stop
+         id="stop8942"
+         offset="1"
+         style="stop-color:#0db51c;stop-opacity:0" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8916">
+      <stop
+         style="stop-color:#0e7897;stop-opacity:1"
+         offset="0"
+         id="stop8918" />
+      <stop
+         style="stop-color:#0e7897;stop-opacity:0.24367088"
+         offset="1"
+         id="stop8920" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8851">
+      <stop
+         style="stop-color:#b0aeae;stop-opacity:1;"
+         offset="0"
+         id="stop8853" />
+      <stop
+         style="stop-color:#b0aeae;stop-opacity:0;"
+         offset="1"
+         id="stop8855" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8724">
+      <stop
+         style="stop-color:#e4ef30;stop-opacity:1"
+         offset="0"
+         id="stop8726" />
+      <stop
+         style="stop-color:#0db51c;stop-opacity:0"
+         offset="1"
+         id="stop8728" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient8645"
+       inkscape:collect="always">
+      <stop
+         id="stop8647"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+      <stop
+         id="stop8649"
+         offset="1"
+         style="stop-color:#a9a9a9;stop-opacity:0" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient8191"
+       inkscape:collect="always">
+      <stop
+         id="stop8193"
+         offset="0"
+         style="stop-color:#bebebe;stop-opacity:1" />
+      <stop
+         id="stop8195"
+         offset="1"
+         style="stop-color:#1a1414;stop-opacity:0" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient12777">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop12779" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0"
+         offset="1"
+         id="stop12781" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient12777"
+       id="radialGradient12783"
+       cx="-152.85716"
+       cy="942.36212"
+       fx="-152.85716"
+       fy="942.36212"
+       r="200"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.79655249,1.1929884,-0.91030711,0.60780753,689.84961,420.15509)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8191"
+       id="linearGradient8225"
+       gradientUnits="userSpaceOnUse"
+       x1="-23.076809"
+       y1="1369.6586"
+       x2="-208.13353"
+       y2="1104.6417"
+       gradientTransform="matrix(0.44422606,0,0,0.44422606,-7.61305,570.82641)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8191"
+       id="linearGradient8227"
+       gradientUnits="userSpaceOnUse"
+       x1="-23.076809"
+       y1="1369.6586"
+       x2="-208.13353"
+       y2="1104.6417"
+       gradientTransform="matrix(0.44422606,0,0,0.44422606,-7.61305,570.82641)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8191"
+       id="linearGradient8229"
+       gradientUnits="userSpaceOnUse"
+       x1="-23.076809"
+       y1="1369.6586"
+       x2="-208.13353"
+       y2="1104.6417"
+       gradientTransform="matrix(0.44422606,0,0,0.44422606,-7.61305,570.82641)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8191"
+       id="linearGradient8231"
+       gradientUnits="userSpaceOnUse"
+       x1="-23.076809"
+       y1="1369.6586"
+       x2="-208.13353"
+       y2="1104.6417"
+       gradientTransform="matrix(0.44422606,0,0,0.44422606,-7.61305,107.46428)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8191"
+       id="linearGradient8233"
+       gradientUnits="userSpaceOnUse"
+       x1="-23.076809"
+       y1="1369.6586"
+       x2="-208.13353"
+       y2="1104.6417"
+       gradientTransform="matrix(0.44422606,0,0,0.44422606,-7.61305,570.82641)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8645"
+       id="linearGradient8643"
+       x1="1020.9322"
+       y1="1505.6675"
+       x2="191.00186"
+       y2="638.77991"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-23.428571,-1208.2857)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8944"
+       id="linearGradient8672"
+       x1="963.34412"
+       y1="-286.20108"
+       x2="118.89832"
+       y2="-470.30002"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.96589148,0,0,0.96724688,66.093471,-66.947222)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8938"
+       id="linearGradient8730"
+       x1="534.22125"
+       y1="280.83374"
+       x2="180.14484"
+       y2="-523.82281"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.98904618,0,0,0.98539549,2.7647789,-5.6708379)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8724"
+       id="linearGradient8730-7"
+       x1="72.73098"
+       y1="-550.75"
+       x2="443.19019"
+       y2="-252.14206"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.98904618,0,0,0.98539549,1276.326,406.66969)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8724"
+       id="linearGradient8672-2"
+       x1="293.75549"
+       y1="-321.04657"
+       x2="388.24948"
+       y2="-193.5217"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.96589148,0,0,0.96724688,1339.6547,345.39329)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8645"
+       id="linearGradient8643-0"
+       x1="1020.9322"
+       y1="1505.6675"
+       x2="191.00186"
+       y2="638.77991"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(1250.1327,-795.23089)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8916"
+       id="linearGradient8922"
+       x1="487.14883"
+       y1="-243.44586"
+       x2="277.14886"
+       y2="-447.73157"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8916"
+       id="linearGradient8924"
+       gradientUnits="userSpaceOnUse"
+       x1="487.14883"
+       y1="-243.44586"
+       x2="277.14886"
+       y2="-447.73157" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8916"
+       id="linearGradient8926"
+       gradientUnits="userSpaceOnUse"
+       x1="487.14883"
+       y1="-243.44586"
+       x2="277.14886"
+       y2="-447.73157" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8916"
+       id="linearGradient8928"
+       gradientUnits="userSpaceOnUse"
+       x1="487.14883"
+       y1="-243.44586"
+       x2="277.14886"
+       y2="-447.73157" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8916"
+       id="linearGradient8930"
+       gradientUnits="userSpaceOnUse"
+       x1="487.14883"
+       y1="-243.44586"
+       x2="277.14886"
+       y2="-447.73157" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8916"
+       id="linearGradient8922-8"
+       x1="487.14883"
+       y1="-243.44586"
+       x2="277.14886"
+       y2="-447.73157"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8916"
+       id="linearGradient8924-2"
+       gradientUnits="userSpaceOnUse"
+       x1="487.14883"
+       y1="-243.44586"
+       x2="277.14886"
+       y2="-447.73157" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8916"
+       id="linearGradient8926-4"
+       gradientUnits="userSpaceOnUse"
+       x1="487.14883"
+       y1="-243.44586"
+       x2="277.14886"
+       y2="-447.73157" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8916"
+       id="linearGradient8928-2"
+       gradientUnits="userSpaceOnUse"
+       x1="487.14883"
+       y1="-243.44586"
+       x2="277.14886"
+       y2="-447.73157" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8916"
+       id="linearGradient8930-3"
+       gradientUnits="userSpaceOnUse"
+       x1="487.14883"
+       y1="-243.44586"
+       x2="277.14886"
+       y2="-447.73157" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8851"
+       id="linearGradient8857-4"
+       x1="1022.2744"
+       y1="284.64618"
+       x2="789.93927"
+       y2="-54.765057"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8851"
+       id="linearGradient8859-9"
+       gradientUnits="userSpaceOnUse"
+       x1="1022.2744"
+       y1="284.64618"
+       x2="789.93927"
+       y2="-54.765057" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8851"
+       id="linearGradient8861-0"
+       gradientUnits="userSpaceOnUse"
+       x1="1022.2744"
+       y1="284.64618"
+       x2="789.93927"
+       y2="-54.765057" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8851"
+       id="linearGradient8863-0"
+       gradientUnits="userSpaceOnUse"
+       x1="1022.2744"
+       y1="284.64618"
+       x2="789.93927"
+       y2="-54.765057" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8851"
+       id="linearGradient8865-2"
+       gradientUnits="userSpaceOnUse"
+       x1="1022.2744"
+       y1="284.64618"
+       x2="789.93927"
+       y2="-54.765057" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8938"
+       id="linearGradient8730-6"
+       x1="534.22125"
+       y1="280.83374"
+       x2="180.14484"
+       y2="-523.82281"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.98904618,0,0,0.98539549,1164.197,-670.30431)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8944"
+       id="linearGradient8672-4"
+       x1="963.34412"
+       y1="-286.20108"
+       x2="118.89832"
+       y2="-470.30002"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.96589148,0,0,0.96724688,1227.5257,-731.58071)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8645"
+       id="linearGradient8643-02"
+       x1="1020.9322"
+       y1="1505.6675"
+       x2="191.00186"
+       y2="638.77991"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(1138.0036,-1872.9192)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient9386"
+       id="linearGradient9392"
+       x1="1497.1646"
+       y1="-264.78073"
+       x2="1178.4344"
+       y2="-653.35217"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient9386"
+       id="linearGradient9394"
+       gradientUnits="userSpaceOnUse"
+       x1="1497.1646"
+       y1="-264.78073"
+       x2="1178.4344"
+       y2="-653.35217" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient9386"
+       id="linearGradient9396"
+       gradientUnits="userSpaceOnUse"
+       x1="1497.1646"
+       y1="-264.78073"
+       x2="1178.4344"
+       y2="-653.35217" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35000001"
+     inkscape:cx="-957.09658"
+     inkscape:cy="713.21606"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata8227">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-463.36213)">
+    <circle
+       style="opacity:1;fill:#99e0f6;fill-opacity:0.50949366;fill-rule:nonzero;stroke:none;stroke-width:12;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17180"
+       cx="-911.16534"
+       cy="253.33916"
+       r="300" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient8643);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect8620-2"
+       width="589"
+       height="589"
+       x="3.5000002"
+       y="-717.56641"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698"
+       rx="81.428566"
+       ry="81.428566" />
+    <rect
+       style="opacity:1;fill:#f3ebfe;fill-opacity:1;fill-rule:nonzero;stroke:#868686;stroke-width:9;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect8620"
+       width="589"
+       height="589"
+       x="-9.4082613"
+       y="-731.17609"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698"
+       rx="81.428566"
+       ry="81.428566" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient8730);fill-opacity:1;fill-rule:nonzero;stroke:url(#linearGradient8672);stroke-width:12;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect8620-6"
+       width="568.91022"
+       height="569.70844"
+       x="0.19472025"
+       y="-721.34253"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698"
+       rx="78.651146"
+       ry="70.555954" />
+    <ellipse
+       style="opacity:1;fill:url(#radialGradient12783);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path12750-2"
+       cx="-289.74811"
+       cy="810.57306"
+       rx="209.79187"
+       ry="207.77586"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <ellipse
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#9d9d9d;stroke-width:5.0240531;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path12750"
+       cx="-292.00977"
+       cy="808.50616"
+       rx="201.93472"
+       ry="199.99422"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <g
+       id="g8581"
+       transform="translate(-138.57143,-252.85714)"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4">
+      <path
+         inkscape:export-ydpi="129.95663"
+         inkscape:export-xdpi="129.95663"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Documents\businessCardLogo.png"
+         id="path4-2-0-5-6-1-8-7-7"
+         d="m -226.87481,956.73998 180.199626,0 c 6.41024,35.30935 12.944152,70.59952 19.28965,105.92162 -19.854732,-2.4719 -39.756567,-4.4455 -59.705506,-5.7422 -0.152912,-23.4736 -0.359108,-46.9471 -0.459095,-70.41431 -34.064505,-0.25554 -68.128905,-0.29397 -102.193405,-0.51749 -0.16477,23.4224 -0.33551,46.8385 -0.47691,70.261 -20.16082,1.0666 -40.29221,2.753 -60.38241,4.8416 7.91128,-34.7856 15.79905,-69.57115 23.72797,-104.35032 z"
+         style="opacity:1;fill:url(#linearGradient8225);fill-opacity:1;stroke:#14aad6;stroke-width:0.01580974;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="129.95663"
+         inkscape:export-xdpi="129.95663"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Documents\businessCardLogo.png"
+         id="path6-5-6-0-1-9-0-5-5"
+         d="m -166.60427,1044.91 c 0.0936,-10.8212 0.13567,-21.6423 0.22966,-32.4634 18.2713,0.1191 36.5426,0.06 54.80803,0.3238 0,10.6559 0.13585,21.3184 0.18242,31.9743 -16.37,-11.9713 -38.92658,-12.0176 -55.22006,0.1664 z"
+         style="opacity:1;fill:url(#linearGradient8227);fill-opacity:1;stroke:#14aad6;stroke-width:0.01580974;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="129.95663"
+         inkscape:export-xdpi="129.95663"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Documents\businessCardLogo.png"
+         id="path8-5-5-9-1-5-2-6-8"
+         d="m -143.67307,1060.8036 c 6.99888,-1.3348 14.49813,0.1764 20.41395,4.157 6.993,4.6158 11.74334,12.4008 12.73814,20.7092 1.01839,7.7732 -1.14776,15.9345 -6.02768,22.0967 -4.72673,6.0975 -12.03761,10.1781 -19.76647,10.7544 -8.31154,0.7466 -16.80559,-2.6165 -22.47415,-8.7082 -6.67514,-6.9207 -9.43583,-17.2164 -7.39918,-26.5714 2.18975,-11.0366 11.34895,-20.4444 22.51539,-22.4377 z"
+         style="opacity:1;fill:url(#linearGradient8229);fill-opacity:1;stroke:#14aad6;stroke-width:0.01580974;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         transform="translate(0,463.36213)"
+         id="path10-7-6-3-0-1-2-61-1"
+         d="m -190.90625,612.06641 c -18.71116,1.1627 -37.39805,3.02249 -56.02148,5.58789 -7.8186,1.4579 -15.68432,2.464 -23.50782,3.8789 1.37753,21.1978 2.75643,42.39595 4.13672,63.59375 4.75302,-0.8305 9.72622,-1.37981 25.13672,-6.25781 14.31285,-4.5306 22.72293,-10.21911 28.5293,-13.59961 3.86244,-2.2488 8.91142,-7.35691 11.22851,-7.37891 2.61555,-0.025 3.30205,2.29623 2.84375,4.61133 -0.45831,2.315 -10.12477,16.95524 -18.42578,23.02344 -12.85846,9.3999 -21.56156,13.1199 -28.30078,15.625 -2.64169,0.98201 -13.99644,4.0753 -18.28125,4.67969 l -3.26172,0 0,18.85742 252.294924,0 0,-14.83398 c 0.08538,-1.30986 0.170545,-2.61981 0.255859,-3.92969 -0.06371,0.007 -0.171585,-3.2e-4 -0.255859,0 l 0,-0.0937 -1.121094,0 c -4.284829,-0.60439 -15.637618,-3.69768 -18.279297,-4.67969 -6.73923,-2.5051 -15.442293,-6.2251 -28.300781,-15.625 -8.301003,-6.0682 -17.969431,-20.70844 -18.427734,-23.02344 -0.458308,-2.3151 0.230149,-4.63633 2.845703,-4.61133 2.317083,0.022 7.366072,5.13011 11.228515,7.37891 5.806368,3.3805 14.216431,9.06901 28.529297,13.59961 15.410491,4.878 20.381743,5.42731 25.134766,6.25781 1.380286,-21.1978 2.761144,-42.39595 4.1386716,-63.59375 -7.8235006,-1.4149 -15.6911556,-2.421 -23.5097656,-3.8789 -18.623431,-2.5654 -37.310327,-4.42519 -56.021484,-5.58789 0.103305,6.3795 -0.768609,14.2484 -1.669922,20.5664 -1.719612,12.7712 -6.029152,23.24856 -13.916019,31.53516 -3.42949,3.7464 -7.46457,6.44534 -11.52734,8.86914 2.6744,3.7465 5.62104,7.16068 8.50976,10.64258 6.84714,8.04018 14.151689,15.62002 21.976568,22.15039 l -109.332028,0 c 7.82488,-6.53037 15.12942,-14.11021 21.97656,-22.15039 2.88873,-3.4819 5.83341,-6.89608 8.50781,-10.64258 -4.06278,-2.4238 -8.09591,-5.12274 -11.52539,-8.86914 -7.88687,-8.2866 -12.19837,-18.76396 -13.91797,-31.53516 -0.90132,-6.318 -1.77322,-14.1869 -1.66992,-20.5664 z"
+         style="opacity:1;fill:url(#linearGradient8231);fill-opacity:1;stroke:#14aad6;stroke-width:0.01580974;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="129.95663"
+         inkscape:export-xdpi="129.95663"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Documents\businessCardLogo.png"
+         id="path6-5-7-5-5-2-8-8-9-2"
+         d="m -163.01312,968.35105 c 0.0815,-12.20681 0.11803,-24.41367 0.19983,-36.62049 15.89476,0.1343 31.7896,0.0672 47.6793,0.36532 0,12.0204 0.11814,24.0483 0.15869,36.06868 -14.24084,-13.50429 -33.86355,-13.5565 -48.03778,0.18778 z"
+         style="opacity:1;fill:url(#linearGradient8233);fill-opacity:1;stroke:#14aad6;stroke-width:0.01580974;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+    </g>
+    <path
+       style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -314.26562,666.0008 c -0.0559,8.33624 -0.0943,16.67157 -0.13672,25.00781 l -63.92383,0 c -7.92892,34.77917 -15.81724,69.56596 -23.72852,104.35157 20.0902,-2.08866 40.22199,-3.77512 60.38281,-4.8418 0.1414,-23.42244 0.3118,-46.83927 0.47657,-70.26172 34.0645,0.22352 68.12885,0.26204 102.19336,0.51758 0.1,23.46717 0.30607,46.94049 0.45898,70.41406 19.94894,1.29665 39.85034,3.27029 59.70508,5.74219 -6.3455,-35.3221 -12.87882,-70.61253 -19.28906,-105.92188 l -68.35938,0 c -0.0479,-8.21498 -0.0996,-16.4298 -0.0996,-24.64257 -15.8897,-0.29812 -31.78492,-0.23094 -47.67968,-0.36524 z"
+       id="path6-5-7-5-5-2-8-8-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -318.05628,779.17936 c 0.0936,-10.82117 0.13567,-21.64229 0.22966,-32.46341 18.2713,0.1191 36.5426,0.0596 54.80803,0.32385 0,10.65586 0.13585,21.31835 0.18242,31.97422 -16.37,-11.97131 -38.92658,-12.0176 -55.22006,0.16645 z"
+       id="path6-5-6-0-1-9-0-5"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -295.12508,795.07293 c 6.99888,-1.33481 14.49813,0.17645 20.41395,4.15707 6.993,4.61573 11.74334,12.40074 12.73814,20.7091 1.01839,7.77329 -1.14776,15.93457 -6.02768,22.09679 -4.72673,6.09749 -12.03761,10.1781 -19.76647,10.75435 -8.31154,0.74666 -16.80559,-2.61653 -22.47415,-8.70816 -6.67514,-6.92069 -9.43583,-17.21643 -7.39918,-26.57138 2.18975,-11.03662 11.34895,-20.44448 22.51539,-22.43777 z"
+       id="path8-5-5-9-1-5-2-6"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <path
+       style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -342.35742,809.69807 c -18.71116,1.16267 -37.39806,3.02063 -56.02149,5.58594 -7.8186,1.45794 -15.68626,2.4659 -23.50976,3.88085 1.37753,21.19776 2.75838,42.39599 4.13867,63.59375 4.75302,-0.83048 9.72427,-1.37976 25.13477,-6.25781 14.31285,-4.53061 22.72292,-10.22105 28.52929,-13.60156 3.86244,-2.24876 8.91143,-7.35496 11.22852,-7.37695 2.61555,-0.0249 3.304,2.29628 2.8457,4.61132 -0.45831,2.31504 -10.12672,16.95518 -18.42773,23.02344 -12.85846,9.39983 -21.56156,13.11992 -28.30078,15.625 -2.64169,0.982 -13.99447,4.07532 -18.2793,4.67969 l -3.26367,0 0,18.85742 252.29492,0 0,-14.80469 c 0.086,-1.31963 0.17186,-2.63933 0.25781,-3.95898 -0.0642,0.007 -0.17274,-2.7e-4 -0.25781,0 l 0,-0.0937 -1.11914,0 c -4.28481,-0.60436 -15.63762,-3.69769 -18.2793,-4.67969 -6.73923,-2.50508 -15.44424,-6.22517 -28.30273,-15.625 -8.301,-6.06826 -17.96747,-20.7084 -18.42578,-23.02344 -0.4583,-2.31504 0.2282,-4.63622 2.84375,-4.61132 2.31708,0.022 7.36606,5.12819 11.22851,7.37695 5.80637,3.38051 14.21643,9.07095 28.5293,13.60156 15.41049,4.87805 20.38369,5.42733 25.13672,6.25781 1.38028,-21.19776 2.76115,-42.39599 4.13867,-63.59375 -7.8235,-1.41495 -15.69116,-2.42291 -23.50977,-3.88085 -18.62343,-2.56531 -37.31032,-4.42327 -56.02148,-5.58594 0.1033,6.37944 -0.76861,14.24844 -1.66992,20.5664 -1.71961,12.77119 -6.02916,23.24866 -13.91602,31.53516 -3.42949,3.74647 -7.46457,6.44341 -11.52734,8.86719 2.6744,3.74647 5.62103,7.16264 8.50976,10.64453 6.84727,8.04033 14.14956,15.61994 21.97461,22.15039 l -109.33203,0 c 7.82528,-6.53056 15.12912,-14.10985 21.97656,-22.15039 2.88873,-3.48189 5.83537,-6.89806 8.50977,-10.64453 -4.06278,-2.42378 -8.09786,-5.12072 -11.52734,-8.86719 -7.88687,-8.2865 -12.19642,-18.76397 -13.91602,-31.53516 -0.90132,-6.31796 -1.77322,-14.18696 -1.66992,-20.5664 z"
+       id="path10-7-6-3-0-1-2-61"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:0;fill-rule:nonzero;stroke:none;stroke-width:0.98014778;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect8594"
+       width="420.76285"
+       height="420.76285"
+       x="-500.08914"
+       y="600.03784"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+       inkscape:export-xdpi="15.4"
+       inkscape:export-ydpi="15.4" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient8643-0);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect8620-2-2"
+       width="589"
+       height="589"
+       x="1277.0613"
+       y="-304.5116"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698"
+       rx="81.428566"
+       ry="81.428566" />
+    <rect
+       style="opacity:1;fill:#90f799;fill-opacity:1;fill-rule:nonzero;stroke:#868686;stroke-width:9;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect8620-67"
+       width="589"
+       height="589"
+       x="1264.1531"
+       y="-318.12128"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698"
+       rx="81.428566"
+       ry="81.428566" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient8730-7);fill-opacity:1;fill-rule:nonzero;stroke:url(#linearGradient8672-2);stroke-width:12;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect8620-6-2"
+       width="568.91022"
+       height="569.70844"
+       x="1273.756"
+       y="-309.00195"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698"
+       rx="78.651146"
+       ry="70.555954" />
+    <path
+       style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 1524.0222,-263.51793 c -0.1023,15.27106 -0.1719,30.54263 -0.2495,45.8137 l -117.1019,0 c -14.5247,63.71053 -28.9738,127.433278 -43.4662,191.155543 36.8024,-3.82613 73.6791,-6.91474 110.6109,-8.86869 0.259,-42.906585 0.5723,-85.802453 0.8741,-128.709053 62.4014,0.40945 124.803,0.48073 187.2044,0.94884 0.1831,42.98854 0.5607,85.988578 0.8408,128.988793 36.5436,2.37527 73.0001,5.99026 109.3711,10.51847 -11.624,-64.705115 -23.5923,-129.352173 -35.3349,-194.033903 l -125.2268,0 c -0.088,-15.04895 -0.1796,-30.09967 -0.1796,-45.14457 -29.1077,-0.54617 -58.2255,-0.42311 -87.3424,-0.66913 z"
+       id="path4-2-0-5-6-1-8-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 1517.0776,-56.188592 c 0.1715,-19.82279 0.2485,-39.64559 0.4207,-59.468348 33.4705,0.21817 66.9409,0.10915 100.4006,0.59324 0,19.520028 0.2488,39.052248 0.3342,58.572268 -29.9876,-21.92974 -71.308,-22.01452 -101.1554,0.30494 z"
+       id="path6-5-6-0-1-9-0-1"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698" />
+    <path
+       inkscape:connector-curvature="0"
+       style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 1559.0843,-27.073827 c 12.821,-2.44518 26.5586,0.32322 37.3955,7.61522 12.8102,8.45535 21.5121,22.7164299 23.3345,37.93612 1.8655,14.23955 -2.1026,29.1899 -11.0419,40.47816 -8.6587,11.16973 -22.0512,18.64491 -36.2094,19.70051 -15.2255,1.36775 -30.7854,-4.79319 -41.1694,-15.95216 -12.2279,-12.67769 -17.2851,-31.53806 -13.5543,-48.67498 4.0113,-20.2175501 20.7897,-37.45145 41.245,-41.10287 z"
+       id="path8-5-5-9-1-5-2-7"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698" />
+    <path
+       style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 1472.5599,-0.28269707 c -34.2762,2.12984997 -68.5072,5.53469997 -102.6227,10.23397997 -14.3226,2.6708001 -28.7341,4.5172701 -43.0657,7.1092701 2.5235,38.83123 5.0529,77.66031 7.5813,116.491547 8.7069,-1.5213 17.8143,-2.52665 46.0442,-11.46255 26.2191,-8.29941 41.6253,-18.72078 52.2618,-24.913437 7.0754,-4.11937 16.3251,-13.47418 20.5696,-13.51445 4.7914,-0.0452 6.0496,4.20672 5.21,8.44752 -0.8395,4.24081 -18.5473,31.057827 -33.7535,42.174027 -23.5549,17.2191 -39.4985,24.03559 -51.8438,28.62461 -4.8369,1.79799 -25.6223,7.46053 -33.4802,8.5715 l -5.9839,0 0,34.54186 462.1675,0 0,-27.12108 c 0.1575,-2.41629 0.3147,-4.83279 0.4721,-7.24913 -0.132,0.015 -0.292,0.0202 -0.4721,0.019 l 0,-0.19073 -2.0582,0 c -7.8579,-1.11099 -28.6417,-6.77351 -33.4786,-8.57149 -12.3453,-4.58902 -28.2888,-11.40552 -51.8437,-28.62462 -15.2063,-11.11619 -32.9156,-37.933217 -33.7552,-42.174017 -0.8395,-4.24081 0.4203,-8.49286 5.2116,-8.44753 4.2446,0.0403 13.4926,9.39508 20.5681,13.51446 10.6364,6.192647 26.0426,16.614017 52.2618,24.913427 28.2298,8.93591 37.3389,9.94125 46.0457,11.46256 2.5285,-38.831247 5.0563,-77.660327 7.5797,-116.491547 -14.3315,-2.59201 -28.743,-4.43847 -43.0656,-7.1092801 -34.1155,-4.69928 -68.3465,-8.10413 -102.6227,-10.23396997 0.1892,11.68621007 -1.4069,26.10094007 -3.058,37.67451007 -3.1501,23.39502 -11.0475,42.5861 -25.4951,57.76578 -6.2823,6.863017 -13.6724,11.806487 -21.1148,16.246577 4.8991,6.86296 10.2952,13.12007 15.587,19.49844 12.5364,14.72076 25.8998,28.61822 40.2254,40.5767 l -200.215,0 c 14.3256,-11.95848 27.6875,-25.85594 40.2239,-40.5767 5.2917,-6.37837 10.6879,-12.63548 15.587,-19.49844 -7.4424,-4.44009 -14.8325,-9.38356 -21.1148,-16.246577 -14.4477,-15.17968 -22.3435,-34.37076 -25.4936,-57.76578 -1.6511,-11.57357 -3.2488,-25.9883 -3.0595,-37.67451007 z"
+       id="path10-7-6-3-0-1-2-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698" />
+    <g
+       id="g9398"
+       transform="translate(106.42859,-336.42857)">
+      <g
+         style="fill:url(#linearGradient9392);fill-opacity:1"
+         transform="translate(-1020.3709,505.42856)"
+         id="g9154-3">
+        <path
+           sodipodi:nodetypes="ccccccccccc"
+           style="opacity:1;fill:url(#linearGradient9394);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 1182.0345,-809.55028 c -0.093,13.8772 -0.1562,27.75484 -0.2267,41.63205 l -106.4135,0 c -13.1989,57.89536 -34.9836,152.77508 -48.1531,210.6811 33.4432,-3.4769 73.4655,48.17171 107.0263,46.39611 113.3211,129.48424 139.225,20.30904 258.8186,-14.59784 33.2081,2.15847 22.7656,-27.41365 14.3883,-66.15589 -10.5631,-58.79917 -21.4389,-117.54557 -32.1097,-176.32348 l -113.7967,0 c -0.08,-13.67536 -0.1632,-27.35232 -0.1632,-41.02399 -26.4509,-0.49632 -52.911,-0.3845 -79.3703,-0.60806 z"
+           id="path4-2-0-5-6-1-8-58-7-7"
+           inkscape:connector-curvature="0"
+           inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+           inkscape:export-xdpi="11.001698"
+           inkscape:export-ydpi="11.001698" />
+        <path
+           sodipodi:nodetypes="ccccccccccccc"
+           style="opacity:1;fill:url(#linearGradient9396);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 1135.2694,-570.34182 c -31.1476,1.93544 -62.2542,5.02952 -93.2558,9.29987 -13.0153,2.42702 -26.1114,4.10496 -39.1349,6.46037 2.2931,35.28692 4.5917,70.57187 6.8894,105.8588 0.1134,18.15634 -0.2625,22.84866 -0.8868,34.46541 l 0,31.38906 419.9833,0 0,-24.64561 c 0.1431,-2.19574 0.2859,-4.39168 0.4289,-6.58746 0.023,-10.96149 1.4715,-24.58258 2.2531,-34.62143 2.2977,-35.28693 4.5948,-70.57189 6.8879,-105.85879 -155.475,-17.73964 -116.2472,-22.67775 -178.1651,-25.76025 z"
+           id="path10-7-6-3-0-1-2-5-9-5"
+           inkscape:connector-curvature="0"
+           inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+           inkscape:export-xdpi="11.001698"
+           inkscape:export-ydpi="11.001698" />
+      </g>
+      <g
+         style="fill:#83daf4;fill-opacity:1"
+         transform="translate(-1037.6985,491.10653)"
+         id="g9154">
+        <path
+           sodipodi:nodetypes="ccccccccccc"
+           style="opacity:1;fill:#83daf4;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 1182.0345,-809.55028 c -0.093,13.8772 -0.1562,27.75484 -0.2267,41.63205 l -106.4135,0 c -13.1989,57.89536 -34.9836,152.77508 -48.1531,210.6811 33.4432,-3.4769 73.4655,48.17171 107.0263,46.39611 113.3211,129.48424 139.225,20.30904 258.8186,-14.59784 33.2081,2.15847 22.7656,-27.41365 14.3883,-66.15589 -10.5631,-58.79917 -21.4389,-117.54557 -32.1097,-176.32348 l -113.7967,0 c -0.08,-13.67536 -0.1632,-27.35232 -0.1632,-41.02399 -26.4509,-0.49632 -52.911,-0.3845 -79.3703,-0.60806 z"
+           id="path4-2-0-5-6-1-8-58-7"
+           inkscape:connector-curvature="0"
+           inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+           inkscape:export-xdpi="11.001698"
+           inkscape:export-ydpi="11.001698" />
+        <path
+           sodipodi:nodetypes="ccccccccccccc"
+           style="opacity:1;fill:#83daf4;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 1135.2694,-570.34182 c -31.1476,1.93544 -62.2542,5.02952 -93.2558,9.29987 -13.0153,2.42702 -26.1114,4.10496 -39.1349,6.46037 2.2931,35.28692 4.5917,70.57187 6.8894,105.8588 0.1134,18.15634 -0.2625,22.84866 -0.8868,34.46541 l 0,31.38906 419.9833,0 0,-24.64561 c 0.1431,-2.19574 0.2859,-4.39168 0.4289,-6.58746 0.023,-10.96149 1.4715,-24.58258 2.2531,-34.62143 2.2977,-35.28693 4.5948,-70.57189 6.8879,-105.85879 -155.475,-17.73964 -116.2472,-22.67775 -178.1651,-25.76025 z"
+           id="path10-7-6-3-0-1-2-5-9"
+           inkscape:connector-curvature="0"
+           inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+           inkscape:export-xdpi="11.001698"
+           inkscape:export-ydpi="11.001698" />
+      </g>
+    </g>
+    <g
+       id="g8867">
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         inkscape:connector-curvature="0"
+         id="path4-2-0-5-6-1-8"
+         d="m 250.46605,-654.57274 c -0.093,13.8772 -0.1562,27.75484 -0.22675,41.63205 l -106.41341,0 c -13.19892,57.89536 -26.32925,115.80182 -39.49882,173.70784 33.44328,-3.4769 66.95405,-6.2836 100.51487,-8.0592 0.23539,-38.99029 0.52008,-77.97085 0.79437,-116.96115 56.70567,0.37208 113.41164,0.43685 170.11732,0.86223 0.16642,39.06477 0.50949,78.13998 0.76402,117.21536 33.20812,2.15847 66.33703,5.4435 99.38832,9.5584 -10.56308,-58.79917 -21.43893,-117.54557 -32.10977,-176.32348 l -113.79668,0 c -0.0797,-13.67536 -0.1632,-27.35232 -0.1632,-41.02399 -26.45088,-0.49632 -52.91096,-0.3845 -79.37027,-0.60806 z"
+         style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         id="path6-5-6-0-1-9-0"
+         d="m 244.15535,-466.16738 c 0.15586,-18.01346 0.22584,-36.02694 0.38229,-54.04038 30.41543,0.19826 60.83086,0.0992 91.23652,0.53909 0,17.73834 0.22614,35.48776 0.30367,53.22609 -27.25041,-19.9281 -64.79937,-20.00514 -91.9224,0.27711 z"
+         style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         id="path8-5-5-9-1-5-2"
+         d="m 282.3279,-439.71006 c 11.65072,-2.22199 24.1344,0.29372 33.9822,6.92015 11.64095,7.68358 19.54862,20.64299 21.20461,34.4735 1.69529,12.93984 -1.91062,26.52559 -10.034,36.78352 -7.86838,10.15021 -20.03847,16.9431 -32.90437,17.90235 -13.83585,1.24291 -27.97552,-4.3557 -37.41173,-14.49613 -11.11181,-11.52054 -15.70741,-28.65943 -12.31708,-44.23218 3.64518,-18.37219 18.8921,-34.03307 37.48037,-37.35121 z"
+         style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         inkscape:connector-curvature="0"
+         id="path10-7-6-3-0-1-2"
+         d="m 203.70096,-415.36428 c -31.14766,1.93544 -62.2542,5.02952 -93.25582,9.29987 -13.015284,2.42702 -26.111417,4.10496 -39.134849,6.46037 2.293104,35.28692 4.591635,70.57187 6.889328,105.8588 7.912146,-1.38245 16.188311,-2.29603 41.841481,-10.41631 23.82597,-7.54188 37.82599,-17.01204 47.4916,-22.63947 6.42964,-3.74337 14.83502,-12.24432 18.69217,-12.28092 4.35399,-0.0411 5.49735,3.82275 4.73443,7.67648 -0.76291,3.85373 -16.85436,28.22302 -30.67268,38.32459 -21.40492,15.64743 -35.89325,21.84175 -47.11174,26.01191 -4.39538,1.63387 -23.283608,6.77957 -30.42426,7.78913 l -5.437803,0 0,31.38906 419.983283,0 0,-24.64561 c 0.14313,-2.19574 0.28596,-4.39168 0.42896,-6.58746 -0.11997,0.0136 -0.26533,0.0183 -0.42896,0.0173 l 0,-0.17332 -1.87037,0 c -7.14069,-1.00958 -26.02745,-6.15526 -30.42281,-7.78913 -11.21849,-4.17016 -25.70679,-10.36448 -47.11174,-26.01191 -13.81832,-10.10156 -29.91122,-34.47087 -30.67413,-38.32459 -0.76292,-3.85373 0.38188,-7.71767 4.73588,-7.67648 3.85714,0.0366 12.2611,8.53754 18.69073,12.28093 9.66562,5.62741 23.66561,15.09757 47.4916,22.63946 25.65316,8.12028 33.93077,9.03386 41.84291,10.41631 2.29771,-35.28693 4.59479,-70.57189 6.8879,-105.85879 -13.02344,-2.35543 -26.11957,-4.03335 -39.13486,-6.46038 -31.0016,-4.27036 -62.10817,-7.36443 -93.2558,-9.29987 0.17197,10.61956 -1.27847,23.71858 -2.77884,34.23578 -2.86257,21.25964 -10.03916,38.69905 -23.16808,52.49321 -5.70891,6.2366 -12.42445,10.72885 -19.18758,14.76367 4.45197,6.23655 9.35557,11.92254 14.16429,17.71872 11.39219,13.37713 23.53586,26.0061 36.55389,36.87307 l -181.94038,0 c 13.01803,-10.86697 25.16026,-23.49594 36.55243,-36.87307 4.80875,-5.79618 9.71235,-11.48217 14.16429,-17.71872 -6.76312,-4.03482 -13.47865,-8.52707 -19.18756,-14.76367 -13.12892,-13.79416 -20.30408,-31.23357 -23.16664,-52.49321 -1.50039,-10.5172 -2.95226,-23.61622 -2.78027,-34.23578 z"
+         style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(-0.00598577,0.09368152)"
+       id="g8867-6"
+       style="fill:url(#linearGradient8922);fill-opacity:1">
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         inkscape:connector-curvature="0"
+         id="path4-2-0-5-6-1-8-0"
+         d="m 250.46605,-654.57274 c -0.093,13.8772 -0.1562,27.75484 -0.22675,41.63205 l -106.41341,0 c -13.19892,57.89536 -26.32925,115.80182 -39.49882,173.70784 33.44328,-3.4769 66.95405,-6.2836 100.51487,-8.0592 0.23539,-38.99029 0.52008,-77.97085 0.79437,-116.96115 56.70567,0.37208 113.41164,0.43685 170.11732,0.86223 0.16642,39.06477 0.50949,78.13998 0.76402,117.21536 33.20812,2.15847 66.33703,5.4435 99.38832,9.5584 -10.56308,-58.79917 -21.43893,-117.54557 -32.10977,-176.32348 l -113.79668,0 c -0.0797,-13.67536 -0.1632,-27.35232 -0.1632,-41.02399 -26.45088,-0.49632 -52.91096,-0.3845 -79.37027,-0.60806 z"
+         style="opacity:1;fill:url(#linearGradient8924);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         id="path6-5-6-0-1-9-0-0"
+         d="m 244.15535,-466.16738 c 0.15586,-18.01346 0.22584,-36.02694 0.38229,-54.04038 30.41543,0.19826 60.83086,0.0992 91.23652,0.53909 0,17.73834 0.22614,35.48776 0.30367,53.22609 -27.25041,-19.9281 -64.79937,-20.00514 -91.9224,0.27711 z"
+         style="opacity:1;fill:url(#linearGradient8926);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         id="path8-5-5-9-1-5-2-9"
+         d="m 282.3279,-439.71006 c 11.65072,-2.22199 24.1344,0.29372 33.9822,6.92015 11.64095,7.68358 19.54862,20.64299 21.20461,34.4735 1.69529,12.93984 -1.91062,26.52559 -10.034,36.78352 -7.86838,10.15021 -20.03847,16.9431 -32.90437,17.90235 -13.83585,1.24291 -27.97552,-4.3557 -37.41173,-14.49613 -11.11181,-11.52054 -15.70741,-28.65943 -12.31708,-44.23218 3.64518,-18.37219 18.8921,-34.03307 37.48037,-37.35121 z"
+         style="opacity:1;fill:url(#linearGradient8928);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         inkscape:connector-curvature="0"
+         id="path10-7-6-3-0-1-2-6"
+         d="m 203.70096,-415.36428 c -31.14766,1.93544 -62.2542,5.02952 -93.25582,9.29987 -13.015284,2.42702 -26.111417,4.10496 -39.134849,6.46037 2.293104,35.28692 4.591635,70.57187 6.889328,105.8588 7.912146,-1.38245 16.188311,-2.29603 41.841481,-10.41631 23.82597,-7.54188 37.82599,-17.01204 47.4916,-22.63947 6.42964,-3.74337 14.83502,-12.24432 18.69217,-12.28092 4.35399,-0.0411 5.49735,3.82275 4.73443,7.67648 -0.76291,3.85373 -16.85436,28.22302 -30.67268,38.32459 -21.40492,15.64743 -35.89325,21.84175 -47.11174,26.01191 -4.39538,1.63387 -23.283608,6.77957 -30.42426,7.78913 l -5.437803,0 0,31.38906 419.983283,0 0,-24.64561 c 0.14313,-2.19574 0.28596,-4.39168 0.42896,-6.58746 -0.11997,0.0136 -0.26533,0.0183 -0.42896,0.0173 l 0,-0.17332 -1.87037,0 c -7.14069,-1.00958 -26.02745,-6.15526 -30.42281,-7.78913 -11.21849,-4.17016 -25.70679,-10.36448 -47.11174,-26.01191 -13.81832,-10.10156 -29.91122,-34.47087 -30.67413,-38.32459 -0.76292,-3.85373 0.38188,-7.71767 4.73588,-7.67648 3.85714,0.0366 12.2611,8.53754 18.69073,12.28093 9.66562,5.62741 23.66561,15.09757 47.4916,22.63946 25.65316,8.12028 33.93077,9.03386 41.84291,10.41631 2.29771,-35.28693 4.59479,-70.57189 6.8879,-105.85879 -13.02344,-2.35543 -26.11957,-4.03335 -39.13486,-6.46038 -31.0016,-4.27036 -62.10817,-7.36443 -93.2558,-9.29987 0.17197,10.61956 -1.27847,23.71858 -2.77884,34.23578 -2.86257,21.25964 -10.03916,38.69905 -23.16808,52.49321 -5.70891,6.2366 -12.42445,10.72885 -19.18758,14.76367 4.45197,6.23655 9.35557,11.92254 14.16429,17.71872 11.39219,13.37713 23.53586,26.0061 36.55389,36.87307 l -181.94038,0 c 13.01803,-10.86697 25.16026,-23.49594 36.55243,-36.87307 4.80875,-5.79618 9.71235,-11.48217 14.16429,-17.71872 -6.76312,-4.03482 -13.47865,-8.52707 -19.18756,-14.76367 -13.12892,-13.79416 -20.30408,-31.23357 -23.16664,-52.49321 -1.50039,-10.5172 -2.95226,-23.61622 -2.78027,-34.23578 z"
+         style="opacity:1;fill:url(#linearGradient8930);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <rect
+       style="opacity:1;fill:url(#linearGradient8643-02);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect8620-2-7"
+       width="589"
+       height="589"
+       x="1164.9323"
+       y="-1382.1998"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698"
+       rx="81.428566"
+       ry="81.428566" />
+    <rect
+       style="opacity:1;fill:#f3ebfe;fill-opacity:1;fill-rule:nonzero;stroke:#868686;stroke-width:9;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect8620-3"
+       width="589"
+       height="589"
+       x="1152.0239"
+       y="-1395.8096"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698"
+       rx="81.428566"
+       ry="81.428566" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient8730-6);fill-opacity:1;fill-rule:nonzero;stroke:url(#linearGradient8672-4);stroke-width:12;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect8620-6-8"
+       width="568.91022"
+       height="569.70844"
+       x="1161.627"
+       y="-1385.976"
+       inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+       inkscape:export-xdpi="11.001698"
+       inkscape:export-ydpi="11.001698"
+       rx="78.651146"
+       ry="70.555954" />
+    <g
+       id="g8845-3"
+       style="fill:url(#linearGradient8857-4);fill-opacity:1"
+       transform="translate(656.35596,-1165.6489)">
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         inkscape:connector-curvature="0"
+         id="path4-2-0-5-6-1-8-5-6"
+         d="m 767.09215,-140.97885 c -0.093,13.8772 -0.1562,27.75484 -0.22675,41.63205 l -106.41341,0 c -13.19892,57.89536 -26.32925,115.80182 -39.49882,173.70784 33.44328,-3.4769 66.95405,-6.2836 100.51487,-8.0592 0.23539,-38.99029 0.52008,-77.97085 0.79437,-116.96115 56.70567,0.37208 113.41164,0.43685 170.11732,0.86223 0.16642,39.06477 0.50949,78.13998 0.76402,117.21536 33.20812,2.15847 66.33703,5.4435 99.38832,9.5584 C 981.96899,18.17751 971.09314,-40.56889 960.4223,-99.3468 l -113.79668,0 c -0.0797,-13.67536 -0.1632,-27.35232 -0.1632,-41.02399 -26.45088,-0.49632 -52.91096,-0.3845 -79.37027,-0.60806 z"
+         style="opacity:1;fill:url(#linearGradient8859-9);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         id="path6-5-6-0-1-9-0-4-8"
+         d="m 760.78145,47.42651 c 0.15586,-18.01346 0.22584,-36.02694 0.38229,-54.0403801 30.41543,0.19826 60.83086,0.0992 91.23652,0.53909 0,17.7383401 0.22614,35.4877601 0.30367,53.2260901 -27.25041,-19.9281 -64.79937,-20.00514 -91.9224,0.27711 z"
+         style="opacity:1;fill:url(#linearGradient8861-0);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         id="path8-5-5-9-1-5-2-5-3"
+         d="m 798.954,73.88383 c 11.65072,-2.22199 24.1344,0.29372 33.9822,6.92015 11.64095,7.68358 19.54862,20.64299 21.20461,34.4735 1.69529,12.93984 -1.91062,26.52559 -10.034,36.78352 -7.86838,10.15021 -20.03847,16.9431 -32.90437,17.90235 -13.83585,1.24291 -27.97552,-4.3557 -37.41173,-14.49613 -11.11181,-11.52054 -15.70741,-28.65943 -12.31708,-44.23218 3.64518,-18.37219 18.8921,-34.03307 37.48037,-37.35121 z"
+         style="opacity:1;fill:url(#linearGradient8863-0);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         inkscape:connector-curvature="0"
+         id="path10-7-6-3-0-1-2-4-1"
+         d="m 720.32706,98.22961 c -31.14766,1.93544 -62.2542,5.02952 -93.25582,9.29987 -13.01528,2.42702 -26.11142,4.10496 -39.13485,6.46037 2.29311,35.28692 4.59164,70.57187 6.88933,105.8588 7.91215,-1.38245 16.18831,-2.29603 41.84148,-10.41631 23.82597,-7.54188 37.82599,-17.01204 47.4916,-22.63947 6.42964,-3.74337 14.83502,-12.24432 18.69217,-12.28092 4.35399,-0.0411 5.49735,3.82275 4.73443,7.67648 -0.76291,3.85373 -16.85436,28.22302 -30.67268,38.32459 -21.40492,15.64743 -35.89325,21.84175 -47.11174,26.01191 -4.39538,1.63387 -23.28361,6.77957 -30.42426,7.78913 l -5.4378,0 0,31.38906 419.98328,0 0,-24.64561 c 0.1431,-2.19574 0.286,-4.39168 0.429,-6.58746 -0.12,0.0136 -0.2654,0.0183 -0.429,0.0173 l 0,-0.17332 -1.8704,0 c -7.1407,-1.00958 -26.02742,-6.15526 -30.42278,-7.78913 -11.21849,-4.17016 -25.70679,-10.36448 -47.11174,-26.01191 -13.81832,-10.10156 -29.91122,-34.47087 -30.67413,-38.32459 -0.76292,-3.85373 0.38188,-7.71767 4.73588,-7.67648 3.85714,0.0366 12.2611,8.53754 18.69073,12.28093 9.66562,5.62741 23.66561,15.09757 47.4916,22.63946 25.65314,8.12028 33.93074,9.03386 41.84294,10.41631 2.2977,-35.28693 4.5948,-70.57189 6.8879,-105.85879 -13.0235,-2.35543 -26.1196,-4.03335 -39.13489,-6.46038 -31.0016,-4.27036 -62.10817,-7.36443 -93.2558,-9.29987 0.17197,10.61956 -1.27847,23.71858 -2.77884,34.23578 -2.86257,21.25964 -10.03916,38.69905 -23.16808,52.49321 -5.70891,6.2366 -12.42445,10.72885 -19.18758,14.76367 4.45197,6.23655 9.35557,11.92254 14.16429,17.71872 11.39219,13.37713 23.53586,26.0061 36.55389,36.87307 l -181.94038,0 c 13.01803,-10.86697 25.16026,-23.49594 36.55243,-36.87307 4.80875,-5.79618 9.71235,-11.48217 14.16429,-17.71872 -6.76312,-4.03482 -13.47865,-8.52707 -19.18756,-14.76367 -13.12892,-13.79416 -20.30408,-31.23357 -23.16664,-52.49321 -1.50039,-10.5172 -2.95226,-23.61622 -2.78027,-34.23578 z"
+         style="opacity:1;fill:url(#linearGradient8865-2);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(1161.4322,-664.63351)"
+       id="g8867-0">
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         inkscape:connector-curvature="0"
+         id="path4-2-0-5-6-1-8-02"
+         d="m 250.46605,-654.57274 c -0.093,13.8772 -0.1562,27.75484 -0.22675,41.63205 l -106.41341,0 c -13.19892,57.89536 -26.32925,115.80182 -39.49882,173.70784 33.44328,-3.4769 66.95405,-6.2836 100.51487,-8.0592 0.23539,-38.99029 0.52008,-77.97085 0.79437,-116.96115 56.70567,0.37208 113.41164,0.43685 170.11732,0.86223 0.16642,39.06477 0.50949,78.13998 0.76402,117.21536 33.20812,2.15847 66.33703,5.4435 99.38832,9.5584 -10.56308,-58.79917 -21.43893,-117.54557 -32.10977,-176.32348 l -113.79668,0 c -0.0797,-13.67536 -0.1632,-27.35232 -0.1632,-41.02399 -26.45088,-0.49632 -52.91096,-0.3845 -79.37027,-0.60806 z"
+         style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         id="path6-5-6-0-1-9-0-02"
+         d="m 244.15535,-466.16738 c 0.15586,-18.01346 0.22584,-36.02694 0.38229,-54.04038 30.41543,0.19826 60.83086,0.0992 91.23652,0.53909 0,17.73834 0.22614,35.48776 0.30367,53.22609 -27.25041,-19.9281 -64.79937,-20.00514 -91.9224,0.27711 z"
+         style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         id="path8-5-5-9-1-5-2-52"
+         d="m 282.3279,-439.71006 c 11.65072,-2.22199 24.1344,0.29372 33.9822,6.92015 11.64095,7.68358 19.54862,20.64299 21.20461,34.4735 1.69529,12.93984 -1.91062,26.52559 -10.034,36.78352 -7.86838,10.15021 -20.03847,16.9431 -32.90437,17.90235 -13.83585,1.24291 -27.97552,-4.3557 -37.41173,-14.49613 -11.11181,-11.52054 -15.70741,-28.65943 -12.31708,-44.23218 3.64518,-18.37219 18.8921,-34.03307 37.48037,-37.35121 z"
+         style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         inkscape:connector-curvature="0"
+         id="path10-7-6-3-0-1-2-68"
+         d="m 203.70096,-415.36428 c -31.14766,1.93544 -62.2542,5.02952 -93.25582,9.29987 -13.015284,2.42702 -26.111417,4.10496 -39.134849,6.46037 2.293104,35.28692 4.591635,70.57187 6.889328,105.8588 7.912146,-1.38245 16.188311,-2.29603 41.841481,-10.41631 23.82597,-7.54188 37.82599,-17.01204 47.4916,-22.63947 6.42964,-3.74337 14.83502,-12.24432 18.69217,-12.28092 4.35399,-0.0411 5.49735,3.82275 4.73443,7.67648 -0.76291,3.85373 -16.85436,28.22302 -30.67268,38.32459 -21.40492,15.64743 -35.89325,21.84175 -47.11174,26.01191 -4.39538,1.63387 -23.283608,6.77957 -30.42426,7.78913 l -5.437803,0 0,31.38906 419.983283,0 0,-24.64561 c 0.14313,-2.19574 0.28596,-4.39168 0.42896,-6.58746 -0.11997,0.0136 -0.26533,0.0183 -0.42896,0.0173 l 0,-0.17332 -1.87037,0 c -7.14069,-1.00958 -26.02745,-6.15526 -30.42281,-7.78913 -11.21849,-4.17016 -25.70679,-10.36448 -47.11174,-26.01191 -13.81832,-10.10156 -29.91122,-34.47087 -30.67413,-38.32459 -0.76292,-3.85373 0.38188,-7.71767 4.73588,-7.67648 3.85714,0.0366 12.2611,8.53754 18.69073,12.28093 9.66562,5.62741 23.66561,15.09757 47.4916,22.63946 25.65316,8.12028 33.93077,9.03386 41.84291,10.41631 2.29771,-35.28693 4.59479,-70.57189 6.8879,-105.85879 -13.02344,-2.35543 -26.11957,-4.03335 -39.13486,-6.46038 -31.0016,-4.27036 -62.10817,-7.36443 -93.2558,-9.29987 0.17197,10.61956 -1.27847,23.71858 -2.77884,34.23578 -2.86257,21.25964 -10.03916,38.69905 -23.16808,52.49321 -5.70891,6.2366 -12.42445,10.72885 -19.18758,14.76367 4.45197,6.23655 9.35557,11.92254 14.16429,17.71872 11.39219,13.37713 23.53586,26.0061 36.55389,36.87307 l -181.94038,0 c 13.01803,-10.86697 25.16026,-23.49594 36.55243,-36.87307 4.80875,-5.79618 9.71235,-11.48217 14.16429,-17.71872 -6.76312,-4.03482 -13.47865,-8.52707 -19.18756,-14.76367 -13.12892,-13.79416 -20.30408,-31.23357 -23.16664,-52.49321 -1.50039,-10.5172 -2.95226,-23.61622 -2.78027,-34.23578 z"
+         style="opacity:1;fill:#14aad6;fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(1161.4262,-664.53981)"
+       id="g8867-6-0"
+       style="fill:url(#linearGradient8922-8);fill-opacity:1">
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         inkscape:connector-curvature="0"
+         id="path4-2-0-5-6-1-8-0-7"
+         d="m 250.46605,-654.57274 c -0.093,13.8772 -0.1562,27.75484 -0.22675,41.63205 l -106.41341,0 c -13.19892,57.89536 -26.32925,115.80182 -39.49882,173.70784 33.44328,-3.4769 66.95405,-6.2836 100.51487,-8.0592 0.23539,-38.99029 0.52008,-77.97085 0.79437,-116.96115 56.70567,0.37208 113.41164,0.43685 170.11732,0.86223 0.16642,39.06477 0.50949,78.13998 0.76402,117.21536 33.20812,2.15847 66.33703,5.4435 99.38832,9.5584 -10.56308,-58.79917 -21.43893,-117.54557 -32.10977,-176.32348 l -113.79668,0 c -0.0797,-13.67536 -0.1632,-27.35232 -0.1632,-41.02399 -26.45088,-0.49632 -52.91096,-0.3845 -79.37027,-0.60806 z"
+         style="opacity:1;fill:url(#linearGradient8924-2);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         id="path6-5-6-0-1-9-0-0-4"
+         d="m 244.15535,-466.16738 c 0.15586,-18.01346 0.22584,-36.02694 0.38229,-54.04038 30.41543,0.19826 60.83086,0.0992 91.23652,0.53909 0,17.73834 0.22614,35.48776 0.30367,53.22609 -27.25041,-19.9281 -64.79937,-20.00514 -91.9224,0.27711 z"
+         style="opacity:1;fill:url(#linearGradient8926-4);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         id="path8-5-5-9-1-5-2-9-0"
+         d="m 282.3279,-439.71006 c 11.65072,-2.22199 24.1344,0.29372 33.9822,6.92015 11.64095,7.68358 19.54862,20.64299 21.20461,34.4735 1.69529,12.93984 -1.91062,26.52559 -10.034,36.78352 -7.86838,10.15021 -20.03847,16.9431 -32.90437,17.90235 -13.83585,1.24291 -27.97552,-4.3557 -37.41173,-14.49613 -11.11181,-11.52054 -15.70741,-28.65943 -12.31708,-44.23218 3.64518,-18.37219 18.8921,-34.03307 37.48037,-37.35121 z"
+         style="opacity:1;fill:url(#linearGradient8928-2);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="11.001698"
+         inkscape:export-xdpi="11.001698"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+         inkscape:connector-curvature="0"
+         id="path10-7-6-3-0-1-2-6-6"
+         d="m 203.70096,-415.36428 c -31.14766,1.93544 -62.2542,5.02952 -93.25582,9.29987 -13.015284,2.42702 -26.111417,4.10496 -39.134849,6.46037 2.293104,35.28692 4.591635,70.57187 6.889328,105.8588 7.912146,-1.38245 16.188311,-2.29603 41.841481,-10.41631 23.82597,-7.54188 37.82599,-17.01204 47.4916,-22.63947 6.42964,-3.74337 14.83502,-12.24432 18.69217,-12.28092 4.35399,-0.0411 5.49735,3.82275 4.73443,7.67648 -0.76291,3.85373 -16.85436,28.22302 -30.67268,38.32459 -21.40492,15.64743 -35.89325,21.84175 -47.11174,26.01191 -4.39538,1.63387 -23.283608,6.77957 -30.42426,7.78913 l -5.437803,0 0,31.38906 419.983283,0 0,-24.64561 c 0.14313,-2.19574 0.28596,-4.39168 0.42896,-6.58746 -0.11997,0.0136 -0.26533,0.0183 -0.42896,0.0173 l 0,-0.17332 -1.87037,0 c -7.14069,-1.00958 -26.02745,-6.15526 -30.42281,-7.78913 -11.21849,-4.17016 -25.70679,-10.36448 -47.11174,-26.01191 -13.81832,-10.10156 -29.91122,-34.47087 -30.67413,-38.32459 -0.76292,-3.85373 0.38188,-7.71767 4.73588,-7.67648 3.85714,0.0366 12.2611,8.53754 18.69073,12.28093 9.66562,5.62741 23.66561,15.09757 47.4916,22.63946 25.65316,8.12028 33.93077,9.03386 41.84291,10.41631 2.29771,-35.28693 4.59479,-70.57189 6.8879,-105.85879 -13.02344,-2.35543 -26.11957,-4.03335 -39.13486,-6.46038 -31.0016,-4.27036 -62.10817,-7.36443 -93.2558,-9.29987 0.17197,10.61956 -1.27847,23.71858 -2.77884,34.23578 -2.86257,21.25964 -10.03916,38.69905 -23.16808,52.49321 -5.70891,6.2366 -12.42445,10.72885 -19.18758,14.76367 4.45197,6.23655 9.35557,11.92254 14.16429,17.71872 11.39219,13.37713 23.53586,26.0061 36.55389,36.87307 l -181.94038,0 c 13.01803,-10.86697 25.16026,-23.49594 36.55243,-36.87307 4.80875,-5.79618 9.71235,-11.48217 14.16429,-17.71872 -6.76312,-4.03482 -13.47865,-8.52707 -19.18756,-14.76367 -13.12892,-13.79416 -20.30408,-31.23357 -23.16664,-52.49321 -1.50039,-10.5172 -2.95226,-23.61622 -2.78027,-34.23578 z"
+         style="opacity:1;fill:url(#linearGradient8930-3);fill-opacity:1;stroke:none;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <circle
+       style="opacity:1;fill:#99e0f6;fill-opacity:0.50949366;fill-rule:nonzero;stroke:none;stroke-width:12;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17180-9"
+       cx="-911.16534"
+       cy="253.33916"
+       r="253.02791" />
+    <circle
+       style="opacity:1;fill:#84daf4;fill-opacity:0.50949365;fill-rule:nonzero;stroke:none;stroke-width:12;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17180-9-5"
+       cx="-911.16534"
+       cy="253.33916"
+       r="215.14719" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -912.73502,263.70464 C -772.94908,90.914906 -771.55122,92.560533 -771.55122,92.560533"
+       id="path17298"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -905.47508,261.7385 c 78.73186,-294.127441 79.51917,-291.326203 79.51917,-291.326203"
+       id="path17298-0"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -909.97253,249.17388 C -969.43853,6.2495149 -970.03318,8.5631019 -970.03318,8.5631019"
+       id="path17298-0-4"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -908.64298,249.68769 c -241.76032,-24.38494 -244.17792,-24.1527 -244.17792,-24.1527"
+       id="path17298-0-4-5"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -991.86631,447.12552 c 82.93228,-191.30186 83.76166,-189.47993 83.76166,-189.47993"
+       id="path17298-0-4-5-6"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -906.13621,256.57709 c 215.85355,113.26024 218.01207,112.18156 218.01207,112.18156"
+       id="path17298-0-3"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -903.43515,257.2768 c 69.04042,283.37935 69.73076,280.68046 69.73076,280.68046"
+       id="path17298-0-3-4"
+       inkscape:connector-curvature="0" />
+    <circle
+       style="opacity:1;fill:#7cd7f3;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:12;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17180-9-5-7"
+       cx="-911.16534"
+       cy="253.33916"
+       r="176.25632" />
+    <g
+       id="g17182"
+       transform="matrix(0.8588627,0,0,0.8588627,-170.25004,120.06383)"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.73247814;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         inkscape:export-ydpi="15.4"
+         inkscape:export-xdpi="15.4"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+         inkscape:connector-curvature="0"
+         id="path6-5-7-5-5-2-8-8-9-6"
+         d="m -885.87239,13.045361 c -0.0559,8.3363 -0.0943,16.6716 -0.13672,25.0078 l -63.92383,0 c -7.92892,34.7792 -15.81724,69.565999 -23.72852,104.351599 20.0902,-2.0887 40.22199,-3.7751 60.38281,-4.8418 0.1414,-23.4224 0.3118,-46.839299 0.47657,-70.261699 34.0645,0.2235 68.12884,0.262 102.19335,0.5176 0.1,23.4671 0.30607,46.940399 0.45898,70.413999 19.94894,1.2967 39.85034,3.2703 59.70508,5.7422 -6.34549,-35.3221 -12.87881,-70.612499 -19.28906,-105.921899 l -68.35938,0 c -0.0479,-8.215 -0.0996,-16.4298 -0.0996,-24.6425 -15.8897,-0.2982 -31.78492,-0.231 -47.67967,-0.3653 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.73247814;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="15.4"
+         inkscape:export-xdpi="15.4"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+         id="path6-5-6-0-1-9-0-5-4"
+         d="m -889.66305,126.22396 c 0.0936,-10.8212 0.13567,-21.6423 0.22966,-32.463399 18.27129,0.1191 36.54259,0.06 54.80802,0.3238 0,10.655899 0.13585,21.318399 0.18242,31.974199 -16.37,-11.9713 -38.92658,-12.0176 -55.22005,0.1665 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.73247814;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="15.4"
+         inkscape:export-xdpi="15.4"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+         id="path8-5-5-9-1-5-2-6-0"
+         d="m -866.73186,142.11746 c 6.99888,-1.3348 14.49813,0.1765 20.41395,4.1571 6.993,4.6157 11.74334,12.4008 12.73814,20.7091 1.01839,7.7733 -1.14776,15.9346 -6.02768,22.0968 -4.72673,6.0975 -12.03761,10.1781 -19.76647,10.7543 -8.31154,0.7467 -16.80558,-2.6165 -22.47414,-8.7081 -6.67514,-6.9207 -9.43583,-17.2164 -7.39918,-26.5714 2.18975,-11.0366 11.34895,-20.4445 22.51538,-22.4378 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.73247814;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="15.4"
+         inkscape:export-xdpi="15.4"
+         inkscape:export-filename="C:\Users\Mike\OneDrive\Projects\RaspPI\Source\Android\cancam-android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"
+         inkscape:connector-curvature="0"
+         id="path10-7-6-3-0-1-2-61-3"
+         d="m -913.96419,156.74266 c -18.71116,1.1627 -37.39806,3.0206 -56.02149,5.5859 -7.8186,1.458 -15.68626,2.4659 -23.50976,3.8809 1.37753,21.1977 2.75838,42.396 4.13867,63.5937 4.75302,-0.8305 9.72427,-1.3797 25.13477,-6.2578 14.31285,-4.5306 22.72292,-10.221 28.52929,-13.6016 3.86244,-2.2487 8.91143,-7.3549 11.22852,-7.3769 2.61555,-0.025 3.304,2.2963 2.8457,4.6113 -0.45831,2.3151 -10.12672,16.9552 -18.42773,23.0235 -12.85846,9.3998 -21.56156,13.1199 -28.30078,15.625 -2.64169,0.982 -13.99447,4.0753 -18.2793,4.6796 l -3.26367,0 0,18.8575 252.29491,0 0,-14.8047 c 0.086,-1.3197 0.17186,-2.6394 0.25781,-3.959 -0.0642,0.01 -0.17274,-3e-4 -0.25781,0 l 0,-0.094 -1.11914,0 c -4.28481,-0.6044 -15.63761,-3.6977 -18.27929,-4.6797 -6.73923,-2.5051 -15.44425,-6.2252 -28.30274,-15.625 -8.301,-6.0683 -17.96747,-20.7084 -18.42578,-23.0234 -0.4583,-2.3151 0.2282,-4.6363 2.84375,-4.6114 2.31708,0.022 7.36606,5.1282 11.22851,7.377 5.80637,3.3805 14.21643,9.0709 28.52931,13.6016 15.41048,4.878 20.38368,5.4273 25.13671,6.2578 1.38028,-21.1978 2.76115,-42.396 4.13867,-63.5938 -7.8235,-1.4149 -15.69116,-2.4229 -23.50976,-3.8808 -18.62344,-2.5653 -37.31033,-4.4233 -56.02149,-5.586 0.1033,6.3795 -0.76861,14.2485 -1.66992,20.5664 -1.71961,12.7712 -6.02916,23.2487 -13.91602,31.5352 -3.42949,3.7465 -7.46457,6.4434 -11.52734,8.8672 2.6744,3.7464 5.62103,7.1626 8.50976,10.6445 6.84727,8.0403 14.14956,15.6199 21.97461,22.1504 l -109.33202,0 c 7.82528,-6.5306 15.12912,-14.1099 21.97656,-22.1504 2.88873,-3.4819 5.83537,-6.8981 8.50977,-10.6445 -4.06278,-2.4238 -8.09786,-5.1207 -11.52734,-8.8672 -7.88687,-8.2865 -12.19642,-18.764 -13.91602,-31.5352 -0.90132,-6.3179 -1.77322,-14.1869 -1.66992,-20.5664 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.73247814;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <circle
+       style="opacity:1;fill:#17b4e3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233"
+       cx="-771.42883"
+       cy="91.326279"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#17b4e3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3"
+       cx="-687.14282"
+       cy="370.64786"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#17b4e3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3-8"
+       cx="-970.57135"
+       cy="6.0764465"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#17b4e3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3-8-0"
+       cx="-995"
+       cy="451.64786"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#17b4e3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3-8-08"
+       cx="-1163.5714"
+       cy="223.07645"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#17b4e3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3-8-4"
+       cx="-824.28571"
+       cy="-34.06641"
+       r="12.571428" />
+    <circle
+       style="opacity:1;fill:#17b4e3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path17233-3-8-9"
+       cx="-833"
+       cy="541.64789"
+       r="12.571428" />
+  </g>
+</svg>

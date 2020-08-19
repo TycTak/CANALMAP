@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- http://blog.stablekernel.com/using-custom-views-as-menu-items -->
+
+    <item
+        android:title="Pause"
+        android:id="@+id/pause_action"
+        app:showAsAction="always"
+        android:onClick="pauseWaterways"
+        android:icon="@drawable/ic_pause_button_white" />
+
+</menu>

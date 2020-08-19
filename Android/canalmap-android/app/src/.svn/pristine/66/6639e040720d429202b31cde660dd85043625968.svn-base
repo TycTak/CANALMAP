@@ -1,0 +1,43 @@
+package com.tyctak.cancamapp;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+
+public class Activity_FullScreenImage extends AppCompatActivity {
+
+    final private String TAG = "Activity_FullScreenImage";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fullscreenimage);
+
+        Bundle extras = getIntent().getExtras();
+        byte[] bytes = extras.getByteArray("picture");
+        boolean stretch = extras.getBoolean("stretch");
+
+        ImageView image = (ImageView) findViewById(R.id.fullscreenimage);
+
+        if (bytes != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            image.setImageBitmap(bitmap);
+        }
+
+        if (stretch) {
+            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        } else {
+            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        }
+
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+}

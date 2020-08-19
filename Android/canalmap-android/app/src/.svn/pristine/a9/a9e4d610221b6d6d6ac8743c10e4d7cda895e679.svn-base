@@ -1,0 +1,255 @@
+package com.tyctak.cancamapp._archive;
+
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
+import android.util.Log;
+
+public class Service_EX  extends Service {
+    //final Handler handler = new Handler();
+    private static final int interval = 1000;
+    //public Integer lastBatchCount = 0;
+    //public Long lastBatchCountChanged; // = Global.LIB.now().getTime();
+    private final Context context;
+
+    private String TAG = "Service_SS";
+
+    final class SSThread implements Runnable {
+        int serviceId;
+
+        SSThread(Integer serviceId) {
+            this.serviceId = serviceId;
+        }
+
+        @Override
+        public void run() {
+//            Runnable runSendData = new Runnable() {
+//                @Override
+//                public void run() {
+//                    sendData();
+//                    handler.postDelayed(this, interval);
+//                }
+//            };
+
+            do {
+                getMapTiles();
+
+                try {
+                    Thread.sleep(interval);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    //System.exit(0);
+                }
+            } while (true);
+
+            //Thread thread = new Thread(new SSThread(serviceId));
+            //thread.start();
+            //handler.postDelayed(runSendData, interval);
+            //stopSelf(this.serviceId);
+        }
+    }
+
+    public Service_EX(Context ctx) { context = ctx; }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "onCreate");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Thread thread = new Thread(new SSThread(startId));
+        thread.start();
+
+        return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
+
+    public IBinder onBind(Intent intent) { return null; }
+
+    public void getMapTiles() {
+        Log.d(TAG, "sendData");
+    }
+}
+
+
+
+//        extends Service {
+
+//    public enum enmStatus {
+//        Running,
+//        Waiting
+//    }
+//
+//    private final String TAG = "GPS";
+//    private final Context context;
+//    public Boolean canGetLocation = false;
+//    Location currentLocation;
+//    Double latitude;
+//    Double longitude;
+//    protected LocationManager locationManager;
+//    public enmStatus Status = enmStatus.Waiting;
+//
+//    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // meters
+//    private static final long MIN_TIME_BW_UPDATES = 5000; // milliseconds
+//
+//    @Override
+//    public void onCreate() {
+//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        // Cancel the persistent notification.
+//        //mNM.cancel(NOTIFICATION);
+//
+//        // Tell the user we stopped.
+//        //Toast.makeText(this, R.string.local_service_stopped, Toast.LENGTH_SHORT).show();
+//    }
+//
+//    public void startListener() {
+//        //locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        getLocation(MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES);
+//    }
+//
+//    public void stopListener() {
+//        if (locationManager != null) {
+//            locationManager.removeUpdates(this);
+//            locationManager = null;
+//        }
+//    }
+//
+//    public Service_EX(Context value) {
+//        this.context = value;
+//    }
+//
+//    public Location getLocation(Long intervalGps, Long distanceGps) {
+//        Boolean checkGPS = false;
+//        Boolean checkNetwork = false;
+//
+//        try {
+//            checkGPS = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//            checkNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+//
+//            if (!checkGPS && !checkNetwork) {
+//                Toast.makeText(context, "No Service Provider Available", Toast.LENGTH_SHORT).show();
+//            } else {
+//                this.canGetLocation = true;
+//            }
+//
+//            // First get location from Network Provider
+//            if (checkNetwork && !checkGPS) {
+//                try {
+//                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+//                    //locationManager.removeUpdates(this);
+//
+//                    if (locationManager != null) {
+//                        currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+//                    }
+//
+//                    if (currentLocation != null) {
+//                        latitude = currentLocation.getLatitude();
+//                        longitude = currentLocation.getLongitude();
+//                    }
+//                }
+//                catch(SecurityException e){
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            // if GPS Enabled get lat/long using GPS Services
+//            if (checkGPS) {
+//                if (currentLocation == null) {
+//                    try {
+//                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+//                        Log.d("GPS Enabled", "GPS Enabled");
+//
+//                        if (locationManager != null) {
+//                            currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//
+//                            if (currentLocation != null) {
+//                                latitude = currentLocation.getLatitude();
+//                                longitude = currentLocation.getLongitude();
+//                            }
+//                        }
+//                    } catch (SecurityException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return currentLocation;
+//    }
+//
+//    public double getLongitude() {
+//        if (currentLocation != null) {
+//            longitude = currentLocation.getLongitude();
+//        }
+//
+//        return longitude;
+//    }
+//
+//    public double getLatitude() {
+//        if (currentLocation != null) {
+//            latitude = currentLocation.getLatitude();
+//        }
+//
+//        return latitude;
+//    }
+//
+//    public void stopUsingGPS() {
+//        if (locationManager != null) {
+//
+//            locationManager.removeUpdates(Service_EX.this);
+//        }
+//    }
+//
+//    @Override
+//    public IBinder onBind(Intent intent) { return null; }
+//        return binder;
+//    }
+//
+//    @Override
+//    public void onLocationChanged(Location location) {
+//        currentLocation = location;
+//
+//        if (currentLocation != null) {
+//            latitude = currentLocation.getLatitude();
+//            longitude = currentLocation.getLongitude();
+//        }
+//    }
+//
+//    @Override
+//    public void onStatusChanged(String s, int i, Bundle bundle) {
+//        Log.d(TAG, s);
+//    }
+//
+//    @Override
+//    public void onProviderEnabled(String s) {
+//        Log.d(TAG, "on provider enabled");
+//    }
+//
+//    @Override
+//    public void onProviderDisabled(String s) {
+//        Log.d(TAG, "on provider disabled");
+//    }
+//
+//    private final IBinder binder = new LocalBinder();
+//
+//    public class LocalBinder extends Binder {
+//        Service_EX getService() {
+//            return Service_EX.this;
+//        }
+//    }
+//}

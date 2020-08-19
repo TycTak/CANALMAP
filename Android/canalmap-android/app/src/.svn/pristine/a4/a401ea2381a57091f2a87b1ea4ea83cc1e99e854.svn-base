@@ -1,0 +1,224 @@
+package com.tyctak.cancamapp._archive;
+
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.IBinder;
+import android.util.Log;
+
+import com.tyctak.cancamapp.Global;
+import com.tyctak.cancamapp.Library;
+import com.tyctak.cancamapp.Library_FS;
+import com.tyctak.cancamapp.Library_ZP;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+
+public class Service_SS extends Service {
+    final Handler handler = new Handler();
+    private static final int interval = (5 * 1000);
+    public Integer lastBatchCount = 0;
+    public Long lastBatchCountChanged; // = Global.LIB.now().getTime();
+    private final Context context;
+
+    private String TAG = "Service_SS";
+
+    final class SSThread implements Runnable {
+        int serviceId;
+
+        SSThread(Integer serviceId) {
+            this.serviceId = serviceId;
+        }
+
+        @Override
+        public void run() {
+//            Runnable runSendData = new Runnable() {
+//                @Override
+//                public void run() {
+//                    sendData();
+//                    handler.postDelayed(this, interval);
+//                }
+//            };
+
+            do {
+                sendData();
+
+                try {
+                    Thread.sleep(interval);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    //System.exit(0);
+                }
+            } while (true);
+
+            //Thread thread = new Thread(new SSThread(serviceId));
+            //thread.start();
+            //handler.postDelayed(runSendData, interval);
+            //stopSelf(this.serviceId);
+        }
+    }
+
+    public Service_SS(Context ctx) { context = ctx; }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "onCreate");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Thread thread = new Thread(new SSThread(startId));
+        thread.start();
+
+        return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
+
+    public IBinder onBind(Intent intent) { return null; }
+
+
+//    // FTP Connection settings
+//    public Integer MinBatch = 20;
+//    public Integer MaxBatch = 200;
+//    public String ImageFolder = "/var/www/html/cc/{cid}/images";
+//    public String ImageFilePrefix = "image";
+//    public String ImageDescription = "CanCam Photograph";
+//    public String FtpServer = "cancam.westeurope.cloudapp.azure.com";
+//    public String FtpFolder = "./cancam";
+//    public String FtpUser = "cancam";
+//    public String FtpPassword = "A1819668a";
+//    public String ZipPrefix = "batch_{cid}_";
+//    public Integer BatchNotChanged = 30;
+
+
+    public void sendData() {
+        Log.d(TAG, "sendData");
+
+        Library LIB = new Library();
+        //Library_DB getLIBDB = new Library_DB(getApplicationContext());
+        Library_ZP LIBZP = new Library_ZP(getApplicationContext());
+        Library_FS LIBFS = new Library_FS(getApplicationContext());
+        Library_FT LIBFT = new Library_FT();
+
+        Date now = LIB.now();
+
+        File workingDirectory = new File(context.getCacheDir().toString(), "cancam");
+        if (!workingDirectory.exists()) workingDirectory.mkdir();
+
+        //String prefix = Global.getgetLIBDB().System.ZipPrefix.replace("{cid}", Global.getgetLIBDB().getMyBoatGuid());
+
+//        String zipFileName = String.format("%s%s_%s.zip", prefix, LIB.getDateName(now), LIB.getTimeName(now));
+//        String zipFilePath = String.format("%s/%s", workingDirectory, zipFileName);
+//        String lckFileName = String.format("%s%s_%s.lck", prefix, LIB.getDateName(now), LIB.getTimeName(now));
+//        String lckFilePath = String.format("%s/%s", workingDirectory, lckFileName);
+//        String csvFileName = String.format("%s%s_%s.csv", prefix, LIB.getDateName(now), LIB.getTimeName(now));
+
+        final String boatFileName = String.format("boat_%s.csv", Global.getLIBDB().getMyBoatGuid());
+
+        ArrayList<_Location> locationList = null; //Global.getgetLIBDB().getBatch();
+
+        Log.d(TAG, String.format("Batch size = %s", locationList.size()));
+
+        Boolean cleanUp = false;
+
+//        if (lastBatchCount != locationList.size()) {
+//            lastBatchCount = locationList.size();
+//            lastBatchCountChanged = LIB.now().getTime();
+//        } else if (((LIB.now().getTime() - lastBatchCountChanged) / 1000) >= getgetLIBDB().System.BatchNotChanged) {
+//            lastBatchCountChanged = LIB.now().getTime();
+//            cleanUp = true;
+//        }
+
+//        if ((locationList.size() >= Global.getgetLIBDB().System.MinBatch) || (locationList.size() > 0 && cleanUp)) {
+//            Log.d(TAG, "dataFound");
+//
+//            ArrayList<_ZipFile> zipFiles = new ArrayList<>();
+//
+//            String contents = "";
+//
+//            for (_Location location : locationList) {
+//                String line = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+//                        location.Id,
+//                        (location.ImageName == null ? "" : location.ImageName),
+//                        (location.ImageNameTransformed == null ? "" : location.ImageNameTransformed),
+//                        LIB.getJustDateString(location.ActDate.getTime()),
+//                        location.Longitude,
+//                        location.Latitude,
+//                        LIB.RoundTo6Decimals(location.Distance),  // Seems to be way out
+//                        LIB.RoundTo3Decimals(location.Speed),
+//                        LIB.RoundTo3Decimals(location.Altitude),
+//                        LIB.RoundTo3Decimals(location.Track),
+//                        LIB.ConvertToString(location.Created),
+//                        location.Record,
+//                        location.Cid,
+//                        location.UserId,
+//                        location.DateName,
+//                        LIB.RoundTo3Decimals(location.TimeLapsed / 1000),
+//                        LIB.RoundTo6Decimals(location.Difference),
+//                        (location.IsCtl ? 1 : 0),
+//                        location.Status,
+//                        LIB.ConvertToString(new Date()),
+//                        0
+//                );
+//
+//                contents += line;
+//            }
+//
+//            zipFiles.add(new _ZipFile(csvFileName, null, null, contents.getBytes()));
+//
+//            _Boat boat = Global.getgetLIBDB().getBoatSettings();
+
+
+//            contents = String.format("%s,\"%s\",\"%s\",%s,%s,\"%s\",\"%s\",\"%s\",%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+//                    boat.BoatGuid,
+//                    (boat.BoatName == null ? "" : boat.BoatName),
+//                    (boat.People == null ? "" : boat.People),
+//                    (boat.IsHireBoat ? 1 : 0),
+////                    boat.FeelingId,
+////                    (boat.TwitterUrl == null ? "" : boat.TwitterUrl),
+////                    (boat.FacebookUrl == null ? "" : boat.FacebookUrl),
+//                    LIB.encodeBase64(boat.AvatarMarker),
+//                    boat.Icon,
+//                    boat.Status,
+//                    LIB.getJustDateString(boat.Created.getTime()),
+//                    LIB.getJustDateString(boat.LastMoved.getTime()),
+//                    LIB.getJustDateString(boat.Updated.getTime()),
+////                    (boat.IsCanal ? 1 : 0),
+//                    boat.Locks,
+//                    boat.Distance,
+////                    boat.Favourites,
+////                    LIB.getJustDateString(boat.Validated.getTime()),
+//                    LIB.getJustDateString(boat.Deleted.getTime())
+////                    boat.Type,
+////                    boat.Length,
+////                    boat.Width
+//            );
+
+            //zipFiles.add(new _ZipFile(boatFileName, null, null, contents.getBytes()));
+
+//            if (LIBZP.zipFiles(zipFiles, zipFilePath)) {
+//                LIBFS.createFile(lckFilePath);
+//
+//                ArrayList<_FtpCommand> ftpCommandList = new ArrayList<>();
+//                ftpCommandList.add(new _FtpCommand(_FtpCommand.enmCommand.ChangeFolder, Global.getgetLIBDB().System.FtpFolder));
+//                ftpCommandList.add(new _FtpCommand(_FtpCommand.enmCommand.SendFile, zipFilePath));
+//                ftpCommandList.add(new _FtpCommand(_FtpCommand.enmCommand.SendFile, lckFilePath));
+//
+//                if (LIBFT.processCommands(Global.getgetLIBDB().System.FtpServer, Global.getgetLIBDB().System.FtpUser, Global.getgetLIBDB().System.FtpPassword, ftpCommandList)) {
+//                    Global.getgetLIBDB().writeBatch(locationList, LIB.now());
+//
+//                    File zipFile = new File(zipFilePath);
+//                    zipFile.delete();
+//                }
+//            }
+       // }
+    }
+}

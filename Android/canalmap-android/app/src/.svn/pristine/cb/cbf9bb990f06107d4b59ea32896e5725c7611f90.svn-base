@@ -1,0 +1,25 @@
+package com.tyctak.cancamapp.entities;
+
+public class _PoiLocation
+{
+    public enum enmStatus {
+        Created,
+        Updated,
+        Deleted
+    }
+
+    public String Id;
+    public String Area;
+    public String Name;
+    public double Longitude;
+    public double Latitude;
+    public int Scope;
+    public String Message;
+    public String BoatGuid;
+    public enmStatus Status;
+    public byte[] Image;
+    public int DrawableId;
+    public byte[] Marker;
+    public String Action;
+    public long Updated;
+}

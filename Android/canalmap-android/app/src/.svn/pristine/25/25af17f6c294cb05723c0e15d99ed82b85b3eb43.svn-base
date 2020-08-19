@@ -1,0 +1,36 @@
+package com.tyctak.cancamapp;
+
+import android.content.Context;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+public class Library_ZP {
+    private Context context;
+
+    public Library_ZP(Context ctx) {
+        context = ctx;
+    }
+
+    //Todo: need to move the zip stuff from Library_WS to here
+    public void zipFile(String fileName, byte[] fileStream, String zipFilePath) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(zipFilePath);
+            ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
+
+            ZipEntry csvEntry = new ZipEntry(fileName);
+            zipOutputStream.putNextEntry(csvEntry);
+
+            zipOutputStream.write(fileStream, 0, fileStream.length);
+            zipOutputStream.closeEntry();
+
+            zipOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+}

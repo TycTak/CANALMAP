@@ -1,0 +1,7 @@
+package com.tyctak.cancamapp.entities;
+
+public class _Settings {
+    public boolean IsOnSdCard;
+    public boolean Ignore;
+    public boolean IsInstalledOnSdCard;
+}

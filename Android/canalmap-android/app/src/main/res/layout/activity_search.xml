@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tyctak.canalmap.Activity_Entities">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <include
+            layout="@layout/toolbar_pause"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="-10dp">
+
+            <ImageButton
+                android:minHeight="35dp"
+                android:minWidth="35dp"
+                android:id="@+id/displayFavourite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="filterFavourites"
+                android:background="@null"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:textSize="14dp"
+                android:scaleType="fitXY"
+                android:visibility="visible"
+                android:tag="ic_favourite_disable"
+                android:textColor="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/ic_favourite_disable" >
+
+            </ImageButton>
+
+            <ImageButton
+                android:minHeight="35dp"
+                android:minWidth="35dp"
+                android:id="@+id/displayShopping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="filterShopping"
+                android:background="@null"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="14dp"
+                android:scaleType="fitXY"
+                android:visibility="visible"
+                android:tag="ic_shopping_disable"
+                android:textColor="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/ic_shopping_disable" >
+
+            </ImageButton>
+
+            <ImageButton
+                android:minHeight="35dp"
+                android:minWidth="35dp"
+                android:id="@+id/displaySocialMedia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="filterSocialMedia"
+                android:background="@null"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="7dp"
+                android:textSize="14dp"
+                android:scaleType="fitXY"
+                android:visibility="visible"
+                android:tag="ic_socialmedia_disable"
+                android:textColor="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/ic_socialmedia_disable" >
+
+            </ImageButton>
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:queryHint="type in name"
+                android:clickable="true" />
+
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/list_entities"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="15dp"
+            android:scrollbarStyle="insideOverlay"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,16 @@
+package com.tyctak.cancamapp._archive;
+
+public class Library_WK {
+    /*
+    private OnCompleteListener onCompleteListener;
+
+    public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
+        this.onCompleteListener = onCompleteListener;
+    }
+
+    public void doWork() {
+        // do lots of work here
+        onCompleteListener.onComplete();
+    }
+    */
+}

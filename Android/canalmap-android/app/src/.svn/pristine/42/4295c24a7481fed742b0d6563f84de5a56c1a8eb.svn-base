@@ -1,0 +1,52 @@
+package com.tyctak.cancamapp;
+
+import com.tyctak.cancamapp.map.LocalMapTileDatabaseProvider;
+
+public class Global {
+    private static Library_DB libdb;
+
+    public static Library_PE LIBPE;
+
+    public static boolean DatOnSdCard = false;
+    public static String sdCardPath;
+
+    private static boolean redrawMap = false;
+
+    public static void createDB() {
+        Library_FS LIBFS = new Library_FS(MyApp.getContext());
+        DatOnSdCard = (LIBFS.isDataOnSDCard(Library_DB.DATABASE_NAME) && !LIBFS.isDataOnDevice(Library_DB.DATABASE_NAME));
+        getLIBDB().createDB(MyApp.getContext());
+    }
+
+    public static Library_DB getLIBDB() {
+        if (libdb == null) libdb = new Library_DB(MyApp.getContext());
+        return libdb;
+    }
+
+    public static synchronized boolean getRedrawMap(boolean reset) {
+        boolean retval = redrawMap;
+        if (reset) redrawMap = false;
+        return retval;
+    }
+
+    public static synchronized void setRedrawMap(boolean value) {
+        LocalMapTileDatabaseProvider.clearBlankTiles();
+        redrawMap = value;
+    }
+
+    private static boolean networkConnectivity = false;
+
+    public static boolean getIsNetworkConnected() {
+        return networkConnectivity;
+    }
+
+    public static void setIsNetworkConnected(boolean value) {
+        networkConnectivity = value;
+    }
+
+    public static boolean DisplayAddMap;
+
+    public static String getAllWaterwayGuid() {
+        return "qkis2.1_asa.1kks733";
+    }
+}

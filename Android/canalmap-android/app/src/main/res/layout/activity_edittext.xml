@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tyctak.canalmap.Activity_EntitySettings">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/toolbar_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:text="@string/markerLocationSummary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/textUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="280 characters"
+                android:textSize="12sp"
+                android:paddingTop="10dp"
+                android:gravity="right"/>
+
+            <EditText
+                android:id="@+id/locationDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:ems="280"
+                android:inputType="textMultiLine|textCapSentences"
+                android:lines="8"
+                android:minLines="6"
+                android:gravity="top|left"
+                android:maxLines="20"
+                android:hint="@string/locationHint"
+                android:maxLength="280"
+                android:digits="@string/editTextFormatFull"
+                android:scrollbars="vertical"
+                android:background="@color/colorHighlightEditText" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
